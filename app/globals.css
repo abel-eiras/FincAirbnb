@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Cores galegas inspiradas na bandeira e natureza */
+  --galician-blue: #0066CC;
+  --galician-white: #FFFFFF;
+  --galician-green: #4A7C59;
+  --galician-brown: #8B4513;
+  --shell-beige: #F5E6D3;
+  --sea-blue: #87CEEB;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 207 100% 40%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 32 25% 88%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 207 100% 40%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utility classes para elementos galegos */
+.text-galician-blue {
+  color: var(--galician-blue);
+}
+
+.bg-galician-blue {
+  background-color: var(--galician-blue);
+}
+
+.bg-galician-green {
+  background-color: var(--galician-green);
+}
+
+.bg-shell-beige {
+  background-color: var(--shell-beige);
+}
+
+.text-galician-green {
+  color: var(--galician-green);
+}
