@@ -19,12 +19,19 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Rutas que requieren autenticación
-// Cualquier ruta que empiece por /dashboard necesita estar logueado
-const protectedRoutes = ['/dashboard'];
+// Rutas que requieren autenticación (en gallego)
+// Cualquier ruta que empiece por /taboleiro necesita estar logueado
+const protectedRoutes = ['/taboleiro', '/dashboard']; // Incluimos /dashboard por compatibilidad temporal
 
-// Rutas de autenticación (donde van los usuarios no autenticados)
-const authRoutes = ['/login', '/register', '/forgot-password'];
+// Rutas de autenticación (rutas gallegas)
+const authRoutes = [
+  '/acceder',           // Login
+  '/rexistro',          // Register
+  '/recuperar-contrasinal', // Forgot password
+  '/login',             // Mantener por compatibilidad
+  '/register',          // Mantener por compatibilidad
+  '/forgot-password'    // Mantener por compatibilidad
+];
 
 // Función para verificar si un token es válido
 // Esta es una versión simplificada para el middleware
@@ -66,9 +73,9 @@ export function middleware(request: NextRequest) {
 
   // Verificar si la ruta está protegida
   if (isProtectedRoute(pathname)) {
-    // Si no hay token o es inválido, redirigir a login
+    // Si no hay token o es inválido, redirigir a /acceder (login en gallego)
     if (!token || !isValidToken(token)) {
-      const loginUrl = new URL('/login', request.url);
+      const loginUrl = new URL('/acceder', request.url);
       // Añadir parámetro para saber de dónde venía el usuario
       loginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(loginUrl);
@@ -76,9 +83,9 @@ export function middleware(request: NextRequest) {
   }
 
   // Si el usuario está autenticado y trata de acceder a rutas de auth,
-  // redirigir al dashboard
+  // redirigir al taboleiro (dashboard en gallego)
   if (isAuthRoute(pathname) && token && isValidToken(token)) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL('/taboleiro', request.url));
   }
 
   // Si todo está bien, continuar con la petición

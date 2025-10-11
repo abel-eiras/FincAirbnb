@@ -23,13 +23,13 @@ import { PageSpinner } from '@/components/ui/LoadingSpinner';
 interface ProtectedRouteProps {
   children: React.ReactNode;        // Contenido a proteger
   fallback?: React.ReactNode;       // Componente alternativo si no está autenticado
-  redirectTo?: string;              // Ruta de redirección (por defecto /login)
+  redirectTo?: string;              // Ruta de redirección (por defecto /acceder)
 }
 
 export function ProtectedRoute({ 
   children, 
   fallback,
-  redirectTo = '/login' 
+  redirectTo = '/acceder' 
 }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, isInitialized } = useAuth();
   const router = useRouter();
@@ -37,7 +37,8 @@ export function ProtectedRoute({
   // Efecto para manejar la redirección
   useEffect(() => {
     // Solo redirigir si no está cargando y no está autenticado
-    if (!isLoading && !isAuthenticated()) {
+    // Y solo en el cliente para evitar problemas de hidratación
+    if (typeof window !== 'undefined' && !isLoading && !isAuthenticated()) {
       // Añadir la ruta actual como parámetro de redirección
       const currentPath = window.location.pathname;
       const redirectUrl = `${redirectTo}?redirect=${encodeURIComponent(currentPath)}`;
@@ -67,8 +68,8 @@ export function useRequireAuth() {
   const { isAuthenticated, isLoading, isInitialized } = useAuth();
   const router = useRouter();
 
-  const requireAuth = (redirectTo: string = '/login') => {
-    if (!isLoading && !isAuthenticated()) {
+  const requireAuth = (redirectTo: string = '/acceder') => {
+    if (typeof window !== 'undefined' && !isLoading && !isAuthenticated()) {
       const currentPath = window.location.pathname;
       const redirectUrl = `${redirectTo}?redirect=${encodeURIComponent(currentPath)}`;
       router.push(redirectUrl);

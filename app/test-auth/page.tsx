@@ -103,7 +103,7 @@ export default function TestAuthPage() {
                 Ir a Registro
               </a>
               <a 
-                href="/dashboard" 
+                href="/taboleiro" 
                 className="inline-block bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
               >
                 Ir a Dashboard

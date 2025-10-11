@@ -21,8 +21,8 @@ const beneficios = [
   },
   {
     icon: '💪',
-    titulo: 'Ginasio ao aire libre',
-    descripcion: 'Para que queres pesas se podes levar sacos de patacas? Músculos funcionais garantidos.',
+    titulo: 'Ximnasio ao aire libre',
+    descripcion: 'Para que queres pesas se podes cargar co sacho e cos capachos? Músculos funcionais garantidos.',
     color: 'bg-blue-100 text-galician-blue'
   }
 ];

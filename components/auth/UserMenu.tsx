@@ -123,7 +123,7 @@ export function UserMenu() {
         {/* Enlace al dashboard */}
         <DropdownMenuItem asChild>
           <Link 
-            href="/dashboard" 
+            href="/taboleiro" 
             className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
             onClick={() => setIsOpen(false)}
           >
@@ -135,7 +135,7 @@ export function UserMenu() {
         {/* Enlace al perfil */}
         <DropdownMenuItem asChild>
           <Link 
-            href="/dashboard/profile" 
+            href="/taboleiro/perfil" 
             className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
             onClick={() => setIsOpen(false)}
           >
@@ -147,7 +147,7 @@ export function UserMenu() {
         {/* Enlace a configuración */}
         <DropdownMenuItem asChild>
           <Link 
-            href="/dashboard/settings" 
+            href="/taboleiro/configuracion" 
             className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
             onClick={() => setIsOpen(false)}
           >

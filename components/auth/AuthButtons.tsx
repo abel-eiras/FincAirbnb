@@ -21,7 +21,7 @@ export function AuthButtons() {
   return (
     <div className="flex items-center space-x-3">
       {/* Botón de Login */}
-      <Link href="/login">
+      <Link href="/acceder">
         <Button
           variant="ghost"
           className="flex items-center space-x-2 px-4 py-2 text-galician-blue hover:bg-galician-blue hover:text-white transition-colors rounded-xl"
@@ -32,7 +32,7 @@ export function AuthButtons() {
       </Link>
 
       {/* Botón de Registro */}
-      <Link href="/register">
+      <Link href="/rexistro">
         <Button
           className="flex items-center space-x-2 px-4 py-2 bg-galician-blue hover:bg-blue-700 text-white transition-colors rounded-xl"
         >
@@ -52,7 +52,7 @@ export function AuthButtonsCompact() {
   return (
     <div className="flex items-center space-x-2">
       {/* Botón de Login compacto */}
-      <Link href="/login">
+      <Link href="/acceder">
         <Button
           variant="ghost"
           size="sm"
@@ -64,7 +64,7 @@ export function AuthButtonsCompact() {
       </Link>
 
       {/* Botón de Registro compacto */}
-      <Link href="/register">
+      <Link href="/rexistro">
         <Button
           size="sm"
           className="p-2 bg-galician-blue hover:bg-blue-700 text-white transition-colors rounded-lg"

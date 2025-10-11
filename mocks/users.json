@@ -1,8 +1,8 @@
 [
   {
     "id": "user-owner-1",
-    "email": "xose@example.com",
-    "password": "password123",
+    "email": "xose@correo.gal",
+    "password": "Contrasinal123",
     "name": "Xosé Manuel García",
     "role": "owner",
     "avatar": "/avatars/xose.jpg",

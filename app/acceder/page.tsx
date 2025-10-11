@@ -1,15 +1,10 @@
 /**
- * Página de Login
+ * Página de Acceso (Login en gallego)
  * 
  * Página para que los usuarios inicien sesión en FincAirbnb.
  * Utiliza el componente AuthForm base y se integra con el sistema de autenticación.
  * 
- * Características:
- * - Formulario con validaciones
- * - Integración con AuthContext
- * - Redirección automática después del login
- * - Manejo de errores
- * - Diseño responsive
+ * Ruta: /acceder
  */
 
 'use client';
@@ -18,9 +13,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthForm, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { LoginCredentials } from '@/types/auth';
+import type { LoginData } from '@/shared/types';
 
-export default function LoginPage() {
+export default function AccederPage() {
   const { login, isAuthenticated, isLoading, isInitialized, error, clearError } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,11 +39,11 @@ export default function LoginPage() {
   }, [clearError]);
 
   // Manejar el envío del formulario
-  const handleLogin = async (data: LoginCredentials) => {
+  const handleLogin = async (data: LoginData) => {
     try {
       await login({
         ...data,
-        rememberMe,
+        remember: rememberMe,
       });
       
       // La redirección se maneja en el useEffect
@@ -81,7 +76,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Formulario de login */}
         <AuthForm
-          title="Entrar"
+          title="Acceder"
           subtitle="Accede á túa conta de FincAirbnb"
           onSubmit={handleLogin}
           isLoading={isLoading}
@@ -91,12 +86,12 @@ export default function LoginPage() {
         >
           <AuthFormLinks>
             <div className="space-y-2">
-              <AuthFormLink href="/forgot-password">
+              <AuthFormLink href="/recuperar-contrasinal">
                 ¿Esqueceches a contrasinal?
               </AuthFormLink>
               <div className="text-gray-500">
                 ¿Non tes conta?{' '}
-                <AuthFormLink href="/register">
+                <AuthFormLink href="/rexistro">
                   Rexístrate aquí
                 </AuthFormLink>
               </div>

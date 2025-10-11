@@ -13,8 +13,35 @@
 'use client'; // Necesario para usar hooks en Next.js 13+
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { AuthContextType, AuthSession, LoginCredentials, RegisterData, User } from '@/types/auth';
-import { mockLogin, mockRegister, validateMockToken, mockGetUserById } from '@/lib/auth-mock';
+import type { User, LoginData, RegisterData, AuthResponse } from '@/shared/types';
+import { login as mockLogin, register as mockRegister, logout as mockLogout, getCurrentUser as getStoredUser, hasActiveSession } from '@/services/mockAuth';
+import { ClientOnly } from '@/components/ui/ClientOnly';
+
+// Types para el contexto de autenticación
+interface AuthSession {
+  user: User;
+  token: string;
+  expiresAt: number;
+  isAuthenticated: boolean;
+}
+
+interface AuthContextType {
+  // Estado
+  session: AuthSession | null;
+  isLoading: boolean;
+  error: string | null;
+  isInitialized: boolean;
+  
+  // Acciones
+  login: (credentials: LoginData) => Promise<void>;
+  register: (data: RegisterData) => Promise<void>;
+  logout: () => void;
+  clearError: () => void;
+  
+  // Utilidades
+  isAuthenticated: () => boolean;
+  getCurrentUser: () => User | null;
+}
 
 // Estado inicial del contexto
 const initialState = {
@@ -110,88 +137,84 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    * Esto permite que el usuario permanezca logueado al recargar la página
    */
   useEffect(() => {
-    // Inicialización simple - solo marcar como inicializado
-    // La verificación de sesión se hace de forma lazy cuando se necesita
-    dispatch({ type: 'INITIALIZED' });
+    // Solo inicializar en el cliente para evitar problemas de hidratación
+    if (typeof window !== 'undefined') {
+      dispatch({ type: 'INITIALIZED' });
+    }
   }, []);
 
   /**
    * Función de login
-   * Maneja el proceso de autenticación del usuario
+   * Maneja el proceso de autenticación del usuario usando el nuevo servicio mockAuth
    */
-  const login = async (credentials: LoginCredentials): Promise<void> => {
+  const login = async (credentials: LoginData): Promise<void> => {
     dispatch({ type: 'SET_LOADING', payload: true });
     dispatch({ type: 'CLEAR_ERROR' });
 
     try {
+      // Llamar al servicio de autenticación
       const response = await mockLogin(credentials);
 
-      if (response.success && response.data) {
-        const session: AuthSession = {
-          user: response.data.user,
-          token: response.data.token,
-          expiresAt: Date.now() + (24 * 60 * 60 * 1000), // 24 horas
-          isAuthenticated: true,
-        };
+      // Crear sesión con los datos del usuario
+      const session: AuthSession = {
+        user: response.user,
+        token: response.token,
+        expiresAt: Date.now() + (response.expiresIn * 1000), // Convertir segundos a ms
+        isAuthenticated: true,
+      };
 
-        // Guardar en localStorage si "Recordar sesión" está marcado
-        if (credentials.rememberMe && typeof window !== 'undefined') {
-          localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
-          localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.data.user));
-        }
-
-        dispatch({ type: 'SET_SESSION', payload: session });
-      } else {
-        dispatch({ type: 'SET_ERROR', payload: response.error?.message || 'Erro de autenticación' });
+      // Guardar en localStorage (siempre en mock, en producción se usarían httpOnly cookies)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
       }
-    } catch (error) {
-      dispatch({ type: 'SET_ERROR', payload: 'Erro de conexión' });
+
+      dispatch({ type: 'SET_SESSION', payload: session });
+      
+    } catch (error: any) {
+      dispatch({ type: 'SET_ERROR', payload: error.message || 'Erro de autenticación' });
     }
   };
 
   /**
    * Función de registro
-   * Maneja la creación de nuevas cuentas
+   * Crea una nueva cuenta usando el servicio mockAuth
    */
   const register = async (data: RegisterData): Promise<void> => {
     dispatch({ type: 'SET_LOADING', payload: true });
     dispatch({ type: 'CLEAR_ERROR' });
 
     try {
+      // Llamar al servicio de registro
       const response = await mockRegister(data);
 
-      if (response.success && response.data) {
-        const session: AuthSession = {
-          user: response.data.user,
-          token: response.data.token,
-          expiresAt: Date.now() + (24 * 60 * 60 * 1000), // 24 horas
-          isAuthenticated: true,
-        };
+      // Crear sesión (auto-login después de registro)
+      const session: AuthSession = {
+        user: response.user,
+        token: response.token,
+        expiresAt: Date.now() + (response.expiresIn * 1000),
+        isAuthenticated: true,
+      };
 
-        // Guardar en localStorage
-        if (typeof window !== 'undefined') {
-          localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
-          localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.data.user));
-        }
-
-        dispatch({ type: 'SET_SESSION', payload: session });
-      } else {
-        dispatch({ type: 'SET_ERROR', payload: response.error?.message || 'Erro ao rexistrarse' });
+      // Guardar en localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
       }
-    } catch (error) {
-      dispatch({ type: 'SET_ERROR', payload: 'Erro de conexión' });
+
+      dispatch({ type: 'SET_SESSION', payload: session });
+      
+    } catch (error: any) {
+      dispatch({ type: 'SET_ERROR', payload: error.message || 'Erro ao rexistrarse' });
     }
   };
 
   /**
    * Función de logout
-   * Cierra la sesión del usuario y limpia los datos guardados
+   * Cierra la sesión usando el servicio mockAuth
    */
   const logout = (): void => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(STORAGE_KEYS.TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.USER);
-    }
+    mockLogout(); // Usa el servicio que limpia localStorage
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -214,31 +237,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Si estamos en el cliente y no hay sesión, intentar recuperarla
     if (typeof window !== 'undefined' && !state.session) {
-      const savedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
-      const savedUser = localStorage.getItem(STORAGE_KEYS.USER);
-
-      if (savedToken && savedUser) {
-        const tokenValidation = validateMockToken(savedToken);
-        if (tokenValidation.valid) {
-          try {
-            const user = JSON.parse(savedUser);
-            const session: AuthSession = {
-              user,
-              token: savedToken,
-              expiresAt: Date.now() + (24 * 60 * 60 * 1000),
-              isAuthenticated: true,
-            };
-            dispatch({ type: 'SET_SESSION', payload: session });
-            return true;
-          } catch (error) {
-            // Si hay error parseando, limpiar localStorage
-            localStorage.removeItem(STORAGE_KEYS.TOKEN);
-            localStorage.removeItem(STORAGE_KEYS.USER);
-          }
-        } else {
-          // Token inválido, limpiar
-          localStorage.removeItem(STORAGE_KEYS.TOKEN);
-          localStorage.removeItem(STORAGE_KEYS.USER);
+      // Usar el servicio para verificar sesión
+      if (hasActiveSession()) {
+        const user = getStoredUser();
+        const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+        
+        if (user && token) {
+          const session: AuthSession = {
+            user,
+            token,
+            expiresAt: Date.now() + (24 * 60 * 60 * 1000),
+            isAuthenticated: true,
+          };
+          dispatch({ type: 'SET_SESSION', payload: session });
+          return true;
         }
       }
     }
@@ -248,9 +260,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   /**
    * Obtiene el usuario actual
+   * Primero intenta desde la sesión en memoria, luego desde localStorage
    */
   const getCurrentUser = (): User | null => {
-    return state.session?.user || null;
+    if (state.session?.user) {
+      return state.session.user;
+    }
+    
+    // Intentar desde localStorage
+    return getStoredUser();
   };
 
   // Valor que se proporciona a través del contexto
@@ -268,9 +286,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <ClientOnly fallback={<div>Loading...</div>}>
+      <AuthContext.Provider value={contextValue}>
+        {children}
+      </AuthContext.Provider>
+    </ClientOnly>
   );
 }
 

@@ -1,14 +1,10 @@
 /**
- * Página de Recuperación de Contraseña
+ * Página de Recuperación de Contraseña (en gallego)
  * 
  * Página para que los usuarios puedan solicitar un reset de contraseña.
  * En modo mock, simula el envío de un email de recuperación.
  * 
- * Características:
- * - Formulario simple con validación de email
- * - Simulación de envío de email
- * - Página de confirmación
- * - Enlaces de navegación
+ * Ruta: /recuperar-contrasinal
  */
 
 'use client';
@@ -23,7 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { LoadingSpinner, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { mockSendPasswordResetEmail } from '@/lib/auth-mock';
+import { resetPassword } from '@/services/mockAuth';
 import { cn } from '@/lib/utils';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 
@@ -37,7 +33,7 @@ const forgotPasswordSchema = z.object({
 
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
-export default function ForgotPasswordPage() {
+export default function RecuperarContrasinalPage() {
   const { isAuthenticated, isInitialized } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,16 +64,11 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
-      const response = await mockSendPasswordResetEmail(data.email);
-
-      if (response.success) {
-        setEmail(data.email);
-        setIsEmailSent(true);
-      } else {
-        setError(response.error?.message || 'Erro ao enviar o email');
-      }
-    } catch (err) {
-      setError('Erro de conexión. Téntao de novo.');
+      await resetPassword(data.email);
+      setEmail(data.email);
+      setIsEmailSent(true);
+    } catch (err: any) {
+      setError(err.message || 'Erro ao enviar o email');
     } finally {
       setIsLoading(false);
     }
@@ -143,7 +134,7 @@ export default function ForgotPasswordPage() {
               </Button>
               
               <div className="flex items-center justify-center space-x-4 text-sm">
-                <AuthFormLink href="/login">
+                <AuthFormLink href="/acceder">
                   <ArrowLeft className="h-4 w-4 mr-1 inline" />
                   Volver ao login
                 </AuthFormLink>
@@ -236,13 +227,13 @@ export default function ForgotPasswordPage() {
           <div className="mt-6 text-center">
             <AuthFormLinks>
               <div className="space-y-2">
-                <AuthFormLink href="/login">
+                <AuthFormLink href="/acceder">
                   <ArrowLeft className="h-4 w-4 mr-1 inline" />
                   Volver ao login
                 </AuthFormLink>
                 <div className="text-gray-500">
                   ¿Non tes conta?{' '}
-                  <AuthFormLink href="/register">
+                  <AuthFormLink href="/rexistro">
                     Rexístrate aquí
                   </AuthFormLink>
                 </div>

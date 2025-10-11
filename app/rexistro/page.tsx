@@ -1,15 +1,10 @@
 /**
- * Página de Registro
+ * Página de Rexistro (Register en gallego)
  * 
  * Página para que nuevos usuarios se registren en FincAirbnb.
  * Incluye validaciones completas y términos y condiciones.
  * 
- * Características:
- * - Formulario completo con validaciones
- * - Integración con AuthContext
- * - Redirección automática después del registro
- * - Manejo de errores
- * - Diseño responsive
+ * Ruta: /rexistro
  */
 
 'use client';
@@ -25,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { LoadingSpinner, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { RegisterData } from '@/types/auth';
+import type { RegisterData } from '@/shared/types';
 import { cn } from '@/lib/utils';
 
 // Esquema de validación para el registro
@@ -63,7 +58,7 @@ const registerSchema = z.object({
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
-export default function RegisterPage() {
+export default function RexistroPage() {
   const { register: registerUser, isAuthenticated, isLoading, isInitialized, error, clearError } = useAuth();
   const router = useRouter();
 
@@ -127,7 +122,7 @@ export default function RegisterPage() {
 
   // Si ya está autenticado, redirigir
   if (isAuthenticated()) {
-    router.push('/dashboard');
+    router.push('/taboleiro');
     return null;
   }
 
@@ -356,7 +351,7 @@ export default function RegisterPage() {
             <AuthFormLinks>
               <div className="text-gray-500">
                 ¿Xa tes conta?{' '}
-                <AuthFormLink href="/login">
+                <AuthFormLink href="/acceder">
                   Entra aquí
                 </AuthFormLink>
               </div>
