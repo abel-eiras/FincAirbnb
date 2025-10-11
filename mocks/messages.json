@@ -1,0 +1,130 @@
+[
+  {
+    "id": "conv-1",
+    "bookingId": "book-1",
+    "propertyId": "prop-1",
+    "guestId": "user-guest-1",
+    "ownerId": "user-owner-1",
+    "messages": [
+      {
+        "id": "msg-1-1",
+        "senderId": "user-guest-1",
+        "senderType": "guest",
+        "content": "Ola! Estou interesada en reservar a túa finca. Permites animais de compañía?",
+        "read": true,
+        "createdAt": "2024-09-28T10:15:00Z"
+      },
+      {
+        "id": "msg-1-2",
+        "senderId": "user-owner-1",
+        "senderType": "owner",
+        "content": "Ola Laura! Si, os animais son benvidos na nosa finca. Temos un can pequeno tamén 🐕",
+        "read": true,
+        "createdAt": "2024-09-28T11:30:00Z"
+      },
+      {
+        "id": "msg-1-3",
+        "senderId": "user-guest-1",
+        "senderType": "guest",
+        "content": "Perfecto! Imos ser 4 persoas (2 adultos e 2 nenos) máis o noso can. Hai espazo suficiente?",
+        "read": true,
+        "createdAt": "2024-09-28T12:00:00Z"
+      },
+      {
+        "id": "msg-1-4",
+        "senderId": "user-owner-1",
+        "senderType": "owner",
+        "content": "Si, a finca ten 3 dormitorios e está preparada para 6 persoas. Ademais, o xardín é amplo para que os nenos e o can poidan xogar con total seguridade.",
+        "read": true,
+        "createdAt": "2024-09-28T12:15:00Z"
+      },
+      {
+        "id": "msg-1-5",
+        "senderId": "user-guest-1",
+        "senderType": "guest",
+        "content": "Xenial! Xa fixemos a reserva. Unha última pregunta: podemos chegar sobre as 20:00h?",
+        "read": true,
+        "createdAt": "2024-10-01T10:40:00Z"
+      },
+      {
+        "id": "msg-1-6",
+        "senderId": "user-owner-1",
+        "senderType": "owner",
+        "content": "Sen problema! Enviaréivos as instrucións de check-in uns días antes. Ata pronto!",
+        "read": true,
+        "createdAt": "2024-10-01T11:00:00Z"
+      }
+    ],
+    "lastMessageAt": "2024-10-01T11:00:00Z",
+    "lastMessagePreview": "Sen problema! Enviaréivos as instrucións...",
+    "status": "active",
+    "createdAt": "2024-09-28T10:15:00Z"
+  },
+  {
+    "id": "conv-2",
+    "bookingId": "book-2",
+    "propertyId": "prop-2",
+    "guestId": "user-guest-2",
+    "ownerId": "user-owner-2",
+    "messages": [
+      {
+        "id": "msg-2-1",
+        "senderId": "user-guest-2",
+        "senderType": "guest",
+        "content": "Boas! Queremos reservar o pazo para unha celebración familiar de Nadal. Somos 12 persoas. É posible organizar unha cea especial?",
+        "read": true,
+        "createdAt": "2024-09-10T14:00:00Z"
+      },
+      {
+        "id": "msg-2-2",
+        "senderId": "user-owner-2",
+        "senderType": "owner",
+        "content": "Ola Carlos! O pazo é perfecto para eventos familiares. Traballos con varios caterings locais que ofrecen ceas tradicionais galegas. Póñoche en contacto con eles?",
+        "read": true,
+        "createdAt": "2024-09-10T15:30:00Z"
+      },
+      {
+        "id": "msg-2-3",
+        "senderId": "user-guest-2",
+        "senderType": "guest",
+        "content": "Iso sería fantástico! Si, por favor. Tamén nos interesa saber se hai calefacción en todas as estancias.",
+        "read": true,
+        "createdAt": "2024-09-10T16:00:00Z"
+      },
+      {
+        "id": "msg-2-4",
+        "senderId": "user-owner-2",
+        "senderType": "owner",
+        "content": "Si, o pazo ten calefacción central en todas as habitacións e salóns. Envióche por email os contactos dos caterings e algunhas opcións de menús. Feliz Nadal por adiantado! 🎄",
+        "read": true,
+        "createdAt": "2024-09-10T17:00:00Z"
+      }
+    ],
+    "lastMessageAt": "2024-09-10T17:00:00Z",
+    "lastMessagePreview": "Si, o pazo ten calefacción central...",
+    "status": "active",
+    "createdAt": "2024-09-10T14:00:00Z"
+  },
+  {
+    "id": "conv-3",
+    "bookingId": null,
+    "propertyId": "prop-4",
+    "guestId": "user-guest-3",
+    "ownerId": "user-owner-3",
+    "messages": [
+      {
+        "id": "msg-3-1",
+        "senderId": "user-guest-3",
+        "senderType": "guest",
+        "content": "Boas! A experiencia de viticultura está incluída no prezo? Como funciona?",
+        "read": false,
+        "createdAt": "2024-10-10T09:30:00Z"
+      }
+    ],
+    "lastMessageAt": "2024-10-10T09:30:00Z",
+    "lastMessagePreview": "Boas! A experiencia de viticultura está incluída...",
+    "status": "active",
+    "createdAt": "2024-10-10T09:30:00Z"
+  }
+]
+

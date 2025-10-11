@@ -1,0 +1,140 @@
+[
+  {
+    "id": "rev-1",
+    "bookingId": "book-6",
+    "propertyId": "prop-1",
+    "reviewerId": "user-guest-3",
+    "revieweeId": "user-owner-1",
+    "revieweeType": "property",
+    "ratings": {
+      "overall": 5,
+      "cleanliness": 5,
+      "communication": 5,
+      "accuracy": 5,
+      "location": 4,
+      "value": 5
+    },
+    "title": "Lugar perfecto para desconectar",
+    "comment": "A Finca do Val superou todas as nosas expectativas. O Xosé é un anfitrión atento e a casa conserva o encanto galego mentres ofrece todas as comodidades modernas. Os viñedos son preciosos e a zona é moi tranquila. Totalmente recomendable!",
+    "pros": ["Anfitrión amable", "Casa impecable", "Contorno natural", "Tranquilidade"],
+    "cons": [],
+    "wouldRecommend": true,
+    "photos": [
+      {
+        "id": "rev-photo-1",
+        "url": "/reviews/finca-val-sunset.jpg",
+        "caption": "Solpor desde a finca"
+      }
+    ],
+    "response": {
+      "content": "Moitas grazas polo teu comentario, Sofía! Foi un pracer recibirvos. Sempre sodes benvidos na nosa finca! 🌻",
+      "respondedAt": "2024-07-26T10:00:00Z"
+    },
+    "status": "published",
+    "verified": true,
+    "helpful": 12,
+    "notHelpful": 0,
+    "createdAt": "2024-07-26T09:00:00Z",
+    "publishedAt": "2024-07-26T10:30:00Z"
+  },
+  {
+    "id": "rev-2",
+    "bookingId": "book-5",
+    "propertyId": "prop-5",
+    "reviewerId": "user-guest-2",
+    "revieweeId": "user-owner-2",
+    "revieweeType": "property",
+    "ratings": {
+      "overall": 5,
+      "cleanliness": 5,
+      "communication": 5,
+      "accuracy": 5,
+      "location": 5,
+      "value": 4
+    },
+    "title": "Experiencia única no hórreo",
+    "comment": "Durmir nun hórreo galego fronte ao mar foi unha experiencia inolvidable. A restauración está feita con moito coidado e o sitio é maxistral. Perfecto para parella. A Ana xestionouno todo de forma impecable.",
+    "pros": ["Experiencia única", "Localización privilexiada", "Restauración coidada", "Vistas ao mar"],
+    "cons": ["Espazo reducido (pero é parte do encanto)"],
+    "wouldRecommend": true,
+    "photos": [],
+    "response": {
+      "content": "Grazas Carlos! Alegramos de que gozases da experiencia. O hórreo é especial para nós e coidámolo con moito mimo. Ata a próxima!",
+      "respondedAt": "2024-08-09T11:00:00Z"
+    },
+    "status": "published",
+    "verified": true,
+    "helpful": 8,
+    "notHelpful": 0,
+    "createdAt": "2024-08-09T10:00:00Z",
+    "publishedAt": "2024-08-09T11:30:00Z"
+  },
+  {
+    "id": "rev-3",
+    "bookingId": "book-4",
+    "propertyId": "prop-4",
+    "reviewerId": "user-guest-1",
+    "revieweeId": "user-owner-3",
+    "revieweeType": "property",
+    "ratings": {
+      "overall": 5,
+      "cleanliness": 5,
+      "communication": 5,
+      "accuracy": 5,
+      "location": 5,
+      "value": 5
+    },
+    "title": "Experiencia viñeira espectacular",
+    "comment": "Participar na vendima foi un soño feito realidade. A María é encantadora e explícache todo sobre o proceso de elaboración do viño. A finca é preciosa e o viño... delicioso! Voltaremos seguro.",
+    "pros": ["Experiencia de viticultura", "Anfitrioa experta", "Viño de calidade", "Vistas impresionantes"],
+    "cons": [],
+    "wouldRecommend": true,
+    "photos": [
+      {
+        "id": "rev-photo-2",
+        "url": "/reviews/vendima.jpg",
+        "caption": "Vendima no viñedo"
+      }
+    ],
+    "response": {
+      "content": "Grazas Laura! Foi un pracer compartir a vendima convosco. Agardamos volver vos ver pronto na vindima! 🍇",
+      "respondedAt": "2024-09-14T09:00:00Z"
+    },
+    "status": "published",
+    "verified": true,
+    "helpful": 15,
+    "notHelpful": 0,
+    "createdAt": "2024-09-14T08:00:00Z",
+    "publishedAt": "2024-09-14T09:30:00Z"
+  },
+  {
+    "id": "rev-4",
+    "bookingId": "book-3",
+    "propertyId": "prop-3",
+    "reviewerId": "user-guest-3",
+    "revieweeId": "user-owner-2",
+    "revieweeType": "property",
+    "ratings": {
+      "overall": 4,
+      "cleanliness": 5,
+      "communication": 5,
+      "accuracy": 4,
+      "location": 5,
+      "value": 4
+    },
+    "title": "Perfecto para peregrinos",
+    "comment": "Despois de varios días no Camiño, a Casa da Hedra foi un oasis de tranquilidade. Moi limpa, cómoda e a Ana facilitou todo o proceso. A localización é perfecta, a 15 min de Santiago.",
+    "pros": ["Localización ideal", "Moi limpa", "Anfitrioa atenta", "Bo prezo"],
+    "cons": ["Baño un pouco pequeno"],
+    "wouldRecommend": true,
+    "photos": [],
+    "response": null,
+    "status": "published",
+    "verified": true,
+    "helpful": 5,
+    "notHelpful": 0,
+    "createdAt": "2024-10-29T12:00:00Z",
+    "publishedAt": "2024-10-29T12:00:00Z"
+  }
+]
+

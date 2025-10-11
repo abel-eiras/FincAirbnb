@@ -1,0 +1,237 @@
+[
+  {
+    "id": "book-1",
+    "propertyId": "prop-1",
+    "guestId": "user-guest-1",
+    "ownerId": "user-owner-1",
+    "checkInDate": "2024-11-15",
+    "checkOutDate": "2024-11-20",
+    "nights": 5,
+    "numberOfGuests": 4,
+    "guestDetails": {
+      "adults": 2,
+      "children": 2,
+      "infants": 0,
+      "pets": 1
+    },
+    "pricing": {
+      "basePrice": 150,
+      "nights": 5,
+      "subtotal": 750,
+      "cleaningFee": 50,
+      "serviceFee": 80,
+      "taxes": 88,
+      "total": 968
+    },
+    "status": "confirmed",
+    "paymentStatus": "paid",
+    "specialRequests": "Chegamos tarde, ás 20:00h aproximadamente. Temos un can pequeno.",
+    "cancellationPolicy": "moderate",
+    "createdAt": "2024-10-01T10:30:00Z",
+    "confirmedAt": "2024-10-01T10:35:00Z",
+    "paidAt": "2024-10-01T10:35:00Z"
+  },
+  {
+    "id": "book-2",
+    "propertyId": "prop-2",
+    "guestId": "user-guest-2",
+    "ownerId": "user-owner-2",
+    "checkInDate": "2024-12-20",
+    "checkOutDate": "2024-12-27",
+    "nights": 7,
+    "numberOfGuests": 12,
+    "guestDetails": {
+      "adults": 8,
+      "children": 4,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 450,
+      "nights": 7,
+      "subtotal": 3150,
+      "cleaningFee": 150,
+      "serviceFee": 330,
+      "taxes": 383,
+      "total": 4013
+    },
+    "status": "confirmed",
+    "paymentStatus": "paid",
+    "specialRequests": "Celebración familiar de Nadal. Necesitamos información sobre catering local.",
+    "cancellationPolicy": "strict",
+    "createdAt": "2024-09-15T14:20:00Z",
+    "confirmedAt": "2024-09-15T15:00:00Z",
+    "paidAt": "2024-09-15T15:00:00Z"
+  },
+  {
+    "id": "book-3",
+    "propertyId": "prop-3",
+    "guestId": "user-guest-3",
+    "ownerId": "user-owner-2",
+    "checkInDate": "2024-10-25",
+    "checkOutDate": "2024-10-28",
+    "nights": 3,
+    "numberOfGuests": 2,
+    "guestDetails": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 80,
+      "nights": 3,
+      "subtotal": 240,
+      "cleaningFee": 30,
+      "serviceFee": 27,
+      "taxes": 32,
+      "total": 329
+    },
+    "status": "completed",
+    "paymentStatus": "paid",
+    "specialRequests": "Somos peregrinos do Camiño. Chegamos a pé.",
+    "cancellationPolicy": "flexible",
+    "createdAt": "2024-10-10T09:15:00Z",
+    "confirmedAt": "2024-10-10T09:20:00Z",
+    "paidAt": "2024-10-10T09:20:00Z",
+    "completedAt": "2024-10-28T11:00:00Z"
+  },
+  {
+    "id": "book-4",
+    "propertyId": "prop-4",
+    "guestId": "user-guest-1",
+    "ownerId": "user-owner-3",
+    "checkInDate": "2024-09-10",
+    "checkOutDate": "2024-09-13",
+    "nights": 3,
+    "numberOfGuests": 2,
+    "guestDetails": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 120,
+      "nights": 3,
+      "subtotal": 360,
+      "cleaningFee": 40,
+      "serviceFee": 40,
+      "taxes": 48,
+      "total": 488
+    },
+    "status": "completed",
+    "paymentStatus": "paid",
+    "specialRequests": "Interésanos participar na vendima se é posible.",
+    "cancellationPolicy": "moderate",
+    "createdAt": "2024-08-20T16:45:00Z",
+    "confirmedAt": "2024-08-20T17:00:00Z",
+    "paidAt": "2024-08-20T17:00:00Z",
+    "completedAt": "2024-09-13T11:00:00Z"
+  },
+  {
+    "id": "book-5",
+    "propertyId": "prop-5",
+    "guestId": "user-guest-2",
+    "ownerId": "user-owner-2",
+    "checkInDate": "2024-08-05",
+    "checkOutDate": "2024-08-08",
+    "nights": 3,
+    "numberOfGuests": 2,
+    "guestDetails": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 95,
+      "nights": 3,
+      "subtotal": 285,
+      "cleaningFee": 25,
+      "serviceFee": 31,
+      "taxes": 37,
+      "total": 378
+    },
+    "status": "completed",
+    "paymentStatus": "paid",
+    "specialRequests": "Sesión fotográfica profesional. Levaremos equipo.",
+    "cancellationPolicy": "moderate",
+    "createdAt": "2024-07-15T11:30:00Z",
+    "confirmedAt": "2024-07-15T12:00:00Z",
+    "paidAt": "2024-07-15T12:00:00Z",
+    "completedAt": "2024-08-08T11:00:00Z"
+  },
+  {
+    "id": "book-6",
+    "propertyId": "prop-1",
+    "guestId": "user-guest-3",
+    "ownerId": "user-owner-1",
+    "checkInDate": "2024-07-20",
+    "checkOutDate": "2024-07-25",
+    "nights": 5,
+    "numberOfGuests": 3,
+    "guestDetails": {
+      "adults": 3,
+      "children": 0,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 150,
+      "nights": 5,
+      "subtotal": 750,
+      "cleaningFee": 50,
+      "serviceFee": 80,
+      "taxes": 88,
+      "total": 968
+    },
+    "status": "completed",
+    "paymentStatus": "paid",
+    "specialRequests": "Contido para o meu blog de viaxes. Podo mencionar a finca?",
+    "cancellationPolicy": "moderate",
+    "createdAt": "2024-06-10T13:20:00Z",
+    "confirmedAt": "2024-06-10T14:00:00Z",
+    "paidAt": "2024-06-10T14:00:00Z",
+    "completedAt": "2024-07-25T11:00:00Z"
+  },
+  {
+    "id": "book-7",
+    "propertyId": "prop-1",
+    "guestId": "user-guest-2",
+    "ownerId": "user-owner-1",
+    "checkInDate": "2024-06-01",
+    "checkOutDate": "2024-06-05",
+    "nights": 4,
+    "numberOfGuests": 2,
+    "guestDetails": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0,
+      "pets": 0
+    },
+    "pricing": {
+      "basePrice": 150,
+      "nights": 4,
+      "subtotal": 600,
+      "cleaningFee": 50,
+      "serviceFee": 65,
+      "taxes": 72,
+      "total": 787
+    },
+    "status": "cancelled",
+    "paymentStatus": "refunded",
+    "specialRequests": "",
+    "cancellationPolicy": "moderate",
+    "createdAt": "2024-05-15T10:00:00Z",
+    "confirmedAt": "2024-05-15T10:30:00Z",
+    "paidAt": "2024-05-15T10:30:00Z",
+    "cancelledAt": "2024-05-20T14:00:00Z",
+    "cancellationDetails": {
+      "cancelledBy": "guest",
+      "reason": "Cambio de plans persoais",
+      "refundAmount": 393.50
+    }
+  }
+]
+

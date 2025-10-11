@@ -1,0 +1,482 @@
+[
+  {
+    "id": "prop-1",
+    "ownerId": "user-owner-1",
+    "title": "Finca do Val",
+    "slug": "finca-do-val-ponteareas",
+    "description": "Sumérgete na tranquilidade do rural galego nesta fermosa finca de 2 hectáreas rodeada de viñedos. A casa de pedra, restaurada con moito mimo, conserva o encanto orixinal mentres ofrece todas as comodidades modernas. Perfecta para desconectar e desfrutar da natureza.",
+    "shortDescription": "Finca de 2 hectáreas con casa de pedra restaurada rodeada de viñedos",
+    "propertyType": "finca",
+    "location": {
+      "address": "Lugar de Val, 15",
+      "city": "Ponteareas",
+      "province": "Pontevedra",
+      "region": "Galicia",
+      "postalCode": "36860",
+      "coordinates": {
+        "lat": 42.1777,
+        "lng": -8.5108
+      }
+    },
+    "size": {
+      "land": 2.0,
+      "buildingArea": 120,
+      "rooms": 3,
+      "bathrooms": 2,
+      "capacity": 6
+    },
+    "amenities": {
+      "wifi": true,
+      "electricity": true,
+      "water": true,
+      "heating": true,
+      "kitchen": true,
+      "refrigerator": true,
+      "stove": true,
+      "garden": true,
+      "parking": true,
+      "pool": false,
+      "bbq": true,
+      "farmAnimals": false,
+      "cropFields": true,
+      "hiking": true,
+      "fishing": false,
+      "petFriendly": true,
+      "childFriendly": true,
+      "wheelchairAccessible": false
+    },
+    "pricing": {
+      "basePrice": 150,
+      "pricingType": "per_night",
+      "weekendPrice": 180,
+      "minimumStay": 2,
+      "cleaningFee": 50,
+      "deposit": 200
+    },
+    "photos": [
+      {
+        "id": "photo-1-1",
+        "url": "/properties/finca-val-1.jpg",
+        "isPrimary": true,
+        "caption": "Vista exterior da casa",
+        "order": 1
+      },
+      {
+        "id": "photo-1-2",
+        "url": "/properties/finca-val-2.jpg",
+        "isPrimary": false,
+        "caption": "Salón con lareira",
+        "order": 2
+      },
+      {
+        "id": "photo-1-3",
+        "url": "/properties/finca-val-3.jpg",
+        "isPrimary": false,
+        "caption": "Dormitorio principal",
+        "order": 3
+      },
+      {
+        "id": "photo-1-4",
+        "url": "/properties/finca-val-4.jpg",
+        "isPrimary": false,
+        "caption": "Viñedos circundantes",
+        "order": 4
+      },
+      {
+        "id": "photo-1-5",
+        "url": "/properties/finca-val-5.jpg",
+        "isPrimary": false,
+        "caption": "Xardín e zona de barbacoa",
+        "order": 5
+      }
+    ],
+    "rules": {
+      "smokingAllowed": false,
+      "partiesAllowed": false,
+      "petsAllowed": true,
+      "checkInTime": "15:00",
+      "checkOutTime": "11:00",
+      "cancellationPolicy": "moderate",
+      "houseRules": [
+        "Respecta o silencio a partir das 22:00h",
+        "Non se permiten festas nin eventos",
+        "Mantén a propiedade limpa e ordenada",
+        "Os animais de compañía son benvidos (máx. 2)"
+      ]
+    },
+    "status": "active",
+    "featured": true,
+    "verified": true,
+    "views": 1245,
+    "bookings": 23,
+    "rating": 4.8,
+    "reviewCount": 18,
+    "createdAt": "2024-01-20",
+    "updatedAt": "2024-10-01",
+    "publishedAt": "2024-01-25"
+  },
+  {
+    "id": "prop-2",
+    "ownerId": "user-owner-2",
+    "title": "Pazo de Salnés",
+    "slug": "pazo-de-salnes-cambados",
+    "description": "Histórico pazo galego do século XVIII totalmente restaurado. Rodeado de 5 hectáreas de xardíns e bosque autóctono. Ideal para retiros, eventos familiares ou simplemente disfrutar da maxia do rural galego con todas as comodidades dun hotel boutique.",
+    "shortDescription": "Pazo histórico do s. XVIII con 5 hectáreas de xardíns",
+    "propertyType": "pazo",
+    "location": {
+      "address": "Lugar de Salnés, 8",
+      "city": "Cambados",
+      "province": "Pontevedra",
+      "region": "Galicia",
+      "postalCode": "36630",
+      "coordinates": {
+        "lat": 42.5169,
+        "lng": -8.8119
+      }
+    },
+    "size": {
+      "land": 5.0,
+      "buildingArea": 450,
+      "rooms": 8,
+      "bathrooms": 5,
+      "capacity": 16
+    },
+    "amenities": {
+      "wifi": true,
+      "electricity": true,
+      "water": true,
+      "heating": true,
+      "kitchen": true,
+      "refrigerator": true,
+      "stove": true,
+      "garden": true,
+      "parking": true,
+      "pool": true,
+      "bbq": true,
+      "farmAnimals": false,
+      "cropFields": false,
+      "hiking": true,
+      "fishing": false,
+      "petFriendly": false,
+      "childFriendly": true,
+      "wheelchairAccessible": true
+    },
+    "pricing": {
+      "basePrice": 450,
+      "pricingType": "per_night",
+      "weekendPrice": 550,
+      "minimumStay": 2,
+      "cleaningFee": 150,
+      "deposit": 500
+    },
+    "photos": [
+      {
+        "id": "photo-2-1",
+        "url": "/properties/pazo-salnes-1.jpg",
+        "isPrimary": true,
+        "caption": "Fachada principal do pazo",
+        "order": 1
+      },
+      {
+        "id": "photo-2-2",
+        "url": "/properties/pazo-salnes-2.jpg",
+        "isPrimary": false,
+        "caption": "Gran salón con teito de pedra",
+        "order": 2
+      },
+      {
+        "id": "photo-2-3",
+        "url": "/properties/pazo-salnes-3.jpg",
+        "isPrimary": false,
+        "caption": "Piscina exterior con vistas ao xardín",
+        "order": 3
+      }
+    ],
+    "rules": {
+      "smokingAllowed": false,
+      "partiesAllowed": true,
+      "petsAllowed": false,
+      "checkInTime": "16:00",
+      "checkOutTime": "12:00",
+      "cancellationPolicy": "strict",
+      "houseRules": [
+        "Eventos permitidos previa consulta",
+        "Capacidade máxima: 16 persoas",
+        "Non se permiten mascotas",
+        "Uso responsable das instalacións"
+      ]
+    },
+    "status": "active",
+    "featured": true,
+    "verified": true,
+    "views": 2341,
+    "bookings": 45,
+    "rating": 4.9,
+    "reviewCount": 38,
+    "createdAt": "2024-02-05",
+    "updatedAt": "2024-10-05",
+    "publishedAt": "2024-02-10"
+  },
+  {
+    "id": "prop-3",
+    "ownerId": "user-owner-2",
+    "title": "Casa da Hedra",
+    "slug": "casa-da-hedra-santiago",
+    "description": "Acolledora casa rural a 15 km de Santiago de Compostela. Perfecta para peregrinos ou viaxeiros que busquen tranquilidade tras visitar a cidade. A casa está rodeada de natureza e ofrece vistas impresionantes do val.",
+    "shortDescription": "Casa rural acolledora preto de Santiago",
+    "propertyType": "casa_rural",
+    "location": {
+      "address": "Lugar da Hedra, 3",
+      "city": "Ames",
+      "province": "A Coruña",
+      "region": "Galicia",
+      "postalCode": "15895",
+      "coordinates": {
+        "lat": 42.8782,
+        "lng": -8.5498
+      }
+    },
+    "size": {
+      "land": 0.5,
+      "buildingArea": 90,
+      "rooms": 2,
+      "bathrooms": 1,
+      "capacity": 4
+    },
+    "amenities": {
+      "wifi": true,
+      "electricity": true,
+      "water": true,
+      "heating": true,
+      "kitchen": true,
+      "refrigerator": true,
+      "stove": true,
+      "garden": true,
+      "parking": true,
+      "pool": false,
+      "bbq": false,
+      "farmAnimals": false,
+      "cropFields": false,
+      "hiking": true,
+      "fishing": false,
+      "petFriendly": true,
+      "childFriendly": true,
+      "wheelchairAccessible": false
+    },
+    "pricing": {
+      "basePrice": 80,
+      "pricingType": "per_night",
+      "weekendPrice": 90,
+      "minimumStay": 1,
+      "cleaningFee": 30,
+      "deposit": 100
+    },
+    "photos": [
+      {
+        "id": "photo-3-1",
+        "url": "/properties/casa-hedra-1.jpg",
+        "isPrimary": true,
+        "caption": "Entrada da casa",
+        "order": 1
+      }
+    ],
+    "rules": {
+      "smokingAllowed": false,
+      "partiesAllowed": false,
+      "petsAllowed": true,
+      "checkInTime": "14:00",
+      "checkOutTime": "11:00",
+      "cancellationPolicy": "flexible",
+      "houseRules": [
+        "Ideal para peregrinos do Camiño",
+        "Respeta o horario de descanso",
+        "Mascotas permitidas"
+      ]
+    },
+    "status": "active",
+    "featured": false,
+    "verified": true,
+    "views": 876,
+    "bookings": 31,
+    "rating": 4.7,
+    "reviewCount": 25,
+    "createdAt": "2024-02-15",
+    "updatedAt": "2024-09-28",
+    "publishedAt": "2024-02-20"
+  },
+  {
+    "id": "prop-4",
+    "ownerId": "user-owner-3",
+    "title": "Viñedo Ribadavia",
+    "slug": "vinedo-ribadavia-ourense",
+    "description": "Finca viñeira na Ribeira Sacra. Experiencia única de viticultura galega con posibilidade de participar na vendima e catas de viño. A casa está integrada no viñedo con vistas panorámicas ao río Miño.",
+    "shortDescription": "Finca viñeira con experiencias de viño na Ribeira Sacra",
+    "propertyType": "finca",
+    "location": {
+      "address": "Viñedo do Sil, s/n",
+      "city": "Ribadavia",
+      "province": "Ourense",
+      "region": "Galicia",
+      "postalCode": "32400",
+      "coordinates": {
+        "lat": 42.2887,
+        "lng": -8.1369
+      }
+    },
+    "size": {
+      "land": 3.0,
+      "buildingArea": 100,
+      "rooms": 2,
+      "bathrooms": 2,
+      "capacity": 4
+    },
+    "amenities": {
+      "wifi": true,
+      "electricity": true,
+      "water": true,
+      "heating": true,
+      "kitchen": true,
+      "refrigerator": true,
+      "stove": true,
+      "garden": true,
+      "parking": true,
+      "pool": false,
+      "bbq": true,
+      "farmAnimals": false,
+      "cropFields": true,
+      "hiking": true,
+      "fishing": true,
+      "petFriendly": false,
+      "childFriendly": true,
+      "wheelchairAccessible": false
+    },
+    "pricing": {
+      "basePrice": 120,
+      "pricingType": "per_night",
+      "weekendPrice": 140,
+      "minimumStay": 2,
+      "cleaningFee": 40,
+      "deposit": 150
+    },
+    "photos": [
+      {
+        "id": "photo-4-1",
+        "url": "/properties/vinedo-1.jpg",
+        "isPrimary": true,
+        "caption": "Vista do viñedo ao solpor",
+        "order": 1
+      }
+    ],
+    "rules": {
+      "smokingAllowed": false,
+      "partiesAllowed": false,
+      "petsAllowed": false,
+      "checkInTime": "15:00",
+      "checkOutTime": "11:00",
+      "cancellationPolicy": "moderate",
+      "houseRules": [
+        "Experiencia de viticultura incluída",
+        "Cata de viños da propiedade",
+        "Respeta as plantas e viñedos"
+      ]
+    },
+    "status": "active",
+    "featured": true,
+    "verified": true,
+    "views": 1567,
+    "bookings": 12,
+    "rating": 5.0,
+    "reviewCount": 10,
+    "createdAt": "2024-03-15",
+    "updatedAt": "2024-10-08",
+    "publishedAt": "2024-03-20"
+  },
+  {
+    "id": "prop-5",
+    "ownerId": "user-owner-2",
+    "title": "Hórreo de Combarro",
+    "slug": "horreo-combarro-pontevedra",
+    "description": "Experiencia única de aloxamento nun hórreo galego totalmente restaurado e adaptado. Mantén a estrutura orixinal mentres ofrece todas as comodidades modernas. Situado na vila mariñeira de Combarro, famosa polos seus hórreos fronte ao mar.",
+    "shortDescription": "Hórreo restaurado fronte ao mar en Combarro",
+    "propertyType": "horreo",
+    "location": {
+      "address": "Rúa do Mar, 45",
+      "city": "Poio",
+      "province": "Pontevedra",
+      "region": "Galicia",
+      "postalCode": "36992",
+      "coordinates": {
+        "lat": 42.4267,
+        "lng": -8.6969
+      }
+    },
+    "size": {
+      "land": 0.1,
+      "buildingArea": 35,
+      "rooms": 1,
+      "bathrooms": 1,
+      "capacity": 2
+    },
+    "amenities": {
+      "wifi": true,
+      "electricity": true,
+      "water": true,
+      "heating": true,
+      "kitchen": false,
+      "refrigerator": true,
+      "stove": false,
+      "garden": false,
+      "parking": true,
+      "pool": false,
+      "bbq": false,
+      "farmAnimals": false,
+      "cropFields": false,
+      "hiking": false,
+      "fishing": true,
+      "petFriendly": false,
+      "childFriendly": false,
+      "wheelchairAccessible": false
+    },
+    "pricing": {
+      "basePrice": 95,
+      "pricingType": "per_night",
+      "weekendPrice": 110,
+      "minimumStay": 1,
+      "cleaningFee": 25,
+      "deposit": 100
+    },
+    "photos": [
+      {
+        "id": "photo-5-1",
+        "url": "/properties/horreo-1.jpg",
+        "isPrimary": true,
+        "caption": "Hórreo fronte á ría",
+        "order": 1
+      }
+    ],
+    "rules": {
+      "smokingAllowed": false,
+      "partiesAllowed": false,
+      "petsAllowed": false,
+      "checkInTime": "15:00",
+      "checkOutTime": "11:00",
+      "cancellationPolicy": "moderate",
+      "houseRules": [
+        "Experiencia única en hórreo tradicional",
+        "Non apto para nenos pequenos",
+        "Acceso por escaleira estreita"
+      ]
+    },
+    "status": "active",
+    "featured": true,
+    "verified": true,
+    "views": 2890,
+    "bookings": 67,
+    "rating": 4.8,
+    "reviewCount": 54,
+    "createdAt": "2024-02-20",
+    "updatedAt": "2024-10-10",
+    "publishedAt": "2024-02-25"
+  }
+]
+

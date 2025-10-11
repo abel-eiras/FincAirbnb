@@ -1,0 +1,176 @@
+[
+  {
+    "id": "user-owner-1",
+    "email": "xose@example.com",
+    "password": "password123",
+    "name": "Xosé Manuel García",
+    "role": "owner",
+    "avatar": "/avatars/xose.jpg",
+    "phone": "+34 600 123 456",
+    "bio": "Propietario de fincas familiares na zona de Ponteareas. Amante da natureza e da cultura galega.",
+    "location": {
+      "city": "Ponteareas",
+      "province": "Pontevedra"
+    },
+    "subscription": {
+      "plan": "professional",
+      "status": "active",
+      "startDate": "2024-01-15",
+      "endDate": "2025-01-15"
+    },
+    "stats": {
+      "properties": 3,
+      "totalBookings": 45,
+      "rating": 4.8,
+      "responseRate": 98,
+      "responseTime": 2
+    },
+    "verified": true,
+    "joinedAt": "2024-01-15",
+    "lastLogin": "2024-10-10T14:30:00Z"
+  },
+  {
+    "id": "user-owner-2",
+    "email": "ana@example.com",
+    "password": "password123",
+    "name": "Ana Martínez López",
+    "role": "owner",
+    "avatar": "/avatars/ana.jpg",
+    "phone": "+34 600 789 012",
+    "bio": "Xestora profesional de propiedades rurais en Galicia. Especializada en turismo sostible.",
+    "location": {
+      "city": "Santiago de Compostela",
+      "province": "A Coruña"
+    },
+    "subscription": {
+      "plan": "professional",
+      "status": "active",
+      "startDate": "2024-02-01",
+      "endDate": "2025-02-01"
+    },
+    "stats": {
+      "properties": 8,
+      "totalBookings": 156,
+      "rating": 4.9,
+      "responseRate": 100,
+      "responseTime": 1
+    },
+    "verified": true,
+    "joinedAt": "2024-02-01",
+    "lastLogin": "2024-10-11T09:15:00Z"
+  },
+  {
+    "id": "user-owner-3",
+    "email": "maria@example.com",
+    "password": "password123",
+    "name": "María do Campo",
+    "role": "owner",
+    "avatar": "/avatars/maria.jpg",
+    "phone": "+34 600 345 678",
+    "bio": "Propietaria dunha finca familiar en Ourense. Producimos viño e mel artesanal.",
+    "location": {
+      "city": "Ribadavia",
+      "province": "Ourense"
+    },
+    "subscription": {
+      "plan": "basic",
+      "status": "active",
+      "startDate": "2024-03-10",
+      "endDate": "2025-03-10"
+    },
+    "stats": {
+      "properties": 1,
+      "totalBookings": 12,
+      "rating": 5.0,
+      "responseRate": 95,
+      "responseTime": 3
+    },
+    "verified": true,
+    "joinedAt": "2024-03-10",
+    "lastLogin": "2024-10-09T18:45:00Z"
+  },
+  {
+    "id": "user-guest-1",
+    "email": "laura@example.com",
+    "password": "password123",
+    "name": "Laura Fernández",
+    "role": "guest",
+    "avatar": "/avatars/laura.jpg",
+    "phone": "+34 611 222 333",
+    "bio": "Amante da natureza e das experiencias rurais. De Madrid, buscando desconexión no rural galego.",
+    "location": {
+      "city": "Madrid",
+      "province": "Madrid"
+    },
+    "stats": {
+      "totalBookings": 8,
+      "reviews": 7,
+      "rating": 4.7
+    },
+    "verified": true,
+    "joinedAt": "2024-03-20",
+    "lastLogin": "2024-10-11T10:00:00Z"
+  },
+  {
+    "id": "user-guest-2",
+    "email": "carlos@example.com",
+    "password": "password123",
+    "name": "Carlos Rodríguez",
+    "role": "guest",
+    "avatar": "/avatars/carlos.jpg",
+    "phone": "+34 622 333 444",
+    "bio": "Fotógrafo profesional. Busco localizacións únicas para os meus proxectos.",
+    "location": {
+      "city": "Barcelona",
+      "province": "Barcelona"
+    },
+    "stats": {
+      "totalBookings": 15,
+      "reviews": 14,
+      "rating": 4.9
+    },
+    "verified": true,
+    "joinedAt": "2024-02-15",
+    "lastLogin": "2024-10-10T16:20:00Z"
+  },
+  {
+    "id": "user-guest-3",
+    "email": "sofia@example.com",
+    "password": "password123",
+    "name": "Sofía Gonçalves",
+    "role": "guest",
+    "avatar": "/avatars/sofia.jpg",
+    "phone": "+34 633 444 555",
+    "bio": "Blogueira de viaxes. Especializada en turismo rural e sostible.",
+    "location": {
+      "city": "Vigo",
+      "province": "Pontevedra"
+    },
+    "stats": {
+      "totalBookings": 22,
+      "reviews": 22,
+      "rating": 4.8
+    },
+    "verified": true,
+    "joinedAt": "2024-01-10",
+    "lastLogin": "2024-10-11T11:30:00Z"
+  },
+  {
+    "id": "user-admin-1",
+    "email": "david@fincairbnb.com",
+    "password": "admin123",
+    "name": "David López",
+    "role": "admin",
+    "avatar": "/avatars/david.jpg",
+    "phone": "+34 644 555 666",
+    "bio": "Administrador da plataforma FincAirbnb.",
+    "location": {
+      "city": "Vigo",
+      "province": "Pontevedra"
+    },
+    "verified": true,
+    "joinedAt": "2024-01-01",
+    "lastLogin": "2024-10-11T12:00:00Z"
+  }
+]
+
