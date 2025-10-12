@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Calendar, Users } from 'lucide-react';
 
@@ -55,6 +57,7 @@ export function HeroSection() {
               <Button 
                 size="lg" 
                 className="bg-galician-blue hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl group"
+                onClick={() => window.location.href = '/fincas'}
               >
                 Proba agora, que as patacas non se plantan soas
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -64,6 +67,7 @@ export function HeroSection() {
                 variant="outline" 
                 size="lg"
                 className="border-galician-green text-galician-green hover:bg-galician-green hover:text-white px-8 py-4 text-lg rounded-xl"
+                onClick={() => window.location.href = '/fincas'}
               >
                 Ver fincas dispoñibles
               </Button>
@@ -86,7 +90,10 @@ export function HeroSection() {
                     <div className="text-sm text-gray-500">Marzo - Outubro</div>
                   </div>
                 </div>
-                <Button className="bg-galician-blue hover:bg-blue-700">
+                <Button 
+                  className="bg-galician-blue hover:bg-blue-700"
+                  onClick={() => window.location.href = '/fincas'}
+                >
                   Buscar fincas
                 </Button>
               </div>

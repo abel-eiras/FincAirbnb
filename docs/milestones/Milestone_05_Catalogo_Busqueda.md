@@ -1,19 +1,19 @@
-# 🔍 Milestone 05: Catálogo de Propiedades + Búsqueda
+# 🔍 Milestone 05: Catálogo de Fincas + Búsqueda
 
 ## Resumen
-**Objetivo**: Catálogo público de propiedades con búsqueda avanzada y filtros.
+**Objetivo**: Catálogo público de fincas para labregos con búsqueda avanzada e filtros adaptados ao cultivo.
 
-**Duración**: 2 semanas | **Prioridad**: Alta | **Estado**: 📅 Planificado
+**Duración**: 2 semanas | **Prioridad**: Alta | **Estado**: ✅ COMPLETADO
 
 ---
 
 ## Objetivos
-- Catálogo público de todas las propiedades
-- Búsqueda por texto
-- Filtros avanzados (ubicación, precio, tipo, comodidades)
-- Ordenación (precio, rating, recientes)
+- Catálogo público de todas as fincas para alugar
+- Búsqueda por texto (nome, localización, tipo de cultivo)
+- Filtros avanzados (ubicación, prezo por mes, tamaño, tipo de solo)
+- Ordenación (prezo, tamaño, localización)
 - Paginación
-- Vista grid/mapa (futuro)
+- Copy gallego con retranca
 
 ---
 

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export', // Temporalmente comentado para permitir rutas dinámicas
   eslint: {
     ignoreDuringBuilds: true,
   },
