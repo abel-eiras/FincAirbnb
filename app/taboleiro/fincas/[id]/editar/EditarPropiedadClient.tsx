@@ -38,7 +38,7 @@ export function EditarPropiedadClient() {
             description: "A propiedade que buscas non existe.",
             variant: "destructive",
           });
-          router.push('/taboleiro/minas-fincas');
+          window.location.href = '/taboleiro/minas-fincas';
           return;
         }
         
@@ -49,7 +49,7 @@ export function EditarPropiedadClient() {
             description: "Non tes permisos para editar esta propiedade.",
             variant: "destructive",
           });
-          router.push('/taboleiro/minas-fincas');
+          window.location.href = '/taboleiro/minas-fincas';
           return;
         }
         
@@ -84,7 +84,7 @@ export function EditarPropiedadClient() {
       });
       
       // Redirigir al listado
-      router.push('/taboleiro/minas-fincas');
+      window.location.href = '/taboleiro/minas-fincas';
     } catch (error) {
       console.error('Error actualizando propiedade:', error);
       toast({
@@ -109,7 +109,7 @@ export function EditarPropiedadClient() {
       });
       
       // Redirigir al listado
-      router.push('/taboleiro/minas-fincas');
+      window.location.href = '/taboleiro/minas-fincas';
     } catch (error) {
       console.error('Error eliminando propiedade:', error);
       toast({
@@ -148,7 +148,7 @@ export function EditarPropiedadClient() {
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Propiedade non encontrada</h1>
                 <p className="text-gray-600 mb-6">A propiedade que buscas non existe ou non tes permisos para velá.</p>
-                <Button onClick={() => router.push('/taboleiro/minas-fincas')}>
+                <Button onClick={() => window.location.href = '/taboleiro/minas-fincas'}>
                   Voltar ao listado
                 </Button>
               </div>
@@ -178,7 +178,7 @@ export function EditarPropiedadClient() {
               <div className="flex items-center space-x-3">
                 <Button
                   variant="outline"
-                  onClick={() => router.push('/taboleiro/minas-fincas')}
+                  onClick={() => window.location.href = '/taboleiro/minas-fincas'}
                   className="flex items-center text-gray-600 hover:text-galician-blue"
                 >
                   <ArrowLeft className="h-4 w-4 mr-1" />
