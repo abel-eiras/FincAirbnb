@@ -22,6 +22,10 @@ import { OccupancyChart } from '@/components/dashboard/owner/OccupancyChart';
 import { UpcomingBookings } from '@/components/dashboard/owner/UpcomingBookings';
 import { RecentActivity } from '@/components/dashboard/owner/RecentActivity';
 import { QuickActions } from '@/components/dashboard/owner/QuickActions';
+import { LabregoDashboard } from '@/components/dashboard/labrego/LabregoDashboard';
+import { ProximasFincas } from '@/components/dashboard/labrego/ProximasFincas';
+import { FincasFavoritas } from '@/components/dashboard/labrego/FincasFavoritas';
+import { AvaliacionsPendentes } from '@/components/dashboard/labrego/AvaliacionsPendentes';
 import { 
   getOwnerStats, 
   getRevenueData, 
@@ -197,36 +201,21 @@ export default function TaboleiroPage() {
               </div>
             ) : (
               /* Dashboard del Labrego (Milestone 04) */
-              <div className="space-y-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <User className="h-5 w-5 mr-2" />
-                      Panel de Labrego
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4">
-                      Gestiona as túas reservas e descubre novas fincas.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Button className="w-full">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        As Miñas Reservas
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        <Home className="h-4 w-4 mr-2" />
-                        Buscar Fincas
-                      </Button>
-                    </div>
-                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-800">
-                        📋 <strong>Próximo:</strong> O dashboard completo para labregos estará dispoñible no Milestone 04.
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              user && (
+                <div className="space-y-8">
+                  {/* Dashboard principal do labrego */}
+                  <LabregoDashboard user={user} />
+
+                  {/* Próximas fincas */}
+                  <ProximasFincas labregoId={user.id} />
+
+                  {/* Fincas favoritas */}
+                  <FincasFavoritas labregoId={user.id} />
+
+                  {/* Avaliacións pendentes */}
+                  <AvaliacionsPendentes labregoId={user.id} />
+                </div>
+              )
             )}
           </div>
 
@@ -235,21 +224,23 @@ export default function TaboleiroPage() {
             <Card className="bg-shell-beige border-galician-green">
               <CardHeader>
                 <CardTitle className="text-galician-green text-sm">
-                  ✅ Milestone 02 - Dashboard Propietario Completado
+                  ✅ Milestone 04 - Dashboard Labrego Completado
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-700">
-                  Implementáronse as funcionalidades do <strong>Milestone 02</strong>:
+                  Implementáronse as funcionalidades do <strong>Milestone 04</strong>:
                 </p>
                 <ul className="text-sm text-gray-700 mt-2 list-disc list-inside">
-                  <li>Estatísticas completas do negocio</li>
-                  <li>Gráficos de ingresos e ocupación</li>
-                  <li>Próximas reservas e actividade recente</li>
-                  <li>Accións rápidas para xestión</li>
+                  <li>Dashboard específico para labregos/labregas</li>
+                  <li>Próximas fincas para cultivar</li>
+                  <li>Sistema de fincas favoritas</li>
+                  <li>Avaliacións pendentes con retranca gallega</li>
+                  <li>Estatísticas de cultivo e gastos</li>
+                  <li>Copy fresco e divertido en galego</li>
                 </ul>
                 <p className="text-sm text-gray-700 mt-2">
-                  <strong>Próximo:</strong> Milestone 03 - Xestión de Propiedades
+                  <strong>Próximo:</strong> Milestone 05 - Catálogo e Búsqueda
                 </p>
               </CardContent>
             </Card>

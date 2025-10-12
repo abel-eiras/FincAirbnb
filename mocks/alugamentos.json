@@ -1,0 +1,228 @@
+[
+  {
+    "id": "alug-1",
+    "propertyId": "prop-1",
+    "labregoId": "user-labrego-1",
+    "ownerId": "user-owner-1",
+    "inicioCultivo": "2024-03-01",
+    "finCultivo": "2024-08-31",
+    "meses": 6,
+    "detallesCultivo": {
+      "tipoCultivo": "hortalizas",
+      "experiencia": "principiante",
+      "herramientasPropias": true,
+      "mascotas": 0
+    },
+    "prezos": {
+      "prezoMes": 120,
+      "meses": 6,
+      "subtotal": 720,
+      "taxaLimpeza": 0,
+      "taxaServizo": 72,
+      "impostos": 79,
+      "total": 871
+    },
+    "status": "confirmado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Primeira vez que cultivo. Necesito consellos sobre que plantar nesta época do ano.",
+    "politicaCancelacion": "moderada",
+    "creado": "2024-02-15T10:30:00Z",
+    "confirmado": "2024-02-15T10:35:00Z",
+    "pagado": "2024-02-15T10:35:00Z"
+  },
+  {
+    "id": "alug-2",
+    "propertyId": "prop-2",
+    "labregoId": "user-labrego-2",
+    "ownerId": "user-owner-2",
+    "inicioCultivo": "2024-04-01",
+    "finCultivo": "2024-10-31",
+    "meses": 7,
+    "detallesCultivo": {
+      "tipoCultivo": "viñedo",
+      "experiencia": "experto",
+      "herramientasPropias": true,
+      "mascotas": 2
+    },
+    "prezos": {
+      "prezoMes": 300,
+      "meses": 7,
+      "subtotal": 2100,
+      "taxaLimpeza": 0,
+      "taxaServizo": 210,
+      "impostos": 231,
+      "total": 2541
+    },
+    "status": "confirmado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Interesado na vendima. Podo participar nas tarefas do viñedo?",
+    "politicaCancelacion": "estrita",
+    "creado": "2024-03-10T14:20:00Z",
+    "confirmado": "2024-03-10T15:00:00Z",
+    "pagado": "2024-03-10T15:00:00Z"
+  },
+  {
+    "id": "alug-3",
+    "propertyId": "prop-3",
+    "labregoId": "user-labrego-3",
+    "ownerId": "user-owner-2",
+    "inicioCultivo": "2024-01-01",
+    "finCultivo": "2024-06-30",
+    "meses": 6,
+    "detallesCultivo": {
+      "tipoCultivo": "árbores froiteiros",
+      "experiencia": "intermedio",
+      "herramientasPropias": false,
+      "mascotas": 0
+    },
+    "prezos": {
+      "prezoMes": 80,
+      "meses": 6,
+      "subtotal": 480,
+      "taxaLimpeza": 0,
+      "taxaServizo": 48,
+      "impostos": 53,
+      "total": 581
+    },
+    "status": "completado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Quero aprender sobre poda de árbores froiteiros.",
+    "politicaCancelacion": "flexible",
+    "creado": "2024-12-01T09:15:00Z",
+    "confirmado": "2024-12-01T09:20:00Z",
+    "pagado": "2024-12-01T09:20:00Z",
+    "completado": "2024-06-30T11:00:00Z"
+  },
+  {
+    "id": "alug-4",
+    "propertyId": "prop-4",
+    "labregoId": "user-labrego-1",
+    "ownerId": "user-owner-3",
+    "inicioCultivo": "2023-09-01",
+    "finCultivo": "2024-02-29",
+    "meses": 6,
+    "detallesCultivo": {
+      "tipoCultivo": "cereais",
+      "experiencia": "avanzado",
+      "herramientasPropias": true,
+      "mascotas": 1
+    },
+    "prezos": {
+      "prezoMes": 150,
+      "meses": 6,
+      "subtotal": 900,
+      "taxaLimpeza": 0,
+      "taxaServizo": 90,
+      "impostos": 99,
+      "total": 1089
+    },
+    "status": "completado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Tengo experiencia con tractores. Podo axudar con a maquinaria.",
+    "politicaCancelacion": "moderada",
+    "creado": "2023-08-15T16:45:00Z",
+    "confirmado": "2023-08-15T17:00:00Z",
+    "pagado": "2023-08-15T17:00:00Z",
+    "completado": "2024-02-29T11:00:00Z"
+  },
+  {
+    "id": "alug-5",
+    "propertyId": "prop-5",
+    "labregoId": "user-labrego-2",
+    "ownerId": "user-owner-2",
+    "inicioCultivo": "2024-05-01",
+    "finCultivo": "2024-11-30",
+    "meses": 7,
+    "detallesCultivo": {
+      "tipoCultivo": "hortalizas orgánicas",
+      "experiencia": "experto",
+      "herramientasPropias": true,
+      "mascotas": 0
+    },
+    "prezos": {
+      "prezoMes": 200,
+      "meses": 7,
+      "subtotal": 1400,
+      "taxaLimpeza": 0,
+      "taxaServizo": 140,
+      "impostos": 154,
+      "total": 1694
+    },
+    "status": "confirmado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Solo uso fertilizantes orgánicos. A finca está certificada?",
+    "politicaCancelacion": "moderada",
+    "creado": "2024-04-10T11:30:00Z",
+    "confirmado": "2024-04-10T12:00:00Z",
+    "pagado": "2024-04-10T12:00:00Z"
+  },
+  {
+    "id": "alug-6",
+    "propertyId": "prop-1",
+    "labregoId": "user-labrego-3",
+    "ownerId": "user-owner-1",
+    "inicioCultivo": "2024-06-01",
+    "finCultivo": "2024-12-31",
+    "meses": 7,
+    "detallesCultivo": {
+      "tipoCultivo": "hortalizas",
+      "experiencia": "principiante",
+      "herramientasPropias": false,
+      "mascotas": 0
+    },
+    "prezos": {
+      "prezoMes": 120,
+      "meses": 7,
+      "subtotal": 840,
+      "taxaLimpeza": 0,
+      "taxaServizo": 84,
+      "impostos": 92,
+      "total": 1016
+    },
+    "status": "completado",
+    "estadoPago": "pagado",
+    "solicitudesEspeciais": "Primeira vez cultivando. Necesito moita axuda e consellos.",
+    "politicaCancelacion": "moderada",
+    "creado": "2024-05-05T13:20:00Z",
+    "confirmado": "2024-05-05T14:00:00Z",
+    "pagado": "2024-05-05T14:00:00Z",
+    "completado": "2024-12-31T11:00:00Z"
+  },
+  {
+    "id": "alug-7",
+    "propertyId": "prop-2",
+    "labregoId": "user-labrego-1",
+    "ownerId": "user-owner-2",
+    "inicioCultivo": "2024-07-01",
+    "finCultivo": "2024-09-30",
+    "meses": 3,
+    "detallesCultivo": {
+      "tipoCultivo": "flores",
+      "experiencia": "intermedio",
+      "herramientasPropias": true,
+      "mascotas": 0
+    },
+    "prezos": {
+      "prezoMes": 180,
+      "meses": 3,
+      "subtotal": 540,
+      "taxaLimpeza": 0,
+      "taxaServizo": 54,
+      "impostos": 59,
+      "total": 653
+    },
+    "status": "cancelado",
+    "estadoPago": "reembolsado",
+    "solicitudesEspeciais": "",
+    "politicaCancelacion": "moderada",
+    "creado": "2024-06-10T10:00:00Z",
+    "confirmado": "2024-06-10T10:30:00Z",
+    "pagado": "2024-06-10T10:30:00Z",
+    "cancelado": "2024-06-20T14:00:00Z",
+    "detallesCancelacion": {
+      "canceladoPor": "labrego",
+      "motivo": "Cambio de plans laborais",
+      "importeReembolso": 326.50
+    }
+  }
+]

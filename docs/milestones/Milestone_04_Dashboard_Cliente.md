@@ -1,17 +1,17 @@
-# 👤 Milestone 04: Dashboard Cliente/Huésped
+# 🌾 Milestone 04: Dashboard do Labrego/Labrega
 
 ## Resumen
-**Objetivo**: Dashboard para huéspedes con sus reservas, favoritos y próximas estancias.
+**Objetivo**: Dashboard para labregos/labregas con as súas fincas alugadas, favoritas e próximas estancias mensuais.
 
 **Duración**: 1 semana | **Prioridad**: Media | **Estado**: 📅 Planificado
 
 ---
 
 ## Objetivos
-- Vista principal dashboard huésped
-- Mis reservas (próximas, pasadas, canceladas)
-- Propiedades favoritas
-- Acciones rápidas (buscar, mensajes, reviews pendientes)
+- Vista principal dashboard labrego/labrega
+- As miñas fincas alugadas (próximas, pasadas, canceladas)
+- Fincas favoritas para cultivar
+- Accións rápidas (buscar, mensaxear, avaliar fincas)
 
 ---
 

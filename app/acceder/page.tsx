@@ -101,15 +101,34 @@ export default function AccederPage() {
 
         {/* Información adicional */}
         <div className="mt-8 text-center">
-          <div className="bg-shell-beige p-4 rounded-xl">
+          <div className="bg-shell-beige p-4 rounded-xl space-y-3">
             <h3 className="text-sm font-medium text-galician-green mb-2">
-              💡 Conta de proba
+              💡 Contas de proba
             </h3>
-            <p className="text-xs text-gray-600">
-              Email: <code className="bg-white px-1 rounded">xose@correo.gal</code>
-              <br />
-              Contrasinal: <code className="bg-white px-1 rounded">Contrasinal123</code>
-            </p>
+            
+            {/* Cuenta Propietario */}
+            <div className="bg-white p-3 rounded-lg border border-blue-200">
+              <p className="text-xs font-semibold text-blue-800 mb-1">
+                👨‍🌾 Propietario
+              </p>
+              <p className="text-xs text-gray-600">
+                Email: <code className="bg-blue-50 px-1 rounded">xose@correo.gal</code>
+                <br />
+                Contrasinal: <code className="bg-blue-50 px-1 rounded">Contrasinal123</code>
+              </p>
+            </div>
+
+            {/* Cuenta Labrego */}
+            <div className="bg-white p-3 rounded-lg border border-green-200">
+              <p className="text-xs font-semibold text-green-800 mb-1">
+                🌾 Labrego/a
+              </p>
+              <p className="text-xs text-gray-600">
+                Email: <code className="bg-green-50 px-1 rounded">maria@correo.gal</code>
+                <br />
+                Contrasinal: <code className="bg-green-50 px-1 rounded">Contrasinal123</code>
+              </p>
+            </div>
           </div>
         </div>
       </div>

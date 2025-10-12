@@ -171,6 +171,75 @@
     "verified": true,
     "joinedAt": "2024-01-01",
     "lastLogin": "2024-10-11T12:00:00Z"
+  },
+  {
+    "id": "user-labrego-1",
+    "email": "maria@correo.gal",
+    "password": "Contrasinal123",
+    "name": "María Fernández",
+    "role": "guest",
+    "avatar": "/avatars/maria.jpg",
+    "phone": "+34 611 222 333",
+    "bio": "Labrega apaixonada pola agricultura ecolóxica. Busco fincas para cultivar hortalizas orgánicas.",
+    "location": {
+      "city": "Santiago de Compostela",
+      "province": "A Coruña"
+    },
+    "stats": {
+      "totalAlugamentos": 3,
+      "favoritas": 5,
+      "avaliacions": 2,
+      "rating": 4.5
+    },
+    "verified": true,
+    "joinedAt": "2024-02-15",
+    "lastLogin": "2024-10-11T10:15:00Z"
+  },
+  {
+    "id": "user-labrego-2",
+    "email": "antonio@labrego.gal",
+    "password": "Labrego123",
+    "name": "Antonio Vázquez",
+    "role": "guest",
+    "avatar": "/avatars/antonio.jpg",
+    "phone": "+34 622 333 444",
+    "bio": "Labrego con experiencia en viñedos. Interesado en fincas para cultivar uvas e participar na vendima.",
+    "location": {
+      "city": "Ourense",
+      "province": "Ourense"
+    },
+    "stats": {
+      "totalAlugamentos": 2,
+      "favoritas": 3,
+      "avaliacions": 1,
+      "rating": 4.8
+    },
+    "verified": true,
+    "joinedAt": "2024-03-01",
+    "lastLogin": "2024-10-11T09:30:00Z"
+  },
+  {
+    "id": "user-labrego-3",
+    "email": "carmen@labrego.gal",
+    "password": "Labrego123",
+    "name": "Carmen Rodríguez",
+    "role": "guest",
+    "avatar": "/avatars/carmen.jpg",
+    "phone": "+34 633 444 555",
+    "bio": "Labrega principiante que quere aprender sobre agricultura. Busco fincas pequenas para comezar.",
+    "location": {
+      "city": "Lugo",
+      "province": "Lugo"
+    },
+    "stats": {
+      "totalAlugamentos": 1,
+      "favoritas": 7,
+      "avaliacions": 1,
+      "rating": 4.2
+    },
+    "verified": true,
+    "joinedAt": "2024-04-10",
+    "lastLogin": "2024-10-11T08:45:00Z"
   }
 ]
 
