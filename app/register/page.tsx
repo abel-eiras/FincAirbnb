@@ -24,8 +24,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { LoadingSpinner, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { RegisterData } from '@/types/auth';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
+import type { RegisterData } from '@/shared/types';
 import { cn } from '@/lib/utils';
 
 // Esquema de validación para el registro
@@ -102,7 +103,6 @@ export default function RegisterPage() {
         confirmPassword: data.confirmPassword,
         phone: data.phone,
         acceptTerms: data.acceptTerms,
-        newsletter: data.newsletter,
       };
 
       await registerUser(registerData);

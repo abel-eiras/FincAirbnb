@@ -71,7 +71,7 @@ export default function TestAuthPage() {
                 <div><strong>Nombre:</strong> {user.name}</div>
                 <div><strong>Email:</strong> {user.email}</div>
                 <div><strong>Teléfono:</strong> {user.phone || 'No especificado'}</div>
-                <div><strong>Fecha de registro:</strong> {user.joinDate}</div>
+                <div><strong>Fecha de registro:</strong> {user.joinedAt}</div>
               </div>
             ) : (
               <p className="text-gray-500">No hay usuario autenticado</p>

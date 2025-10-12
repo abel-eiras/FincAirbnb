@@ -77,7 +77,7 @@ export function PropertyFilters({ properties, onFiltersChange }: PropertyFilters
       }
 
       // Filtro de tipo
-      if (filters.type !== 'all' && property.type !== filters.type) {
+      if (filters.type !== 'all' && property.propertyType !== filters.type) {
         return false;
       }
 
@@ -87,17 +87,18 @@ export function PropertyFilters({ properties, onFiltersChange }: PropertyFilters
       }
 
       // Filtro de precio mínimo
-      if (filters.minPrice && property.pricePerNight < parseInt(filters.minPrice)) {
+      if (filters.minPrice && property.pricing?.basePrice && property.pricing.basePrice < parseInt(filters.minPrice)) {
         return false;
       }
 
       // Filtro de precio máximo
-      if (filters.maxPrice && property.pricePerNight > parseInt(filters.maxPrice)) {
+      if (filters.maxPrice && property.pricing?.basePrice && property.pricing.basePrice > parseInt(filters.maxPrice)) {
         return false;
       }
 
       // Filtro de reservas
-      if (filters.hasBookings && (!property.stats?.totalBookings || property.stats.totalBookings === 0)) {
+      if (filters.hasBookings) {
+        // TODO: Implementar verificación de reservas cuando esté disponible
         return false;
       }
 
@@ -126,8 +127,8 @@ export function PropertyFilters({ properties, onFiltersChange }: PropertyFilters
   }, [filters, properties, onFiltersChange]);
 
   // Obtener opciones únicas
-  const uniqueTypes = [...new Set(properties.map(p => p.type))];
-  const uniqueProvinces = [...new Set(properties.map(p => p.location.province))];
+  const uniqueTypes = Array.from(new Set(properties.map(p => p.propertyType)));
+  const uniqueProvinces = Array.from(new Set(properties.map(p => p.location.province)));
 
   // Función para obtener texto del estado
   const getStatusText = (status: string) => {

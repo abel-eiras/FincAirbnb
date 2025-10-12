@@ -287,3 +287,30 @@ function saveToLocalStorage(key: string, data: any): void {
   }
 }
 
+/**
+ * Función para enviar email de recuperación de contraseña (mock)
+ */
+export async function mockSendPasswordResetEmail(email: string): Promise<{ success: boolean; message: string }> {
+  await delay(1000);
+  
+  // Simular búsqueda de usuario
+  const users = await loadMockData<User>('users');
+  const user = users.find(u => u.email === email);
+  
+  if (!user) {
+    return {
+      success: false,
+      message: 'Non se atopou ningún usuario con ese enderezo de email'
+    };
+  }
+  
+  // Simular envío de email
+  console.log(`📧 Email de recuperación enviado a: ${email}`);
+  console.log(`🔑 Token de reset: reset_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  
+  return {
+    success: true,
+    message: 'Se enviou un email con as instrucións para restablecer a túa contrasinal'
+  };
+}
+

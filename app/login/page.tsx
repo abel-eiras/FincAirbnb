@@ -18,7 +18,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthForm, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { LoginCredentials } from '@/types/auth';
+import type { LoginData } from '@/shared/types';
 
 export default function LoginPage() {
   const { login, isAuthenticated, isLoading, isInitialized, error, clearError } = useAuth();
@@ -44,11 +44,11 @@ export default function LoginPage() {
   }, [clearError]);
 
   // Manejar el envío del formulario
-  const handleLogin = async (data: LoginCredentials) => {
+  const handleLogin = async (data: LoginData) => {
     try {
       await login({
         ...data,
-        rememberMe,
+        remember: rememberMe,
       });
       
       // La redirección se maneja en el useEffect

@@ -25,8 +25,8 @@ export function HeroSection() {
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Queres sentirte{' '}
               <span className="text-galician-blue">labrego</span>{' '}
-              sen saír de{' '}
-              <span className="text-pink-500">Instagram</span>?
+              sen esperar a {' '}
+              <span className="text-pink-500">herdar</span>?
             </h1>
 
             <p className="text-xl text-gray-600 max-w-2xl">

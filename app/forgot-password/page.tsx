@@ -22,8 +22,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LoadingSpinner, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
-import { mockSendPasswordResetEmail } from '@/lib/auth-mock';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
+import { mockSendPasswordResetEmail } from '@/services/mockAuth';
 import { cn } from '@/lib/utils';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 
@@ -74,7 +75,7 @@ export default function ForgotPasswordPage() {
         setEmail(data.email);
         setIsEmailSent(true);
       } else {
-        setError(response.error?.message || 'Erro ao enviar o email');
+        setError(response.message || 'Erro ao enviar o email');
       }
     } catch (err) {
       setError('Erro de conexión. Téntao de novo.');

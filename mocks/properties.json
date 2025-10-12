@@ -56,14 +56,14 @@
     "photos": [
       {
         "id": "photo-1-1",
-        "url": "/properties/finca-val-1.jpg",
+        "url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop",
         "isPrimary": true,
         "caption": "Vista exterior da casa",
         "order": 1
       },
       {
         "id": "photo-1-2",
-        "url": "/properties/finca-val-2.jpg",
+        "url": "https://images.unsplash.com/photo-1574263867126-0e3b3b3b3b3b?w=800&h=600&fit=crop",
         "isPrimary": false,
         "caption": "Salón con lareira",
         "order": 2

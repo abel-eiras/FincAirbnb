@@ -39,7 +39,7 @@ To create a digital experience that brings urban dwellers to the Galician countr
 - Access analytics and reports
 - Manage subscription
 
-### 2. Guests (Hóspedes)
+### 2. Guests (Labregos/Labregas)
 - Search and discover properties
 - Make bookings
 - Leave reviews
@@ -488,7 +488,7 @@ For questions about:
 
 ## 🔄 Version History
 
-- **v0.1.0** (October 2024) - Initial documentation structure
+- **v0.1.0** (October 2025) - Initial documentation structure
 - **Current Phase**: Authentication & Dashboard (Phase 1)
 
 ---

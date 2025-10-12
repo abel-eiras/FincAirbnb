@@ -58,7 +58,12 @@ export async function createReview(data: CreateReviewData): Promise<Review> {
   
   const newReview: Review = {
     id: generateId('rev'),
+    reviewerId: data.revieweeId || generateId('user'),
     ...data,
+    photos: data.photos?.map(photo => ({
+      ...photo,
+      id: generateId('photo')
+    })),
     response: undefined,
     status: 'published', // En mock, publicar inmediatamente
     verified: true,

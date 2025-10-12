@@ -128,7 +128,7 @@ export function UserMenu() {
             onClick={() => setIsOpen(false)}
           >
             <Tractor className="h-4 w-4 mr-3 text-galician-blue" />
-            <span>Dashboard</span>
+            <span>Taboleiro</span>
           </Link>
         </DropdownMenuItem>
 

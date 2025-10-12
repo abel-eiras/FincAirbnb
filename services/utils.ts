@@ -165,7 +165,7 @@ export function simulateError(
  */
 export function formatDateGalician(isoDate: string): string {
   const date = new Date(isoDate);
-  const options: Intl.DateTimeOptions = {
+  const options: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

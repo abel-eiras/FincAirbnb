@@ -105,12 +105,12 @@ export async function getRevenueData(ownerId: string): Promise<RevenueData[]> {
   
   // Datos mock realistas para los últimos 6 meses
   const months = [
-    { name: 'Mai', revenue: 4200, bookings: 7, avgPrice: 600 },
-    { name: 'Xuñ', revenue: 3800, bookings: 6, avgPrice: 633 },
-    { name: 'Xul', revenue: 5600, bookings: 9, avgPrice: 622 },
-    { name: 'Ago', revenue: 6100, bookings: 10, avgPrice: 610 },
-    { name: 'Set', revenue: 4800, bookings: 8, avgPrice: 600 },
-    { name: 'Out', revenue: 4500, bookings: 8, avgPrice: 563 },
+    { month: 'Mai', revenue: 4200, bookings: 7, averagePrice: 600 },
+    { month: 'Xuñ', revenue: 3800, bookings: 6, averagePrice: 633 },
+    { month: 'Xul', revenue: 5600, bookings: 9, averagePrice: 622 },
+    { month: 'Ago', revenue: 6100, bookings: 10, averagePrice: 610 },
+    { month: 'Set', revenue: 4800, bookings: 8, averagePrice: 600 },
+    { month: 'Out', revenue: 4500, bookings: 8, averagePrice: 563 },
   ];
   
   return months;
@@ -127,18 +127,18 @@ export async function getOccupancyData(ownerId: string): Promise<OccupancyData[]
   
   // Datos mock realistas para los últimos 12 meses
   const months = [
-    { name: 'Nov 2023', rate: 45, available: 22, booked: 18 },
-    { name: 'Dec 2023', rate: 35, available: 20, booked: 14 },
-    { name: 'Xan 2024', rate: 25, available: 31, booked: 12 },
-    { name: 'Feb 2024', rate: 40, available: 28, booked: 16 },
-    { name: 'Mar 2024', rate: 55, available: 31, booked: 22 },
-    { name: 'Abr 2024', rate: 70, available: 30, booked: 28 },
-    { name: 'Mai 2024', rate: 75, available: 31, booked: 25 },
-    { name: 'Xuñ 2024', rate: 80, available: 30, booked: 26 },
-    { name: 'Xul 2024', rate: 85, available: 31, booked: 28 },
-    { name: 'Ago 2024', rate: 90, available: 31, booked: 30 },
-    { name: 'Set 2024', rate: 75, available: 30, booked: 25 },
-    { name: 'Out 2024', rate: 70, available: 31, booked: 22 },
+    { month: 'Nov 2023', occupancyRate: 45, availableDays: 22, bookedDays: 18 },
+    { month: 'Dec 2023', occupancyRate: 35, availableDays: 20, bookedDays: 14 },
+    { month: 'Xan 2024', occupancyRate: 25, availableDays: 31, bookedDays: 12 },
+    { month: 'Feb 2024', occupancyRate: 40, availableDays: 28, bookedDays: 16 },
+    { month: 'Mar 2024', occupancyRate: 55, availableDays: 31, bookedDays: 22 },
+    { month: 'Abr 2024', occupancyRate: 70, availableDays: 30, bookedDays: 28 },
+    { month: 'Mai 2024', occupancyRate: 75, availableDays: 31, bookedDays: 25 },
+    { month: 'Xuñ 2024', occupancyRate: 80, availableDays: 30, bookedDays: 26 },
+    { month: 'Xul 2024', occupancyRate: 85, availableDays: 31, bookedDays: 28 },
+    { month: 'Ago 2024', occupancyRate: 90, availableDays: 31, bookedDays: 30 },
+    { month: 'Set 2024', occupancyRate: 75, availableDays: 30, bookedDays: 25 },
+    { month: 'Out 2024', occupancyRate: 70, availableDays: 31, bookedDays: 22 },
   ];
   
   return months;
@@ -155,18 +155,18 @@ export async function getBookingsData(ownerId: string): Promise<BookingsData[]> 
   
   // Datos mock realistas para los últimos 12 meses
   const months = [
-    { name: 'Nov 2023', total: 15, confirmed: 12, cancelled: 3 },
-    { name: 'Dec 2023', total: 12, confirmed: 10, cancelled: 2 },
-    { name: 'Xan 2024', total: 8, confirmed: 7, cancelled: 1 },
-    { name: 'Feb 2024', total: 14, confirmed: 12, cancelled: 2 },
-    { name: 'Mar 2024', total: 18, confirmed: 16, cancelled: 2 },
-    { name: 'Abr 2024', total: 22, confirmed: 20, cancelled: 2 },
-    { name: 'Mai 2024', total: 25, confirmed: 23, cancelled: 2 },
-    { name: 'Xuñ 2024', total: 28, confirmed: 26, cancelled: 2 },
-    { name: 'Xul 2024', total: 30, confirmed: 28, cancelled: 2 },
-    { name: 'Ago 2024', total: 32, confirmed: 30, cancelled: 2 },
-    { name: 'Set 2024', total: 26, confirmed: 24, cancelled: 2 },
-    { name: 'Out 2024', total: 24, confirmed: 22, cancelled: 2 },
+    { month: 'Nov 2023', totalBookings: 15, confirmedBookings: 12, cancelledBookings: 3 },
+    { month: 'Dec 2023', totalBookings: 12, confirmedBookings: 10, cancelledBookings: 2 },
+    { month: 'Xan 2024', totalBookings: 8, confirmedBookings: 7, cancelledBookings: 1 },
+    { month: 'Feb 2024', totalBookings: 14, confirmedBookings: 12, cancelledBookings: 2 },
+    { month: 'Mar 2024', totalBookings: 18, confirmedBookings: 16, cancelledBookings: 2 },
+    { month: 'Abr 2024', totalBookings: 22, confirmedBookings: 20, cancelledBookings: 2 },
+    { month: 'Mai 2024', totalBookings: 25, confirmedBookings: 23, cancelledBookings: 2 },
+    { month: 'Xuñ 2024', totalBookings: 28, confirmedBookings: 26, cancelledBookings: 2 },
+    { month: 'Xul 2024', totalBookings: 30, confirmedBookings: 28, cancelledBookings: 2 },
+    { month: 'Ago 2024', totalBookings: 32, confirmedBookings: 30, cancelledBookings: 2 },
+    { month: 'Set 2024', totalBookings: 26, confirmedBookings: 24, cancelledBookings: 2 },
+    { month: 'Out 2024', totalBookings: 24, confirmedBookings: 22, cancelledBookings: 2 },
   ];
   
   return months;

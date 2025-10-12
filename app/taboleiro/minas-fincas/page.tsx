@@ -75,13 +75,27 @@ export default function MinasFincasPage() {
     setFilteredProperties(filtered);
   };
 
+  // Manejar acciones de las propiedades
+  const handleEditProperty = (propertyId: string) => {
+    router.push(`/taboleiro/fincas/${propertyId}/editar`);
+  };
+
+  const handleViewProperty = (propertyId: string) => {
+    // TODO: Implementar página de vista detallada
+    console.log('Ver propiedad:', propertyId);
+  };
+
+  const handleCalendarProperty = (propertyId: string) => {
+    router.push(`/taboleiro/fincas/${propertyId}/calendario`);
+  };
+
   // Estadísticas rápidas
   const stats = {
     total: properties.length,
     active: properties.filter(p => p.status === 'active').length,
     inactive: properties.filter(p => p.status === 'inactive').length,
-    totalRevenue: properties.reduce((sum, p) => sum + (p.stats?.totalRevenue || 0), 0),
-    totalBookings: properties.reduce((sum, p) => sum + (p.stats?.totalBookings || 0), 0),
+    totalRevenue: 0, // TODO: Implementar cuando tengamos datos de revenue
+    totalBookings: 0, // TODO: Implementar cuando tengamos datos de bookings
   };
 
   if (!user || user.role !== 'owner') {
@@ -121,13 +135,10 @@ export default function MinasFincasPage() {
               </div>
               
               <div className="flex items-center space-x-3">
-                <Button 
-                  className="bg-galician-blue hover:bg-blue-700"
-                  onClick={() => {
-                    // TODO: Navegar a crear propiedad
-                    console.log('Crear nova propiedade');
-                  }}
-                >
+              <Button 
+                className="bg-galician-blue hover:bg-blue-700"
+                onClick={() => router.push('/taboleiro/fincas/crear')}
+              >
                   <Plus className="h-4 w-4 mr-2" />
                   Nova Finca
                 </Button>
@@ -264,15 +275,9 @@ export default function MinasFincasPage() {
             properties={filteredProperties}
             isLoading={isLoading}
             viewMode={viewMode}
-            onEdit={(propertyId) => {
-              console.log('Editar propiedade:', propertyId);
-            }}
-            onView={(propertyId) => {
-              console.log('Ver propiedade:', propertyId);
-            }}
-            onCalendar={(propertyId) => {
-              console.log('Calendario de propiedade:', propertyId);
-            }}
+            onEdit={handleEditProperty}
+            onView={handleViewProperty}
+            onCalendar={handleCalendarProperty}
           />
         </div>
       </div>

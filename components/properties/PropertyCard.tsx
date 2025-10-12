@@ -21,10 +21,12 @@ import {
   Edit, 
   MoreVertical,
   Image as ImageIcon,
+  Ruler,
   Clock,
   TrendingUp
 } from 'lucide-react';
 import { translatePropertyType } from '@/lib/translations';
+import { SingleAreaConversion } from './AreaConversions';
 import type { Property } from '@/shared/types';
 
 interface PropertyCardProps {
@@ -39,15 +41,13 @@ interface PropertyCardProps {
  */
 export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyCardProps) {
   // Obtener la imagen principal
-  const mainImage = property.photos?.[0] || '/images/placeholder-property.jpg';
+  const mainImageUrl = property.photos?.[0]?.url || '/images/placeholder-property.jpg';
   
   // Calcular estadísticas con verificaciones robustas
-  const stats = property.stats || {};
-  const totalBookings = stats.totalBookings || 0;
-  const occupiedDays = stats.occupiedDays || 0;
-  const occupancyRate = totalBookings > 0 && occupiedDays > 0
-    ? Math.round((occupiedDays / (totalBookings * 3)) * 100) 
-    : 0;
+  // TODO: Implementar estadísticas reales cuando estén disponibles
+  const totalBookings = 0; // Por ahora usamos valores mock
+  const occupiedDays = 0;
+  const occupancyRate = 0;
 
   // Determinar color del badge de estado
   const getStatusBadge = () => {
@@ -83,7 +83,7 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
       <div className="relative h-48 bg-gray-100">
         {property.photos && property.photos.length > 0 ? (
           <img
-            src={mainImage}
+            src={mainImageUrl}
             alt={property.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
@@ -103,7 +103,7 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
         {/* Badge de tipo */}
         <div className="absolute top-3 right-3">
           <Badge variant="secondary" className="bg-white/90 text-gray-700">
-            {translatePropertyType(property.type)}
+            {translatePropertyType(property.propertyType)}
           </Badge>
         </div>
 
@@ -136,9 +136,9 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
             <div className="flex items-center justify-center text-galician-blue mb-1">
               <Euro className="h-4 w-4" />
             </div>
-            <p className="text-xs text-gray-600">Prezo/noche</p>
+            <p className="text-xs text-gray-600">Prezo/mes</p>
             <p className="font-semibold text-sm">
-              {property.pricePerNight ? property.pricePerNight.toLocaleString('es-ES') : 'N/A'}€
+              {property.pricing?.basePrice ? property.pricing.basePrice.toLocaleString('es-ES') : 'N/A'}€
             </p>
           </div>
           
@@ -148,7 +148,7 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
             </div>
             <p className="text-xs text-gray-600">Reservas</p>
             <p className="font-semibold text-sm">
-              {stats.totalBookings || 0}
+              {totalBookings}
             </p>
           </div>
           
@@ -158,7 +158,7 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
             </div>
             <p className="text-xs text-gray-600">Valoración</p>
             <p className="font-semibold text-sm">
-              {stats.averageRating ? stats.averageRating.toFixed(1) : 'N/A'}
+              N/A
             </p>
           </div>
         </div>
@@ -167,13 +167,55 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
         <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
           <div className="flex items-center">
             <Users className="h-3 w-3 mr-1" />
-            <span>Capacidade: {property.maxGuests || 'N/A'}</span>
+            <span>Capacidade: {property.size?.capacity || 'N/A'}</span>
           </div>
           <div className="flex items-center">
             <TrendingUp className="h-3 w-3 mr-1" />
             <span>Ocupación: {occupancyRate}%</span>
           </div>
         </div>
+
+        {/* Superficie con conversiones */}
+        {property.size?.land && property.size.land > 0 && (
+          <div className="mb-4 p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center text-xs text-gray-600 mb-1">
+              <Ruler className="h-3 w-3 mr-1" />
+              <span>Superficie:</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="text-center">
+                <div className="font-medium text-blue-700">
+                  {property.size.land.toLocaleString('es-ES')} ha
+                </div>
+                <div className="text-blue-600">Hectáreas</div>
+              </div>
+              <div className="text-center">
+                <div className="font-medium text-green-700">
+                  <SingleAreaConversion
+                    value={property.size.land}
+                    fromUnit="hectareas"
+                    toUnit="metros_cuadrados"
+                    provincia={property.location?.province}
+                    municipio={property.location?.city}
+                  />
+                </div>
+                <div className="text-green-600">m²</div>
+              </div>
+              <div className="text-center">
+                <div className="font-medium text-orange-700">
+                  <SingleAreaConversion
+                    value={property.size.land}
+                    fromUnit="hectareas"
+                    toUnit="ferrados"
+                    provincia={property.location?.province}
+                    municipio={property.location?.city}
+                  />
+                </div>
+                <div className="text-orange-600">Ferrados</div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Acciones */}
         <div className="flex space-x-2">

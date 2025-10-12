@@ -19,7 +19,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { LoadingSpinner, AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
 import type { RegisterData } from '@/shared/types';
 import { cn } from '@/lib/utils';
 
@@ -97,7 +98,6 @@ export default function RexistroPage() {
         confirmPassword: data.confirmPassword,
         phone: data.phone,
         acceptTerms: data.acceptTerms,
-        newsletter: data.newsletter,
       };
 
       await registerUser(registerData);

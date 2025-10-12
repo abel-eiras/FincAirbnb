@@ -48,8 +48,8 @@ interface PropertyListItemProps {
 }
 
 function PropertyListItem({ property, onEdit, onView, onCalendar }: PropertyListItemProps) {
-  const stats = property.stats || {};
-  const mainImage = property.photos?.[0] || '/images/placeholder-property.jpg';
+  // TODO: Implementar estadísticas reales cuando estén disponibles
+  const mainImage = property.photos?.[0]?.url || '/images/placeholder-property.jpg';
 
   const getStatusBadge = () => {
     switch (property.status) {
@@ -115,19 +115,19 @@ function PropertyListItem({ property, onEdit, onView, onCalendar }: PropertyList
             <div className="flex items-center space-x-6 text-sm">
               <div className="flex items-center text-galician-blue">
                 <Euro className="h-4 w-4 mr-1" />
-                <span className="font-medium">{property.pricePerNight.toLocaleString('es-ES')}€/noite</span>
+                <span className="font-medium">{property.pricing?.basePrice?.toLocaleString('es-ES') || 'N/A'}€/mes</span>
               </div>
               <div className="flex items-center text-galician-green">
                 <Calendar className="h-4 w-4 mr-1" />
-                <span>{stats.totalBookings || 0} reservas</span>
+                <span>0 reservas</span>
               </div>
               <div className="flex items-center text-purple-600">
                 <Star className="h-4 w-4 mr-1" />
-                <span>{stats.averageRating ? stats.averageRating.toFixed(1) : 'N/A'}</span>
+                <span>N/A</span>
               </div>
               <div className="flex items-center text-gray-600">
                 <Users className="h-4 w-4 mr-1" />
-                <span>{property.maxGuests} persoas</span>
+                <span>{property.size?.capacity || 'N/A'} persoas</span>
               </div>
             </div>
           </div>
