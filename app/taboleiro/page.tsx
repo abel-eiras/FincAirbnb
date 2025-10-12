@@ -26,6 +26,8 @@ import { LabregoDashboard } from '@/components/dashboard/labrego/LabregoDashboar
 import { ProximasFincas } from '@/components/dashboard/labrego/ProximasFincas';
 import { FincasFavoritas } from '@/components/dashboard/labrego/FincasFavoritas';
 import { AvaliacionsPendentes } from '@/components/dashboard/labrego/AvaliacionsPendentes';
+import { NotificationsBell } from '@/components/NotificationsBell';
+import { MessagesIcon } from '@/components/MessagesIcon';
 import { 
   getOwnerStats, 
   getRevenueData, 
@@ -100,13 +102,17 @@ export default function TaboleiroPage() {
                     : 'As túas reservas e favoritas'}
                 </p>
               </div>
-              <Button
-                onClick={logout}
-                variant="outline"
-                className="border-red-300 text-red-600 hover:bg-red-50"
-              >
-                Pechar sesión
-              </Button>
+              <div className="flex items-center space-x-3">
+                {user && <MessagesIcon user={user} />}
+                {user && <NotificationsBell user={user} />}
+                <Button
+                  onClick={logout}
+                  variant="outline"
+                  className="border-red-300 text-red-600 hover:bg-red-50"
+                >
+                  Pechar sesión
+                </Button>
+              </div>
             </div>
           </div>
         </div>

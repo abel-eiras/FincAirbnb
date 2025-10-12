@@ -38,13 +38,13 @@ export function ProtectedRoute({
   useEffect(() => {
     // Solo redirigir si no está cargando y no está autenticado
     // Y solo en el cliente para evitar problemas de hidratación
-    if (typeof window !== 'undefined' && !isLoading && !isAuthenticated()) {
+    if (typeof window !== 'undefined' && isInitialized && !isLoading && !isAuthenticated()) {
       // Añadir la ruta actual como parámetro de redirección
       const currentPath = window.location.pathname;
       const redirectUrl = `${redirectTo}?redirect=${encodeURIComponent(currentPath)}`;
       router.push(redirectUrl);
     }
-  }, [isLoading, isAuthenticated, router, redirectTo]);
+  }, [isInitialized, isLoading, isAuthenticated, router, redirectTo]);
 
   // Mostrar spinner solo si está cargando Y no se ha inicializado
   if (isLoading && !isInitialized) {

@@ -37,18 +37,9 @@ const authRoutes = [
 // Esta es una versión simplificada para el middleware
 function isValidToken(token: string): boolean {
   try {
-    // Verificación básica del formato JWT
-    const parts = token.split('.');
-    if (parts.length !== 3) return false;
-
-    // Decodificar el payload
-    const payload = JSON.parse(atob(parts[1]));
-    
-    // Verificar expiración
-    const now = Date.now();
-    if (payload.exp && payload.exp < now) return false;
-
-    return true;
+    // Para el sistema mock, simplemente verificar que existe
+    // En producción esto sería una verificación JWT real
+    return Boolean(token && token.length > 0);
   } catch {
     return false;
   }
@@ -67,10 +58,19 @@ function isAuthRoute(pathname: string): boolean {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
+  // TEMPORALMENTE DESHABILITADO para evitar bucles de redirección
+  // con el sistema mock que usa localStorage
+  // En producción, esto se habilitaría con cookies httpOnly
+  
   // Obtener el token de las cookies o headers
   // En un proyecto real, esto vendría de cookies httpOnly
   const token = request.cookies.get('fincairbnb_token')?.value;
 
+  // Por ahora, solo permitir todas las rutas
+  // La protección se maneja a nivel de componente con ProtectedRoute
+  return NextResponse.next();
+
+  /* CÓDIGO ORIGINAL COMENTADO PARA REFERENCIA:
   // Verificar si la ruta está protegida
   if (isProtectedRoute(pathname)) {
     // Si no hay token o es inválido, redirigir a /acceder (login en gallego)
@@ -90,6 +90,7 @@ export function middleware(request: NextRequest) {
 
   // Si todo está bien, continuar con la petición
   return NextResponse.next();
+  */
 }
 
 // Configuración del middleware

@@ -50,15 +50,15 @@ const quickActions = [
   },
   {
     id: 'manage-bookings',
-    title: 'Xestionar Reservas',
-    description: 'Ver e xestionar todas as reservas',
+    title: 'Alugamentos Recibidos',
+    description: 'Ver e xestionar solicitudes de alugamento',
     icon: <FileText className="h-6 w-6" />,
     color: 'bg-purple-600 hover:bg-purple-700',
-    href: '/taboleiro/reservas'
+    href: '/taboleiro/alugamentos-recibidos'
   },
   {
     id: 'respond-messages',
-    title: 'Responder Mensaxes',
+    title: 'Mensaxes',
     description: 'Ver e responder mensaxes dos labregos',
     icon: <MessageSquare className="h-6 w-6" />,
     color: 'bg-indigo-600 hover:bg-indigo-700',
@@ -109,10 +109,10 @@ const secondaryActions = [
   },
   {
     id: 'booking-history',
-    title: 'Historial de Reservas',
-    description: 'Ver todas as reservas pasadas',
+    title: 'Historial de Alugamentos',
+    description: 'Ver todas as solicitudes pasadas',
     icon: <Clock className="h-5 w-5" />,
-    href: '/taboleiro/historial'
+    href: '/taboleiro/alugamentos-recibidos'
   }
 ];
 

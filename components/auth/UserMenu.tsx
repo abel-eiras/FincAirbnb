@@ -31,7 +31,9 @@ import {
   Settings, 
   LogOut, 
   ChevronDown,
-  Tractor 
+  Tractor,
+  Home,
+  MessageCircle
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -131,6 +133,45 @@ export function UserMenu() {
             <span>Taboleiro</span>
           </Link>
         </DropdownMenuItem>
+
+        {/* Menú específico según el rol */}
+        {user.role === 'owner' && (
+          <>
+            <DropdownMenuItem asChild>
+              <Link 
+                href="/taboleiro/minas-fincas" 
+                className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
+              >
+                <Home className="h-4 w-4 mr-3 text-galician-green" />
+                <span>As Miñas Fincas</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link 
+                href="/taboleiro/alugamentos-recibidos" 
+                className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
+              >
+                <MessageCircle className="h-4 w-4 mr-3 text-galician-blue" />
+                <span>Alugamentos Recibidos</span>
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
+        
+        {user.role === 'guest' && (
+          <DropdownMenuItem asChild>
+            <Link 
+              href="/taboleiro/mos-alugamentos" 
+              className="flex items-center px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              <MessageCircle className="h-4 w-4 mr-3 text-galician-blue" />
+              <span>Os Meus Alugamentos</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
 
         {/* Enlace al perfil */}
         <DropdownMenuItem asChild>

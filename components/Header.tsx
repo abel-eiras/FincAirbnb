@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { UserMenu } from '@/components/auth/UserMenu';
 import { AuthButtons } from '@/components/auth/AuthButtons';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ClientOnly } from '@/components/ui/ClientOnly';
 import Link from 'next/link';
 
 export function Header() {
@@ -35,18 +36,20 @@ export function Header() {
             </a>
           </nav>
 
-          {/* Área de autenticación */}
+          {/* Área de autenticación - Solo en cliente */}
           <div className="flex items-center space-x-4">
-            {isLoading ? (
-              // Mostrar spinner mientras carga el estado de autenticación
-              <LoadingSpinner size="sm" color="primary" />
-            ) : isAuthenticated() ? (
-              // Mostrar menú de usuario si está autenticado
-              <UserMenu />
-            ) : (
-              // Mostrar botones de login/registro si no está autenticado
-              <AuthButtons />
-            )}
+            <ClientOnly fallback={<div className="w-20 h-8" />}>
+              {isLoading ? (
+                // Mostrar spinner mientras carga el estado de autenticación
+                <LoadingSpinner size="sm" color="primary" />
+              ) : isAuthenticated() ? (
+                // Mostrar menú de usuario si está autenticado
+                <UserMenu />
+              ) : (
+                // Mostrar botones de login/registro si no está autenticado
+                <AuthButtons />
+              )}
+            </ClientOnly>
           </div>
         </div>
       </div>

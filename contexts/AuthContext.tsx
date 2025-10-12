@@ -46,7 +46,7 @@ interface AuthContextType {
 // Estado inicial del contexto
 const initialState = {
   session: null,
-  isLoading: false, // Empezamos sin cargar para evitar problemas de SSR
+  isLoading: true, // Empezamos cargando para evitar problemas de SSR
   error: null,
   isInitialized: false, // Flag para saber si ya se inicializó
 };
@@ -139,7 +139,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Solo inicializar en el cliente para evitar problemas de hidratación
     if (typeof window !== 'undefined') {
-      dispatch({ type: 'INITIALIZED' });
+      try {
+        // Intentar recuperar sesión existente
+        if (hasActiveSession()) {
+          const user = getStoredUser();
+          const token = localStorage.getItem('fincairbnb_token');
+          
+          if (user && token) {
+            const session: AuthSession = {
+              user,
+              token,
+              expiresAt: Date.now() + (24 * 60 * 60 * 1000),
+              isAuthenticated: true,
+            };
+            dispatch({ type: 'SET_SESSION', payload: session });
+          }
+        }
+        
+        // Marcar como inicializado
+        dispatch({ type: 'INITIALIZED' });
+      } catch (error) {
+        console.error('Error al inicializar sesión:', error);
+        dispatch({ type: 'INITIALIZED' });
+      }
     }
   }, []);
 
@@ -286,11 +308,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ClientOnly fallback={<div>Loading...</div>}>
-      <AuthContext.Provider value={contextValue}>
-        {children}
-      </AuthContext.Provider>
-    </ClientOnly>
+    <AuthContext.Provider value={contextValue}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { getProperty } from '@/services/mockProperties';
 import { PhotoGallery } from '@/components/fincas/PhotoGallery';
+import { FincaBookingWidget } from '@/components/booking/FincaBookingWidget';
 import type { Property } from '@/shared/types';
 
 export default function FincaDetailPage() {
@@ -344,64 +345,7 @@ export default function FincaDetailPage() {
 
           {/* Columna lateral - Booking Widget */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-6">
-              <CardContent className="p-6">
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-galician-blue mb-2">
-                    {property.pricing?.basePrice || 0}€
-                  </div>
-                  <div className="text-gray-600">por mes</div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Data de inicio
-                    </label>
-                    <input
-                      type="date"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Duración (meses)
-                    </label>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2">
-                      <option value="1">1 mes</option>
-                      <option value="3">3 meses</option>
-                      <option value="6">6 meses</option>
-                      <option value="12">12 meses</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Número de persoas
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      max={property.size?.capacity || 10}
-                      defaultValue="1"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2"
-                    />
-                  </div>
-
-                  <Button 
-                    className="w-full bg-galician-blue hover:bg-blue-700 py-3"
-                    size="lg"
-                  >
-                    Solicitar Alugamento
-                  </Button>
-
-                  <p className="text-xs text-gray-500 text-center">
-                    Non se cobra ata confirmar o alugamento
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <FincaBookingWidget property={property} />
           </div>
 
         </div>
