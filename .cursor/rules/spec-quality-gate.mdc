@@ -1,0 +1,16 @@
+---
+description: Puerta de calidad para cambios con impacto funcional
+globs: **/*.{ts,tsx,md}
+alwaysApply: false
+---
+
+# Spec Quality Gate
+
+Para cambios funcionales, comprobar:
+
+- Existe spec en estado `approved` o `implemented`.
+- Criterios de aceptación explícitos y verificables.
+- Edge cases cubiertos.
+- Referencia cruzada en `traceability.md`.
+
+Si faltan estos elementos, no cerrar implementación como terminada.

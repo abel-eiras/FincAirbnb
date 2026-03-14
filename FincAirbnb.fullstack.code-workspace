@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "name": "FincAirbnb Frontend",
+      "path": "."
+    },
+    {
+      "name": "FincAirbnb Backend",
+      "path": "../FincAirbnb_backend"
+    }
+  ],
+  "settings": {
+    "terminal.integrated.cwd": "${workspaceFolder:FincAirbnb Frontend}",
+    "files.exclude": {
+      "**/dist": true,
+      "**/node_modules": true
+    }
+  }
+}

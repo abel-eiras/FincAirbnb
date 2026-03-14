@@ -1,0 +1,18 @@
+---
+description: Flujo obligatorio Spec-Driven Development
+alwaysApply: true
+---
+
+# SDD Workflow
+
+Antes de implementar cualquier cambio funcional:
+
+1. Crear o actualizar spec en `specs/features/.../spec.md`.
+2. Definir casos en `test-cases.md`.
+3. Completar `traceability.md` enlazando requisito -> código -> test.
+4. Solo después de aprobación, implementar código.
+
+Antes de cerrar una tarea:
+
+- Verificar que la spec cambió junto con el código.
+- Verificar que no hay cambios funcionales sin trazabilidad.

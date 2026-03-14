@@ -2,8 +2,8 @@
 
 ## 🎯 **Estado General**
 - **Última actualización**: 27 de enero de 2025
-- **Hito actual**: Milestone 03 ✅ COMPLETADO
-- **Próximo hito**: Milestone 04 - Dashboard del Cliente
+- **Hito actual**: Milestone 09 ✅ COMPLETADO
+- **Próximo hito**: Milestone 10 - Perfiles + Configuración
 
 ---
 
@@ -35,6 +35,50 @@
 - Calendario de disponibilidad
 - Selectores de ubicación (provincia/municipio)
 - Sistema de equivalencias ferrados por municipio
+
+### **Milestone 04: Dashboard Labrego** ✅
+- Dashboard específico para labregos/labregas
+- Próximas fincas para cultivar
+- Sistema de fincas favoritas
+- Avaliacións pendentes con retranca gallega
+- Estatísticas de cultivo e gastos
+- Copy fresco e divertido en galego
+
+### **Milestone 05: Catálogo + Búsqueda** ✅
+- Catálogo público de fincas
+- Sistema de búsqueda avanzada
+- Filtros por ubicación, precio, características
+- Paginación y ordenación
+- PropertyCard público con rating
+
+### **Milestone 06: Detalle de Propiedad** ✅
+- Vista completa de propiedad
+- Galería de fotos con lightbox
+- Reviews integradas
+- Booking widget sticky
+- Propiedades similares
+
+### **Milestone 07: Sistema de Alugamentos** ✅
+- Flujo completo de alugamento
+- Selector de fechas y duración
+- Cálculo automático de precios
+- Confirmación de alugamento
+- Gestión de alugamentos (propietario)
+
+### **Milestone 08: Sistema de Reviews** ✅
+- Formulario de valoración completo
+- Visualización de reviews con filtros
+- Sistema de respuestas para propietarios
+- Rating breakdown con estadísticas
+- Valoraciones útiles (helpful votes)
+
+### **Milestone 09: Sistema de Mensaxería** ✅
+- Sistema de plantillas para propietarios
+- Gestión completa de plantillas (CRUD)
+- Variables dinámicas en plantillas
+- Selector de plantillas integrado en chat
+- Búsqueda y filtros avanzados
+- Plantillas por defecto del sistema
 
 ---
 
@@ -123,30 +167,26 @@ FincAirbnb/
 
 ## 🎯 **Próximos Pasos**
 
-### **Milestone 04: Dashboard del Cliente**
-- Dashboard específico para huéspedes
-- Mis reservas (próximas, pasadas, canceladas)
-- Propiedades favoritas
-- Reviews pendientes
-- Gestión de perfil de huésped
-
-### **Milestone 05: Catálogo y Búsqueda**
-- Listado público de propiedades
-- Sistema de búsqueda avanzada
-- Filtros por ubicación, precio, características
-- Paginación y ordenación
-- Vista de mapa (opcional)
+### **Milestone 10: Perfiles + Configuración**
+- Perfil público de usuario (propietario/huésped)
+- Edición de perfil completo
+- Configuración de cuenta (email, contraseña, 2FA)
+- Configuración de notificaciones
+- Configuración de privacidad
+- Gestión de suscripción (propietarios)
+- Eliminar cuenta con confirmación
 
 ---
 
 ## 📊 **Métricas del Proyecto**
 
-- **Archivos de código**: ~150 archivos
-- **Líneas de código**: ~15,000 líneas
-- **Componentes React**: ~80 componentes
-- **Tipos TypeScript**: ~25 interfaces
-- **Servicios mock**: 6 servicios
-- **Rutas**: 15+ rutas implementadas
+- **Archivos de código**: ~170 archivos
+- **Líneas de código**: ~18,000 líneas
+- **Componentes React**: ~90 componentes
+- **Tipos TypeScript**: ~30 interfaces
+- **Servicios mock**: 8 servicios
+- **Rutas**: 20+ rutas implementadas
+- **Milestones completados**: 9/10 (90%)
 
 ---
 
@@ -188,6 +228,6 @@ FincAirbnb/
 
 ---
 
-**Estado**: ✅ **PROYECTO EN EXCELENTE ESTADO**  
-**Próximo**: Milestone 04 - Dashboard del Cliente  
-**Timeline**: En progreso según roadmap
+**Estado**: ✅ **PROYECTO EN EXCELENTE ESTADO - 90% COMPLETADO**  
+**Próximo**: Milestone 10 - Perfiles + Configuración  
+**Timeline**: Casi listo para backend - Solo queda 1 milestone

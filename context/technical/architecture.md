@@ -2,7 +2,7 @@
 
 ## Overview
 
-FincAirbnb is built as a modern, scalable web application using Next.js 13 with the App Router. The current architecture supports Phase 1 (Authentication & Dashboard) with mock data, designed to evolve into a full-stack application with real backend services.
+FincAirbnb is built as a modern web application with a separated architecture: frontend in `D:/Webs/FincAirbnb` (Next.js App Router) and backend in `D:/Webs/FincAirbnb_backend` (Express + MongoDB). The current architecture supports mock data fallback while progressively migrating to external API services.
 
 ---
 
@@ -32,19 +32,19 @@ FincAirbnb is built as a modern, scalable web application using Next.js 13 with 
 ```
 ┌────────────────────┐      ┌──────────────────────┐
 │   Client Browser   │◄────►│  Next.js App         │
-└────────────────────┘      │  (SSR + API Routes)  │
+└────────────────────┘      │  (SSR + App Router)  │
                             └──────────┬───────────┘
                                       │
                             ┌─────────▼───────────┐
-                            │   Backend API       │
-                            │  (REST or GraphQL)  │
+                            │ External Backend API│
+                            │ (Express REST)      │
                             └─────────┬───────────┘
                                       │
                     ┌─────────────────┼─────────────────┐
                     │                 │                 │
               ┌─────▼────┐     ┌─────▼──────┐   ┌────▼─────┐
               │ Database │     │  Storage   │   │  Queue   │
-              │(Postgres)│     │ (S3/Cloud) │   │ (Redis)  │
+              │ (MongoDB)│     │ (S3/Cloud) │   │ (Redis)  │
               └──────────┘     └────────────┘   └──────────┘
 ```
 

@@ -52,7 +52,7 @@
 FincAirbnb/
 ├── 📄 AGENTS.MD                    # Documentación para IA
 ├── 📄 ESTADO_ACTUAL.md             # Estado actual del proyecto
-├── 📄 ESTRUCTURA_PROYECTO.md       # Estructura del monorepo
+├── 📄 ESTRUCTURA_PROYECTO.md       # Estructura del repo frontend
 ├── 📄 INDICE_DOCUMENTACION.md      # Índice de documentación
 ├── 📄 README.md                    # Guía de inicio
 ├── 📄 RESUMEN_EJECUTIVO.md         # Resumen ejecutivo

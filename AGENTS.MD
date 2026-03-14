@@ -114,10 +114,8 @@ FincAirbnb/                  # Monorepo root
 │   ├── types/            # TypeScript types
 │   └── middleware.ts     # Route protection
 │
-├── 🔧 BACKEND (Future - Planned)
-│   ├── src/              # Backend source
-│   ├── prisma/           # Database ORM
-│   └── README.md         # Backend docs
+├── 🔧 BACKEND (External Repo)
+│   └── D:/Webs/FincAirbnb_backend  # Express + MongoDB backend
 │
 ├── 🤝 SHARED (Types & Constants)
 │   ├── types/            # Shared TypeScript types
@@ -415,7 +413,7 @@ Start here, then explore:
 ### Understanding the Codebase
 1. **Read this file first** (you're doing it! 👍)
 2. **Check current milestone**: `/docs/milestones/README.md` - See what's in progress
-3. **Project structure**: `/ESTRUCTURA_PROYECTO.md` - Understand monorepo organization
+3. **Project structure**: `/ESTRUCTURA_PROYECTO.md` - Understand frontend repo + external backend organization
 4. **Architecture**: `/context/technical/architecture.md` - System design
 5. **Language policy**: `/context/design/galician-language-policy.md` - CRITICAL: UI in Galician
 6. **Mock data**: `/mocks/README.md` - Understand mock data structure

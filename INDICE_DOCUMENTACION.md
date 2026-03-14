@@ -6,7 +6,7 @@
 - **`README.md`** - Guía de inicio rápido en gallego
 - **`AGENTS.MD`** - Documentación técnica completa para IA (inglés)
 - **`RESUMEN_EJECUTIVO.md`** - Resumen ejecutivo del negocio (español)
-- **`ESTRUCTURA_PROYECTO.md`** - Estructura del monorepo y convenciones
+- **`ESTRUCTURA_PROYECTO.md`** - Estructura del repo frontend y convenciones
 - **`ESTADO_ACTUAL.md`** - Estado actual del proyecto y métricas
 
 ---

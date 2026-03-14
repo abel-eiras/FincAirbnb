@@ -2,14 +2,14 @@
 
 ## Visión General
 
-FincAirbnb está organizado como un **monorepo** con frontend y backend claramente separados. Actualmente, el desarrollo se centra en el **frontend con datos mock** antes de implementar el backend real.
+FincAirbnb usa ahora una arquitectura de **repos separados**: este repositorio contiene el frontend y el backend vive en `D:/Webs/FincAirbnb_backend`.
 
 ---
 
 ## Estructura de Carpetas
 
 ```
-FincAirbnb/                      # Raíz del monorepo
+FincAirbnb/                      # Repositorio frontend
 │
 ├── 📁 FRONTEND (Actual - Next.js 13)
 │   ├── app/                     # Next.js App Router
@@ -66,22 +66,12 @@ FincAirbnb/                      # Raíz del monorepo
 │   ├── tsconfig.json
 │   └── tailwind.config.ts
 │
-├── 📁 BACKEND (Futuro)
-│   ├── src/
-│   │   ├── api/                # API routes
-│   │   ├── controllers/        # Controladores
-│   │   ├── services/           # Lógica de negocio
-│   │   ├── models/             # Modelos de datos
-│   │   ├── middleware/         # Middleware
-│   │   ├── utils/              # Utilidades
-│   │   └── server.ts           # Entry point
-│   │
-│   ├── prisma/                 # Prisma ORM
-│   │   └── schema.prisma
-│   │
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── README.md
+├── 📦 BACKEND EXTERNO (Repositorio separado)
+│   └── D:/Webs/FincAirbnb_backend
+│       ├── src/
+│       ├── scripts/
+│       ├── openapi/
+│       └── README.md
 │
 ├── 📁 SHARED (Código compartido)
 │   ├── types/                  # Types compartidos
@@ -162,7 +152,7 @@ FincAirbnb/                      # Raíz del monorepo
 - 🆕 `/mocks/` - Datos JSON mock
 - 🆕 `/services/` - Servicios que simulan API
 - 🆕 `/shared/` - Código compartido (types, constants)
-- 🆕 `/backend/` - Estructura vacía para futuro
+- Backend separado en `D:/Webs/FincAirbnb_backend`
 
 **Reorganización mínima**:
 - Mover código de `/lib/auth-mock.ts` a `/services/mockAuth.ts` (futuro)
@@ -379,14 +369,14 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_MOCK_DELAY=300  # ms
 ```
 
-### Backend (Futuro)
+### Backend (Repositorio separado)
 
 ```bash
-# backend/.env
-DATABASE_URL=postgresql://...
+# D:/Webs/FincAirbnb_backend/.env
+MONGODB_URI=mongodb://127.0.0.1:27017/fincairbnb
 JWT_SECRET=...
-STRIPE_SECRET_KEY=...
-REDSYS_SECRET_KEY=...
+PORT=4000
+CORS_ORIGIN=http://localhost:3000
 ```
 
 ---
@@ -415,12 +405,12 @@ Ver `/docs/milestones/` para detalles de cada milestone.
 
 ## Preguntas Frecuentes
 
-### ¿Por qué monorepo?
+### ¿Por qué repos separados frontend/backend?
 
-- **Simplicidad**: Todo en un lugar
-- **Aprendizaje**: Ver frontend y backend juntos
-- **Compartir código**: Types, constantes, utils
-- **Un solo repositorio Git**: Más fácil de gestionar
+- **Despliegue independiente**: cada capa tiene su ciclo de release
+- **Escalado más claro**: frontend y API evolucionan por separado
+- **Stack MERN clásico**: backend dedicado en Express + MongoDB
+- **Límites de responsabilidad**: menos acoplamiento entre capas
 
 ### ¿Cuándo empezamos con backend?
 
@@ -447,6 +437,6 @@ No, porque:
 ---
 
 **Última Actualización**: Octubre 2024  
-**Versión**: 2.0 (Reestructuración monorepo)  
+**Versión**: 2.1 (Frontend repo + backend separado)  
 **Mantenido por**: Equipo de desarrollo
 

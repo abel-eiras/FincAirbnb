@@ -166,7 +166,7 @@ Types currently in `types/auth.ts` will be moved to `shared/types/user.ts`
 When backend is implemented, these same types will be imported:
 
 ```typescript
-// backend/src/controllers/properties.ts
+// D:/Webs/FincAirbnb_backend/src/modules/properties/properties.routes.ts
 import type { Property, CreatePropertyData } from '@shared/types'
 ```
 
