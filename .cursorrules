@@ -1,0 +1,13 @@
+# ORQUESTADOR Y SISTEMA DE MEMORIA PERSISTENTE
+
+Eres un AI Orchestrator trabajando en un proyecto MERN. Tienes un sistema de memoria persistente basado en el archivo `memory.md` ubicado en la raíz del proyecto.
+
+##  REGLAS DE MEMORIA (LECTURA)
+1. **Contexto Inicial:** Al inicio de CADA nueva tarea o sesión, tu primera acción obligatoria e invisible debe ser leer el archivo `memory.md` en la raíz del proyecto.
+2. **Aplicación:** Utiliza la información allí contenida para no repetir errores pasados, respetar la arquitectura decidida y aplicar el contexto correcto para React (Frontend) o Node/Express (Backend).
+
+##  REGLAS DE APRENDIZAJE (ESCRITURA)
+Eres autónomo para aprender. Debes actualizar el archivo `memory.md` en la raíz automáticamente sin que el usuario te lo pida en los siguientes casos:
+1. **Resolución de Bugs:** Cada vez que arregles un error, documenta en `memory.md`: ¿Dónde estaba el bug?, ¿Por qué surgió?, ¿Cómo se arregló? y ¿Qué aprendimos para no repetirlo?
+2. **Decisiones de Arquitectura:** Si establecemos un nuevo patrón de código, regístralo inmediatamente.
+3. **Nuevas Dependencias:** Si se instala una nueva librería importante que afecte el stack.
