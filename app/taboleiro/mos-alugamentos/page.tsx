@@ -29,7 +29,8 @@ import {
   Eye,
   User,
   AlertTriangle,
-  Heart
+  Heart,
+  Star
 } from 'lucide-react';
 
 interface AlugamentoLabrego {
@@ -168,6 +169,16 @@ export default function MosAlugamentosPage() {
     
     // Se puede cancelar hasta 30 días antes
     return diffDays > 30;
+  };
+
+  const canReview = (alugamento: AlugamentoLabrego) => {
+    if (alugamento.status !== 'accepted') return false;
+    
+    const endDate = new Date(alugamento.startDate);
+    endDate.setMonth(endDate.getMonth() + alugamento.duration);
+    const now = new Date();
+    
+    return endDate < now; // Solo se puede valorar después de que termine
   };
 
   if (!user || user.role !== 'guest') {
@@ -477,10 +488,20 @@ export default function MosAlugamentosPage() {
                               <Button
                                 variant="outline"
                                 className="w-full"
-                                onClick={() => router.push(`/taboleiro/mensaxeria?alugamento=${alugamento.id}`)}
+                                onClick={() => router.push(`/taboleiro/mensaxes?alugamento=${alugamento.id}`)}
                               >
                                 <MessageCircle className="h-4 w-4 mr-2" />
                                 Contactar Propietario
+                              </Button>
+                            )}
+
+                            {canReview(alugamento) && (
+                              <Button
+                                className="w-full bg-yellow-500 hover:bg-yellow-600 text-white"
+                                onClick={() => router.push(`/alugamentos/${alugamento.id}/valorar`)}
+                              >
+                                <Star className="h-4 w-4 mr-2" />
+                                Valorar Finca
                               </Button>
                             )}
 

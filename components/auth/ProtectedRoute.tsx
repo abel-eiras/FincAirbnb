@@ -69,7 +69,7 @@ export function useRequireAuth() {
   const router = useRouter();
 
   const requireAuth = (redirectTo: string = '/acceder') => {
-    if (typeof window !== 'undefined' && !isLoading && !isAuthenticated()) {
+    if (typeof window !== 'undefined' && isInitialized && !isLoading && !isAuthenticated()) {
       const currentPath = window.location.pathname;
       const redirectUrl = `${redirectTo}?redirect=${encodeURIComponent(currentPath)}`;
       router.push(redirectUrl);

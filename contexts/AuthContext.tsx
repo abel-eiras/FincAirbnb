@@ -122,6 +122,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const STORAGE_KEYS = {
   TOKEN: 'fincairbnb_token',
   USER: 'fincairbnb_user',
+  EXPIRES_AT: 'fincairbnb_expires_at',
 } as const;
 
 /**
@@ -146,10 +147,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const token = localStorage.getItem('fincairbnb_token');
           
           if (user && token) {
+            const storedExpiresAt = localStorage.getItem(STORAGE_KEYS.EXPIRES_AT);
+            const expiresAt = storedExpiresAt ? Number(storedExpiresAt) : Date.now() + (24 * 60 * 60 * 1000);
             const session: AuthSession = {
               user,
               token,
-              expiresAt: Date.now() + (24 * 60 * 60 * 1000),
+              expiresAt,
               isAuthenticated: true,
             };
             dispatch({ type: 'SET_SESSION', payload: session });
@@ -187,8 +190,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Guardar en localStorage (siempre en mock, en producción se usarían httpOnly cookies)
       if (typeof window !== 'undefined') {
+        const expiresAt = Date.now() + (response.expiresIn * 1000);
         localStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
         localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
+        localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
       }
 
       dispatch({ type: 'SET_SESSION', payload: session });
@@ -220,8 +225,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Guardar en localStorage
       if (typeof window !== 'undefined') {
+        const expiresAt = Date.now() + (response.expiresIn * 1000);
         localStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
         localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
+        localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
       }
 
       dispatch({ type: 'SET_SESSION', payload: session });
@@ -254,6 +261,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const isAuthenticated = (): boolean => {
     // Si ya tenemos sesión en memoria, usarla
     if (state.session?.isAuthenticated) {
+      if (state.session.expiresAt < Date.now()) {
+        logout();
+        return false;
+      }
       return true;
     }
 
@@ -265,10 +276,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
         
         if (user && token) {
+          const storedExpiresAt = localStorage.getItem(STORAGE_KEYS.EXPIRES_AT);
+          const expiresAt = storedExpiresAt ? Number(storedExpiresAt) : Date.now() + (24 * 60 * 60 * 1000);
+          if (expiresAt < Date.now()) {
+            logout();
+            return false;
+          }
           const session: AuthSession = {
             user,
             token,
-            expiresAt: Date.now() + (24 * 60 * 60 * 1000),
+            expiresAt,
             isAuthenticated: true,
           };
           dispatch({ type: 'SET_SESSION', payload: session });

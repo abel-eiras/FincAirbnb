@@ -25,17 +25,15 @@ import {
   User, 
   Calendar,
   Clock,
-  Search
+  Search,
+  FileText,
+  Settings
 } from 'lucide-react';
+import { TemplateSelector } from '@/components/messaging/TemplateSelector';
+import { getConversationsFromAlugamentos } from '@/services/mockConversationManager';
+import { getConversations } from '@/services/mockMessages';
 
-interface Message {
-  id: string;
-  senderId: string;
-  senderType: 'owner' | 'guest';
-  content: string;
-  read: boolean;
-  createdAt: string;
-}
+import type { Message, Conversation as ConversationType } from '@/shared/types';
 
 interface Conversation {
   id: string;
@@ -60,72 +58,79 @@ export default function MensaxesPage() {
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showTemplateSelector, setShowTemplateSelector] = useState(false);
 
   useEffect(() => {
     const loadConversations = async () => {
       try {
         setIsLoading(true);
         
-        // Cargar conversaciones desde localStorage
-        const messagesData = JSON.parse(localStorage.getItem('messages') || '[]');
-        const alugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
+        if (!user) return;
+        
+        // Usar el servicio combinado que incluye conversaciones generales y de alugamentos
+        const userConversations = await getConversations(user.id);
+        
+        // Cargar datos adicionales para mostrar información completa
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const properties = JSON.parse(localStorage.getItem('properties') || '[]');
         
-        const userConversations: Conversation[] = [];
+        console.log('Users loaded:', users.length);
+        console.log('Properties loaded:', properties.length);
+        console.log('User conversations:', userConversations.length);
         
-        messagesData.forEach((conversation: any) => {
-          // Encontrar el alugamento relacionado
-          const alugamento = alugamentos.find((a: any) => a.id === conversation.bookingId);
-          if (!alugamento) return;
-          
+        const enrichedConversations: Conversation[] = userConversations.map((conv: any) => {
           // Encontrar la propiedad
-          const property = properties.find((p: any) => p.id === conversation.propertyId);
-          if (!property) return;
+          const property = properties.find((p: any) => p.id === conv.propertyId);
           
           // Encontrar el otro usuario
-          const otherUserId = user?.role === 'owner' 
-            ? alugamento.labregoData.email 
-            : alugamento.ownerId;
+          const otherUserId = user.role === 'owner' ? conv.guestId : conv.ownerId;
+          const otherUser = users.find((u: any) => u.id === otherUserId);
           
-          const otherUser = users.find((u: any) => 
-            (user?.role === 'owner' ? u.email === otherUserId : u.id === otherUserId)
-          );
-          
-          if (!otherUser) return;
+          console.log('Conversation:', conv.id, 'Property ID:', conv.propertyId, 'Found property:', property?.title);
+          console.log('Other user ID:', otherUserId, 'Found user:', otherUser?.name);
           
           // Contar mensajes sin leer
           let unreadCount = 0;
-          conversation.messages.forEach((message: any) => {
-            if (!message.read && message.senderId !== user?.id) {
+          conv.messages.forEach((message: any) => {
+            if (!message.read && message.senderId !== user.id) {
               unreadCount++;
             }
           });
           
-          userConversations.push({
-            id: conversation.id,
-            bookingId: conversation.bookingId,
-            propertyId: conversation.propertyId,
-            propertyTitle: property.title,
-            otherUserName: otherUser.name,
-            otherUserRole: otherUser.role,
-            messages: conversation.messages,
-            lastMessageAt: conversation.messages[conversation.messages.length - 1]?.createdAt || conversation.createdAt,
+          // Crear título de propiedad con ID de alugamento
+          const propertyTitle = property?.title || 'Finca';
+          const alugamentoId = conv.bookingId ? ` (${conv.bookingId})` : '';
+          const finalPropertyTitle = `${propertyTitle}${alugamentoId}`;
+          
+          // Crear nombre del usuario con email
+          const userName = otherUser?.name || 'Usuario';
+          const userEmail = otherUser?.email || '';
+          const finalUserName = userEmail ? `${userName} (${userEmail})` : userName;
+          
+          return {
+            id: conv.id,
+            bookingId: conv.bookingId || undefined,
+            propertyId: conv.propertyId,
+            propertyTitle: finalPropertyTitle,
+            otherUserName: finalUserName,
+            otherUserRole: otherUser?.role || (user.role === 'owner' ? 'guest' : 'owner'),
+            messages: conv.messages,
+            lastMessageAt: conv.messages[conv.messages.length - 1]?.createdAt || conv.createdAt,
             unreadCount
-          });
+          };
         });
         
         // Ordenar por fecha del último mensaje
-        userConversations.sort((a, b) => 
+        enrichedConversations.sort((a, b) => 
           new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime()
         );
         
-        setConversations(userConversations);
+        setConversations(enrichedConversations);
         
         // Si hay un parámetro de alugamento, seleccionar esa conversación
         const alugamentoParam = searchParams.get('alugamento');
         if (alugamentoParam) {
-          const conversation = userConversations.find(c => c.bookingId === alugamentoParam);
+          const conversation = enrichedConversations.find(c => c.bookingId === alugamentoParam);
           if (conversation) {
             setSelectedConversation(conversation);
           }
@@ -176,6 +181,11 @@ export default function MensaxesPage() {
     } catch (error) {
       console.error('Error enviando mensaje:', error);
     }
+  };
+
+  const handleTemplateSelect = (content: string) => {
+    setNewMessage(content);
+    setShowTemplateSelector(false);
   };
 
   const filteredConversations = conversations.filter(conversation =>
@@ -372,26 +382,52 @@ export default function MensaxesPage() {
                       </div>
 
                       {/* Input para nuevo mensaje */}
-                      <div className="flex space-x-2">
-                        <Textarea
-                          placeholder="Escribe a túa mensaxe..."
-                          value={newMessage}
-                          onChange={(e) => setNewMessage(e.target.value)}
-                          className="flex-1 min-h-[60px] resize-none"
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter' && !e.shiftKey) {
-                              e.preventDefault();
-                              handleSendMessage();
-                            }
-                          }}
-                        />
-                        <Button
-                          onClick={handleSendMessage}
-                          disabled={!newMessage.trim()}
-                          className="bg-galician-blue hover:bg-blue-700"
-                        >
-                          <Send className="h-4 w-4" />
-                        </Button>
+                      <div className="space-y-2">
+                        <div className="flex space-x-2">
+                          <Textarea
+                            placeholder="Escribe a túa mensaxe..."
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            className="flex-1 min-h-[60px] resize-none"
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSendMessage();
+                              }
+                            }}
+                          />
+                          <Button
+                            onClick={handleSendMessage}
+                            disabled={!newMessage.trim()}
+                            className="bg-galician-blue hover:bg-blue-700"
+                          >
+                            <Send className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        
+                        {/* Botones de ayuda para propietarios */}
+                        {user?.role === 'owner' && (
+                          <div className="flex space-x-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setShowTemplateSelector(true)}
+                              className="text-galician-blue border-galician-blue hover:bg-blue-50"
+                            >
+                              <FileText className="h-3 w-3 mr-1" />
+                              Plantillas
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => router.push('/taboleiro/mensaxes/modelos')}
+                              className="text-galician-blue border-galician-blue hover:bg-blue-50"
+                            >
+                              <Settings className="h-3 w-3 mr-1" />
+                              Xestionar
+                            </Button>
+                          </div>
+                        )}
                       </div>
                     </CardContent>
                   </>
@@ -412,6 +448,23 @@ export default function MensaxesPage() {
             </div>
           </div>
         </main>
+
+        {/* Modal del selector de plantillas */}
+        {showTemplateSelector && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto">
+              <TemplateSelector
+                isOwner={user?.role === 'owner'}
+                conversationId={selectedConversation?.id}
+                propertyId={selectedConversation?.propertyId}
+                guestName={selectedConversation?.otherUserName}
+                ownerName={user?.name}
+                onTemplateSelect={handleTemplateSelect}
+                onClose={() => setShowTemplateSelector(false)}
+              />
+            </div>
+          </div>
+        )}
 
         <Footer />
       </div>

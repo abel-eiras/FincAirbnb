@@ -6,19 +6,31 @@
 
 import type { Conversation, Message, CreateConversationData } from '@/shared/types';
 import { delay, loadMockData, generateId } from './utils';
+import { initializeMissingConversations } from './mockConversationManager';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Obtiene todas las conversaciones de un usuario
+ * Incluye conversaciones generales y conversaciones de alugamentos
  * 
  * @param userId - ID del usuario
  * @returns Promise con array de conversaciones
  */
 export async function getConversations(userId: string): Promise<Conversation[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Conversation[]>(`/messages/user/${userId}`);
+  }
+
   await delay();
+  
+  // Primero, inicializar conversaciones faltantes
+  await initializeMissingConversations();
   
   const conversations = await loadMockData<Conversation>('messages');
   
   // Filtrar conversaciones donde el usuario participa
+  // Incluye tanto conversaciones generales como de alugamentos
   return conversations.filter(c => 
     c.guestId === userId || c.ownerId === userId
   );
@@ -31,6 +43,10 @@ export async function getConversations(userId: string): Promise<Conversation[]> 
  * @returns Promise con la conversación
  */
 export async function getConversation(id: string): Promise<Conversation> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Conversation>(`/messages/${id}`);
+  }
+
   await delay();
   
   const conversations = await loadMockData<Conversation>('messages');
@@ -56,6 +72,10 @@ export async function sendMessage(
   senderId: string,
   content: string
 ): Promise<Message> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<Message>(`/messages/${conversationId}/messages`, { senderId, content });
+  }
+
   await delay();
   
   const conversations = await loadMockData<Conversation>('messages');
@@ -100,6 +120,11 @@ export async function markAsRead(
   conversationId: string,
   userId: string
 ): Promise<void> {
+  if (isExternalApiEnabled()) {
+    await apiClient.post<{ updated: boolean }>(`/messages/${conversationId}/read`, { userId });
+    return;
+  }
+
   await delay();
   
   const conversations = await loadMockData<Conversation>('messages');
@@ -128,6 +153,10 @@ export async function markAsRead(
 export async function createConversation(
   data: CreateConversationData
 ): Promise<Conversation> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<Conversation>('/messages', data);
+  }
+
   await delay();
   
   // Crear primera mensaje
@@ -169,6 +198,11 @@ export async function createConversation(
  * @returns Promise con el número de mensajes no leídos
  */
 export async function getUnreadCount(userId: string): Promise<number> {
+  if (isExternalApiEnabled()) {
+    const result = await apiClient.get<{ count: number }>(`/messages/user/${userId}/unread-count`);
+    return result.count;
+  }
+
   await delay();
   
   const conversations = await getConversations(userId);
@@ -186,6 +220,97 @@ export async function getUnreadCount(userId: string): Promise<number> {
   });
   
   return unreadCount;
+}
+
+/**
+ * Busca conversaciones por texto
+ * 
+ * @param userId - ID del usuario
+ * @param query - Texto de búsqueda
+ * @returns Promise con conversaciones filtradas
+ */
+export async function searchConversations(
+  userId: string, 
+  query: string
+): Promise<Conversation[]> {
+  if (isExternalApiEnabled()) {
+    const conversations = await apiClient.get<Conversation[]>(`/messages/user/${userId}`);
+    const lowerQuery = query.toLowerCase();
+    return conversations.filter((conv) =>
+      conv.messages.some((msg) => msg.content.toLowerCase().includes(lowerQuery)) ||
+      conv.propertyId.toLowerCase().includes(lowerQuery)
+    );
+  }
+
+  await delay();
+  
+  const conversations = await getConversations(userId);
+  const lowerQuery = query.toLowerCase();
+  
+  return conversations.filter(conv => {
+    // Buscar en el contenido de los mensajes
+    const hasMatchingMessage = conv.messages.some(msg => 
+      msg.content.toLowerCase().includes(lowerQuery)
+    );
+    
+    // Buscar en el ID de la propiedad (título)
+    const hasMatchingProperty = conv.propertyId.toLowerCase().includes(lowerQuery);
+    
+    return hasMatchingMessage || hasMatchingProperty;
+  });
+}
+
+/**
+ * Obtiene conversaciones con filtros
+ * 
+ * @param userId - ID del usuario
+ * @param filters - Filtros a aplicar
+ * @returns Promise con conversaciones filtradas
+ */
+export async function getFilteredConversations(
+  userId: string,
+  filters: {
+    unreadOnly?: boolean;
+    category?: string;
+    dateFrom?: string;
+    dateTo?: string;
+  }
+): Promise<Conversation[]> {
+  if (isExternalApiEnabled()) {
+    let conversations = await apiClient.get<Conversation[]>(`/messages/user/${userId}`);
+    if (filters.unreadOnly) {
+      conversations = conversations.filter((conv) => conv.messages.some((msg) => !msg.read && msg.senderId !== userId));
+    }
+    return conversations;
+  }
+
+  await delay();
+  
+  let conversations = await getConversations(userId);
+  
+  // Filtrar por no leídos
+  if (filters.unreadOnly) {
+    conversations = conversations.filter(conv => {
+      return conv.messages.some(msg => !msg.read && msg.senderId !== userId);
+    });
+  }
+  
+  // Filtrar por fecha
+  if (filters.dateFrom) {
+    const fromDate = new Date(filters.dateFrom);
+    conversations = conversations.filter(conv => 
+      new Date(conv.createdAt) >= fromDate
+    );
+  }
+  
+  if (filters.dateTo) {
+    const toDate = new Date(filters.dateTo);
+    conversations = conversations.filter(conv => 
+      new Date(conv.createdAt) <= toDate
+    );
+  }
+  
+  return conversations;
 }
 
 // Helper para guardar en localStorage

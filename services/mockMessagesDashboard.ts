@@ -7,11 +7,18 @@
 
 import { delay } from './utils';
 import type { Message, Conversation } from '@/shared/types';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Obtiene el número de mensajes sin leer para un usuario
  */
 export async function getUnreadMessagesCount(userId: string, userRole: 'owner' | 'guest'): Promise<number> {
+  if (isExternalApiEnabled()) {
+    const result = await apiClient.get<{ count: number }>(`/messages/user/${userId}/unread-count`);
+    return result.count;
+  }
+
   await delay(300);
   
   try {
@@ -56,6 +63,38 @@ export async function getRecentConversationsWithUnread(
   lastMessage: any;
   unreadCount: number;
 }>> {
+  if (isExternalApiEnabled()) {
+    const conversations = await apiClient.get<Conversation[]>(`/messages/user/${userId}`);
+    const recent = conversations
+      .map((conversation) => {
+        const unreadCount = conversation.messages.filter((message) => !message.read && message.senderId !== userId).length;
+        const lastMessage = conversation.messages[conversation.messages.length - 1];
+        if (!lastMessage || unreadCount <= 0) return null;
+        return {
+          conversationId: conversation.id,
+          alugamentoId: conversation.bookingId || conversation.id,
+          propertyTitle: conversation.propertyId,
+          otherUserName: userRole === 'owner' ? conversation.guestId : conversation.ownerId,
+          otherUserRole: userRole === 'owner' ? 'guest' : 'owner',
+          lastMessage,
+          unreadCount
+        };
+      })
+      .filter(Boolean) as Array<{
+        conversationId: string;
+        alugamentoId: string;
+        propertyTitle: string;
+        otherUserName: string;
+        otherUserRole: 'owner' | 'guest';
+        lastMessage: any;
+        unreadCount: number;
+      }>;
+
+    return recent
+      .sort((a, b) => new Date(b.lastMessage.createdAt).getTime() - new Date(a.lastMessage.createdAt).getTime())
+      .slice(0, limit);
+  }
+
   await delay(400);
   
   try {
@@ -129,6 +168,11 @@ export async function getRecentConversationsWithUnread(
  * Marca todos los mensajes de una conversación como leídos
  */
 export async function markConversationAsRead(conversationId: string, userId: string): Promise<void> {
+  if (isExternalApiEnabled()) {
+    await apiClient.post(`/messages/${conversationId}/read`, { userId });
+    return;
+  }
+
   await delay(200);
   
   try {

@@ -6,6 +6,8 @@
  */
 
 import { delay, generateId } from './utils';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Estadísticas generales del propietario
@@ -75,6 +77,23 @@ export interface RecentActivity {
  * @returns Promise con estadísticas calculadas
  */
 export async function getOwnerStats(ownerId: string): Promise<OwnerStats> {
+  if (isExternalApiEnabled()) {
+    const data = await apiClient.get<Partial<OwnerStats>>(`/stats/owner/${ownerId}`);
+    return {
+      totalProperties: data.totalProperties ?? 0,
+      activeProperties: data.activeProperties ?? 0,
+      monthlyBookings: data.monthlyBookings ?? 0,
+      monthlyRevenue: data.monthlyRevenue ?? 0,
+      occupancyRate: data.occupancyRate ?? 0,
+      averageRating: data.averageRating ?? 0,
+      responseRate: data.responseRate ?? 0,
+      totalReviews: data.totalReviews ?? 0,
+      yearlyRevenue: data.yearlyRevenue ?? 0,
+      totalBookings: data.totalBookings ?? 0,
+      cancellationRate: data.cancellationRate ?? 0
+    };
+  }
+
   await delay(800);
   
   // Simular cálculos basados en datos reales

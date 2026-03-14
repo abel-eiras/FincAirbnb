@@ -1,0 +1,62 @@
+[
+  {
+    "id": "template-welcome-1",
+    "ownerId": "system",
+    "name": "Benvida estándar",
+    "content": "Ola {{guestName}}! \n\nBenvido/a á nosa finca {{propertyName}}. Estamos moi contentos de que teñas elixido a nosa propiedade para a túa estadía.\n\nUnha vez que confirmes a reserva, enviareiche as instrucións de chegada e toda a información que necesitas.\n\nNon dubides en preguntarme calquera cousa!\n\nUn saúdo,\n{{ownerName}}",
+    "category": "welcome",
+    "variables": ["guestName", "propertyName", "ownerName"],
+    "isDefault": true,
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "template-checkin-1", 
+    "ownerId": "system",
+    "name": "Instrucións de chegada",
+    "content": "Ola {{guestName}}!\n\nA túa chegada é o {{checkInDate}} na finca {{propertyName}}.\n\n**Instrucións:**\n- A chave está na caixa de seguridade (código: 1234)\n- O aparcamento está na parte traseira da casa\n- A WiFi é: Finca{{propertyName}}_2024\n\nSe precisas calquera cousa, chámame ao +34 123 456 789.\n\nQue disfrutes a estadía!\n{{ownerName}}",
+    "category": "checkin",
+    "variables": ["guestName", "checkInDate", "propertyName", "ownerName"],
+    "isDefault": true,
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "template-checkout-1",
+    "ownerId": "system", 
+    "name": "Instrucións de saída",
+    "content": "Ola {{guestName}}!\n\nEspero que teñas disfrutado da estadía na {{propertyName}}.\n\n**Saída o {{checkOutDate}}:**\n- Por favor, deixa a chave na caixa de seguridade\n- Tira o lixo\n- Pecha todas as fiestras\n\nSe deixaches algo, avísame e o enviarei por correo.\n\nMoitas grazas por elixir a nosa finca!\n{{ownerName}}",
+    "category": "checkout",
+    "variables": ["guestName", "propertyName", "checkOutDate", "ownerName"],
+    "isDefault": true,
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "template-faq-1",
+    "ownerId": "system",
+    "name": "Preguntas frecuentes - Animais",
+    "content": "Ola {{guestName}}!\n\nRespecto á túa pregunta sobre animais:\n\n✅ **Si, permitimos animais** na finca {{propertyName}}\n- Máximo 2 mascotas\n- Pequena taxa de limpeza: 15€\n- Por favor, trae as súas mantas e comederos\n\nSe tes máis preguntas, non dubides en preguntarme!\n{{ownerName}}",
+    "category": "faq",
+    "variables": ["guestName", "propertyName", "ownerName"],
+    "isDefault": true,
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "template-faq-2",
+    "ownerId": "system",
+    "name": "Preguntas frecuentes - Aparcamento",
+    "content": "Ola {{guestName}}!\n\nSobre o aparcamento na {{propertyName}}:\n\n🚗 **Aparcamento gratuito** dispoñible:\n- 2 espazos na propiedade\n- Acceso directo á casa\n- Zona cuberta para bicicletas\n\nSe traes máis de 2 coches, hai aparcamento público a 100 metros.\n\nUn saúdo,\n{{ownerName}}",
+    "category": "faq", 
+    "variables": ["guestName", "propertyName", "ownerName"],
+    "isDefault": true,
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "template-custom-1",
+    "ownerId": "user-owner-1",
+    "name": "Mensaxe personalizada",
+    "content": "Ola {{guestName}}!\n\nEsta é unha mensaxe personalizada para {{propertyName}}.\n\nEspero que teñas unha excelente estadía!\n\n{{ownerName}}",
+    "category": "custom",
+    "variables": ["guestName", "propertyName", "ownerName"],
+    "isDefault": false,
+    "createdAt": "2024-09-15T10:30:00Z"
+  }
+]

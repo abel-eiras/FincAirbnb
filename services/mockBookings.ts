@@ -6,6 +6,8 @@
 
 import type { Booking, CreateBookingData, CalendarDay, BookingFilters } from '@/shared/types';
 import { delay, loadMockData, generateId, calculateDays } from './utils';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Obtiene las reservas de un usuario (como huésped o propietario)
@@ -18,6 +20,10 @@ export async function getUserBookings(
   userId: string,
   role: 'guest' | 'owner'
 ): Promise<Booking[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Booking[]>(`/bookings/user/${userId}?role=${role}`);
+  }
+
   await delay();
   
   const bookings = await loadMockData<Booking>('bookings');
@@ -37,6 +43,10 @@ export async function getUserBookings(
  * @returns Promise con la reserva o error si no existe
  */
 export async function getBooking(id: string): Promise<Booking> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Booking>(`/bookings/${id}`);
+  }
+
   await delay();
   
   const bookings = await loadMockData<Booking>('bookings');
@@ -60,6 +70,10 @@ export async function getPropertyBookings(
   propertyId: string,
   filters?: BookingFilters
 ): Promise<Booking[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Booking[]>(`/bookings/property/${propertyId}`);
+  }
+
   await delay();
   
   let bookings = await loadMockData<Booking>('bookings');
@@ -93,6 +107,10 @@ export async function getPropertyBookings(
  * @returns Promise con la reserva creada
  */
 export async function createBooking(data: CreateBookingData): Promise<Booking> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<Booking>('/bookings', data);
+  }
+
   await delay();
   
   // Calcular número de noches
@@ -139,6 +157,10 @@ export async function updateBooking(
   id: string,
   data: Partial<Booking>
 ): Promise<Booking> {
+  if (isExternalApiEnabled()) {
+    return apiClient.patch<Booking>(`/bookings/${id}`, data);
+  }
+
   await delay();
   
   const bookings = await loadMockData<Booking>('bookings');
@@ -167,6 +189,10 @@ export async function updateBooking(
  * @returns Promise con la reserva cancelada
  */
 export async function cancelBooking(id: string, reason: string): Promise<Booking> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<Booking>(`/bookings/${id}/cancel`, { reason });
+  }
+
   await delay();
   
   const bookings = await loadMockData<Booking>('bookings');
@@ -210,6 +236,27 @@ export async function getAvailability(
   year: number,
   month: number
 ): Promise<CalendarDay[]> {
+  if (isExternalApiEnabled()) {
+    const bookings = await apiClient.get<Booking[]>(`/bookings/property/${propertyId}`);
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const calendar: CalendarDay[] = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const booking = bookings.find(
+        (b) => date >= b.checkInDate && date < b.checkOutDate && ['confirmed', 'paid'].includes(b.status)
+      );
+      calendar.push({
+        date,
+        available: !booking,
+        bookingId: booking?.id,
+        blocked: false
+      });
+    }
+
+    return calendar;
+  }
+
   await delay();
   
   // Obtener reservas de la propiedad

@@ -7,6 +7,8 @@
 
 import type { User, RegisterData, LoginData, AuthResponse } from '@/shared/types';
 import { delay, loadMockData, generateId } from './utils';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Realiza login de un usuario
@@ -22,6 +24,10 @@ import { delay, loadMockData, generateId } from './utils';
  * }
  */
 export async function login(credentials: LoginData): Promise<AuthResponse> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<AuthResponse>('/auth/login', credentials);
+  }
+
   // Simular delay de red
   await delay(800);
   
@@ -66,6 +72,10 @@ export async function login(credentials: LoginData): Promise<AuthResponse> {
  * @returns Promise con respuesta de autenticación
  */
 export async function register(data: RegisterData): Promise<AuthResponse> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<AuthResponse>('/auth/register', data);
+  }
+
   await delay(1000);
   
   try {
@@ -117,6 +127,7 @@ export async function register(data: RegisterData): Promise<AuthResponse> {
 const STORAGE_KEYS = {
   TOKEN: 'fincairbnb_token',
   USER: 'fincairbnb_user',
+  EXPIRES_AT: 'fincairbnb_expires_at',
 } as const;
 
 /**
@@ -127,6 +138,7 @@ export function logout(): void {
   // Limpiar localStorage
   localStorage.removeItem(STORAGE_KEYS.TOKEN);
   localStorage.removeItem(STORAGE_KEYS.USER);
+  localStorage.removeItem(STORAGE_KEYS.EXPIRES_AT);
   
   console.log('✅ Sesión pechada correctamente');
 }
@@ -154,6 +166,12 @@ export function getCurrentUser(): User | null {
  * @returns boolean indicando si hay sesión activa
  */
 export function hasActiveSession(): boolean {
+  if (isExternalApiEnabled()) {
+    const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+    const userData = localStorage.getItem(STORAGE_KEYS.USER);
+    return Boolean(token && userData);
+  }
+
   const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
   const userData = localStorage.getItem(STORAGE_KEYS.USER);
   
@@ -177,6 +195,10 @@ export async function updateProfile(
   userId: string,
   data: Partial<User>
 ): Promise<User> {
+  if (isExternalApiEnabled()) {
+    return apiClient.patch<User>(`/users/${userId}`, data);
+  }
+
   await delay();
   
   const users = await loadMockData<User>('users');
@@ -209,6 +231,10 @@ export async function updateProfile(
  * @returns Promise indicando éxito
  */
 export async function resetPassword(email: string): Promise<{ success: boolean }> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<{ success: boolean }>('/auth/reset-password', { email });
+  }
+
   await delay(1200);
   
   const users = await loadMockData<User>('users');

@@ -6,6 +6,8 @@
  */
 
 import { delay, loadMockData } from './utils';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 export interface Alugamento {
   id: string;
@@ -50,6 +52,10 @@ export interface Alugamento {
  * Obter todos os alugamentos dun labrego
  */
 export async function getAlugamentosByLabrego(labregoId: string): Promise<Alugamento[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Alugamento[]>(`/alugamentos/labrego/${labregoId}`);
+  }
+
   await delay(500);
   const allAlugamentos = await loadMockData<Alugamento>('alugamentos');
   return allAlugamentos.filter(alugamento => alugamento.labregoId === labregoId);
@@ -98,6 +104,10 @@ export async function getAlugamentosCancelados(labregoId: string): Promise<Aluga
  * Obter un alugamento por ID
  */
 export async function getAlugamentoById(alugamentoId: string): Promise<Alugamento | null> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Alugamento>(`/alugamentos/${alugamentoId}`);
+  }
+
   await delay(200);
   const allAlugamentos = await loadMockData<Alugamento>('alugamentos');
   return allAlugamentos.find(alugamento => alugamento.id === alugamentoId) || null;
@@ -107,6 +117,11 @@ export async function getAlugamentoById(alugamentoId: string): Promise<Alugament
  * Cancelar un alugamento
  */
 export async function cancelarAlugamento(alugamentoId: string, motivo: string): Promise<void> {
+  if (isExternalApiEnabled()) {
+    await apiClient.post(`/alugamentos/${alugamentoId}/cancel`, { motivo });
+    return;
+  }
+
   await delay(1000);
   
   // En unha implementación real, aquí actualizaríase a base de datos

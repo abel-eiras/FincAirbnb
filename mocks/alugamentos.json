@@ -224,5 +224,33 @@
       "motivo": "Cambio de plans laborais",
       "importeReembolso": 326.50
     }
+  },
+  {
+    "id": "alug-8",
+    "propertyId": "prop-1",
+    "propertyTitle": "Finca orgánica en Ponteareas",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "duration": 12,
+    "people": 2,
+    "cultivoType": "hortalizas",
+    "specialRequests": "Quero cultivar tomates, pementos e alfaces. É a miña segunda tempada nesta finca.",
+    "pricing": {
+      "basePrice": 120,
+      "duration": 12,
+      "subtotal": 1440,
+      "serviceFee": 144,
+      "total": 1584
+    },
+    "labregoData": {
+      "name": "María Fernández",
+      "email": "maria@correo.gal",
+      "phone": "+34 611 222 333",
+      "experience": "intermedio",
+      "motivation": "Quero aprender máis sobre agricultura ecolóxica e cultivar os meus propios alimentos de forma sostible.",
+      "references": "Cultivei verduras nunha finca en Santiago o ano pasado con excelentes resultados."
+    },
+    "status": "completed",
+    "createdAt": "2023-12-15T09:30:00Z"
   }
 ]

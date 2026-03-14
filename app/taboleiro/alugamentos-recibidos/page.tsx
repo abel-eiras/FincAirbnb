@@ -29,6 +29,7 @@ import {
   Eye,
   User
 } from 'lucide-react';
+import { createConversationOnAlugamentoAccepted } from '@/services/mockConversationManager';
 
 interface AlugamentoRecibido {
   id: string;
@@ -104,7 +105,7 @@ export default function AlugamentosRecibidosPage() {
     }
   }, [selectedStatus, alugamentos]);
 
-  const handleStatusChange = (alugamentoId: string, newStatus: 'accepted' | 'rejected') => {
+  const handleStatusChange = async (alugamentoId: string, newStatus: 'accepted' | 'rejected') => {
     const updatedAlugamentos = alugamentos.map(alugamento => 
       alugamento.id === alugamentoId 
         ? { ...alugamento, status: newStatus }
@@ -121,6 +122,17 @@ export default function AlugamentosRecibidosPage() {
         : a
     );
     localStorage.setItem('alugamentos', JSON.stringify(updatedAllAlugamentos));
+    
+    // Si se acepta el alugamento, crear conversación automáticamente
+    if (newStatus === 'accepted') {
+      try {
+        await createConversationOnAlugamentoAccepted(alugamentoId);
+        console.log(`Conversación creada automáticamente para alugamento ${alugamentoId}`);
+      } catch (error) {
+        console.error('Error creando conversación:', error);
+        // No mostrar error al usuario, es opcional
+      }
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -434,7 +446,7 @@ export default function AlugamentosRecibidosPage() {
                               <Button
                                 variant="outline"
                                 className="w-full"
-                                onClick={() => router.push(`/taboleiro/mensaxeria?alugamento=${alugamento.id}`)}
+                                onClick={() => router.push(`/taboleiro/mensaxes?alugamento=${alugamento.id}`)}
                               >
                                 <MessageCircle className="h-4 w-4 mr-2" />
                                 Contactar Labrego

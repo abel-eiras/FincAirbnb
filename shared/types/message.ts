@@ -68,6 +68,52 @@ export interface MessageTemplate {
   content: string;
   category: 'welcome' | 'checkin' | 'checkout' | 'faq' | 'custom';
   variables: string[]; // Ej: ['guestName', 'propertyName']
+  isDefault: boolean; // Plantillas predefinidas del sistema
   createdAt: string;
 }
 
+/**
+ * Datos para crear una plantilla
+ */
+export interface CreateTemplateData {
+  name: string;
+  content: string;
+  category: 'welcome' | 'checkin' | 'checkout' | 'faq' | 'custom';
+}
+
+/**
+ * Variables disponibles para plantillas
+ */
+export interface TemplateVariables {
+  guestName: string;
+  propertyName: string;
+  checkInDate?: string;
+  checkOutDate?: string;
+  ownerName: string;
+  propertyAddress?: string;
+  bookingId?: string;
+}
+
+/**
+ * Traducciones de variables para mostrar al usuario
+ */
+export const VARIABLE_TRANSLATIONS = {
+  guestName: 'Nome do hóspede',
+  propertyName: 'Nome da finca',
+  checkInDate: 'Data de chegada',
+  checkOutDate: 'Data de saída',
+  ownerName: 'Nome do propietario',
+  propertyAddress: 'Enderezo da finca',
+  bookingId: 'ID da reserva'
+} as const;
+
+/**
+ * Categorías de plantillas con traducciones
+ */
+export const TEMPLATE_CATEGORIES = {
+  welcome: 'Benvida',
+  checkin: 'Chegada',
+  checkout: 'Saída', 
+  faq: 'Preguntas frecuentes',
+  custom: 'Personalizada'
+} as const;

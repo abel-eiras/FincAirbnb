@@ -7,6 +7,8 @@
 
 import type { Property, PropertyFilters, CreatePropertyData, PropertySearchResult } from '@/shared/types';
 import { delay, loadMockData, generateId, paginate, sortItems } from './utils';
+import { apiClient } from './apiClient';
+import { isExternalApiEnabled } from './runtime';
 
 /**
  * Obtiene todas las propiedades con filtros opcionales
@@ -18,6 +20,16 @@ import { delay, loadMockData, generateId, paginate, sortItems } from './utils';
  * const properties = await getProperties({ city: 'Pontevedra', minPrice: 50 })
  */
 export async function getProperties(filters?: PropertyFilters): Promise<PropertySearchResult> {
+  if (isExternalApiEnabled()) {
+    const properties = await apiClient.get<Property[]>('/properties');
+    return {
+      properties,
+      total: properties.length,
+      page: 1,
+      totalPages: 1
+    };
+  }
+
   // Simular delay de red
   await delay();
   
@@ -54,6 +66,10 @@ export async function getProperties(filters?: PropertyFilters): Promise<Property
  * @returns Promise con la propiedad o null si no existe
  */
 export async function getProperty(id: string): Promise<Property | null> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Property>(`/properties/${id}`);
+  }
+
   await delay();
   
   const properties = await loadMockData<Property>('properties');
@@ -92,6 +108,10 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
  * @returns Promise con array de propiedades del propietario
  */
 export async function getOwnerProperties(ownerId: string): Promise<Property[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Property[]>(`/properties/owner/${ownerId}`);
+  }
+
   await delay();
   
   const properties = await loadMockData<Property>('properties');
@@ -109,6 +129,10 @@ export async function createProperty(
   data: CreatePropertyData,
   ownerId: string
 ): Promise<Property> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<Property>('/properties', { ...data, ownerId });
+  }
+
   await delay();
   
   // Crear slug a partir del título
@@ -151,6 +175,10 @@ export async function updateProperty(
   id: string,
   data: Partial<Property>
 ): Promise<Property> {
+  if (isExternalApiEnabled()) {
+    return apiClient.patch<Property>(`/properties/${id}`, data);
+  }
+
   await delay();
   
   const properties = await loadMockData<Property>('properties');
@@ -179,6 +207,11 @@ export async function updateProperty(
  * @param id - ID de la propiedad a eliminar
  */
 export async function deleteProperty(id: string): Promise<void> {
+  if (isExternalApiEnabled()) {
+    await apiClient.delete<{ deleted: boolean }>(`/properties/${id}`);
+    return;
+  }
+
   await delay();
   
   const properties = await loadMockData<Property>('properties');
@@ -197,6 +230,18 @@ export async function searchProperties(
   query: string,
   filters?: PropertyFilters
 ): Promise<PropertySearchResult> {
+  if (isExternalApiEnabled()) {
+    const properties = await apiClient.get<Property[]>(
+      `/properties/search/all?q=${encodeURIComponent(query)}`
+    );
+    return {
+      properties,
+      total: properties.length,
+      page: 1,
+      totalPages: 1
+    };
+  }
+
   await delay();
   
   let properties = await loadMockData<Property>('properties');
@@ -347,6 +392,10 @@ function createSlug(title: string, city: string): string {
  * const ownerProperties = await getPropertiesByOwner('user-owner-1')
  */
 export async function getPropertiesByOwner(ownerId: string): Promise<Property[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Property[]>(`/properties/owner/${ownerId}`);
+  }
+
   await delay(500);
   
   // Cargar todas las propiedades

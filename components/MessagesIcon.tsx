@@ -7,7 +7,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Mail, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { getMessagingStats } from '@/services/mockMessagesDashboard';
+import { getMessagingStatsForUser } from '@/services/mockConversationManager';
 import type { User as UserType } from '@/shared/types';
 import Link from 'next/link';
 
@@ -42,7 +42,7 @@ export function MessagesIcon({ user }: MessagesIconProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     if (!user) {
       setIsLoading(false);
       return;
@@ -51,8 +51,8 @@ export function MessagesIcon({ user }: MessagesIconProps) {
     setIsLoading(true);
 
     try {
-      // Cargar estadísticas de mensajería
-      const messagingStats = await getMessagingStats(user.id, user.role as 'owner' | 'guest');
+      // Usar el nuevo servicio que conecta con alugamentos
+      const messagingStats = await getMessagingStatsForUser(user.id, user.role as 'owner' | 'guest');
 
       const messageNotifications: MessageNotification[] = [];
       let currentUnreadCount = 0;
@@ -85,13 +85,13 @@ export function MessagesIcon({ user }: MessagesIconProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     fetchMessages();
     const interval = setInterval(fetchMessages, 30000); // Actualizar cada 30 segundos
     return () => clearInterval(interval);
-  }, [user]);
+  }, [fetchMessages]);
 
   const markAllAsRead = () => {
     // Lógica para marcar todos los mensajes como leídos

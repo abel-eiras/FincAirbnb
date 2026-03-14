@@ -28,6 +28,7 @@ import {
 import { getProperty } from '@/services/mockProperties';
 import { PhotoGallery } from '@/components/fincas/PhotoGallery';
 import { FincaBookingWidget } from '@/components/booking/FincaBookingWidget';
+import { ReviewsSection } from '@/components/reviews/ReviewsSection';
 import type { Property } from '@/shared/types';
 
 export default function FincaDetailPage() {
@@ -329,15 +330,11 @@ export default function FincaDetailPage() {
             {/* Reviews */}
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-bold text-galician-blue mb-4">
-                  Avaliacións dos labregos
-                </h2>
-                <div className="text-center py-8">
-                  <div className="text-4xl mb-4">⭐</div>
-                  <p className="text-gray-600">
-                    Sistema de reviews en desenvolvemento
-                  </p>
-                </div>
+                <ReviewsSection
+                  propertyId={property.id}
+                  currentUserId={undefined} // TODO: Obtener del contexto de auth
+                  isOwner={false} // TODO: Verificar si el usuario es propietario
+                />
               </CardContent>
             </Card>
 
