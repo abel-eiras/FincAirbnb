@@ -152,9 +152,12 @@ Pendente:
 - [x] Correxido campo de autorización: `labregoData.email` → `labregoId`
 - [x] Correxido campo de data: `endDate` → `finCultivo`
 
-### 📅 B6: Conectar Stats — PENDENTE
+### ✅ B6: Conectar Stats — COMPLETADO (2026-04-02)
 
-Require B1 completado (só propietario)
+- [x] `getOwnerStats(ownerId)` → `GET /stats/owner/:ownerId` xa conectado ✅
+- [x] `getUpcomingBookings(ownerId)` → `GET /alugamentos/owner/:ownerId` (filtra confirmados futuros, top 5)
+- [x] `taboleiro/page.tsx` usa correctamente as funcións de stats ✅
+- ⚠️ Sen endpoint BE: `getRevenueData`, `getOccupancyData`, `getBookingsData`, `getRecentActivity` → retornan datos mock (endpoints de agregación pendentes para producción)
 
 ---
 
@@ -179,7 +182,7 @@ Require B1 completado (só propietario)
 | B3 Alugamentos            | ✅     | Completado 2026-04-02                   |
 | B4 Mensaxería             | ✅     | Completado 2026-04-02                   |
 | B5 Reviews                | ✅     | Completado 2026-04-02                   |
-| B6 Stats                  | 📅     |                                         |
+| B6 Stats                  | ✅     | Completado 2026-04-02                   |
 
 ---
 

@@ -8,6 +8,7 @@
 import { delay, generateId } from './utils';
 import { apiClient } from './apiClient';
 import { isExternalApiEnabled } from './runtime';
+import { getProperty } from './mockProperties';
 
 /**
  * Estadísticas generales del propietario
@@ -251,14 +252,44 @@ export async function getRecentActivity(ownerId: string): Promise<RecentActivity
 
 /**
  * Obtiene las próximas reservas del propietario
- * 
+ *
  * @param ownerId - ID del propietario
  * @returns Promise con próximas reservas
  */
 export async function getUpcomingBookings(ownerId: string) {
+  if (isExternalApiEnabled()) {
+    const alugamentos = await apiClient.get<any[]>(`/alugamentos/owner/${ownerId}`);
+    const now = new Date();
+
+    const upcoming = alugamentos
+      .filter((a: any) => a.status === 'confirmado' && new Date(a.inicioCultivo) > now)
+      .sort((a: any, b: any) =>
+        new Date(a.inicioCultivo).getTime() - new Date(b.inicioCultivo).getTime()
+      )
+      .slice(0, 5);
+
+    // Fetch property names in parallel
+    const withNames = await Promise.all(
+      upcoming.map(async (a: any) => {
+        const prop = await getProperty(a.propertyId).catch(() => null);
+        return {
+          id: a.id,
+          propertyName: prop?.title ?? a.propertyId,
+          checkInDate: a.inicioCultivo,
+          checkOutDate: a.finCultivo,
+          guestName: a.labregoId,
+          guestCount: 1,
+          totalAmount: a.prezos?.total ?? 0,
+          status: 'confirmed' as const,
+        };
+      })
+    );
+
+    return withNames;
+  }
+
   await delay(500);
-  
-  // Próximas reservas mock
+
   return [
     {
       id: 'book-1',
@@ -288,26 +319,6 @@ export async function getUpcomingBookings(ownerId: string) {
       guestName: 'Luis García',
       guestCount: 3,
       totalAmount: 480,
-      status: 'pending',
-    },
-    {
-      id: 'book-4',
-      propertyName: 'Finca do Val',
-      checkInDate: '2024-11-08',
-      checkOutDate: '2024-11-12',
-      guestName: 'Elena Fernández',
-      guestCount: 6,
-      totalAmount: 1200,
-      status: 'confirmed',
-    },
-    {
-      id: 'book-5',
-      propertyName: 'Pazo de Salnés',
-      checkInDate: '2024-11-15',
-      checkOutDate: '2024-11-18',
-      guestName: 'Miguel López',
-      guestCount: 2,
-      totalAmount: 680,
       status: 'pending',
     },
   ];
