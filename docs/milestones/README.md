@@ -101,23 +101,34 @@ Pendente:
 - Todas las rutas protegidas (propiedades e reviews: GET público, mutacións auth)
 - `openapi.yaml` v0.3.0 con `BearerAuth` scheme
 
-### 🔄 B1: Conectar Auth FE ↔ BE — EN PROGRESO
+### ✅ B1: Conectar Auth FE ↔ BE — COMPLETADO (2026-04-01)
 
 - [x] `apiClient.ts` envía `Authorization: Bearer` desde localStorage
 - [x] MongoDB correndo (Docker: `mongo-fincairbnb`)
 - [x] Backend arrancado en `localhost:4000`
-- [ ] Seed de datos mock en MongoDB (`npm run seed:mocks`)
-- [ ] Verificar `/acceder` con credenciais reais → JWT devolto
-- [ ] Cambiar `NEXT_PUBLIC_USE_EXTERNAL_API=true` en frontend `.env`
+- [x] Seed con bcrypt + IDs remapeados (`npm run seed:mocks`)
+- [x] `NEXT_PUBLIC_USE_EXTERNAL_API=true` en frontend `.env`
+- [x] Login real verificado: `POST /auth/login` → JWT ✅
+- [x] `GET /auth/me` con Bearer → usuario correcto ✅
+- [x] `serializeDoc` mapea `_id → id` en todas las respostas
 
-### 📅 B2: Conectar Propiedades — PENDENTE
+### ✅ B2: Conectar Propiedades — COMPLETADO (2026-04-01)
 
-- GET público xa funciona (non require token)
-- Verificar contrato `{ success: bool, data: T }` con tipos frontend
+- [x] `GET /api/properties` — catálogo público con `id` correcto
+- [x] `GET /api/properties/:id` — detalle por MongoDB `_id` (`findById`)
+- [x] `GET /api/properties/owner/:ownerId` — fincas do propietario autenticado
+- [x] `GET /api/properties/search/all?q=` — busca por texto
+- [x] POST/PATCH/DELETE protexidos con `validateToken`
+- [x] IDs de relación remapeados no seed (ownerId real MongoDB)
+- [x] `openapi.yaml` v0.3.3
 
-### 📅 B3: Conectar Alugamentos — PENDENTE
+### 🔄 B3: Conectar Alugamentos — EN PROGRESO
 
-Require B1 completado (rutas protexidas)
+- [x] Rutas backend implementadas e protexidas con `validateToken`
+- [x] `serializeDocs` aplicado a todas as respostas
+- [x] `labregoId` remapeado no seed
+- [ ] Verificar fluxo completo FE → BE (solicitar alugamento, ver lista)
+- [ ] Revisar contrato de tipos `Alugamento` FE vs BE
 
 ### 📅 B4: Conectar Mensaxería — PENDENTE
 
@@ -135,22 +146,26 @@ Require B1 completado (só propietario)
 
 ## Progreso Global
 
-| Milestone | Estado | Notas |
-|-----------|--------|-------|
-| M00 Auth base | ✅ | |
-| M01 Mock + dashboard | ✅ | |
-| M02 Dashboard propietario | ✅ | |
-| M03 Xestión propiedades | ✅ | |
-| M04 Dashboard labrego | ✅ | |
-| M05 Catálogo + busca | ✅ | |
-| M06 Detalle finca | 🔄 | Reviews, host card, similares pendentes |
-| M07 Alugamentos | ✅ | |
-| M08 Reviews | ✅ | |
-| M09 Mensaxería | ✅ | |
-| M10 Perfiles | 📅 | Depende de B1 |
-| B0 Seguridade backend | ✅ | JWT + bcrypt implementado |
-| B1 Auth FE↔BE | 🔄 | Seed + .env pendente |
-| B2–B6 Módulos restantes | 📅 | En orde tras B1 |
+| Milestone                 | Estado | Notas                                   |
+|---------------------------|--------|-----------------------------------------|
+| M00 Auth base             | ✅     |                                         |
+| M01 Mock + dashboard      | ✅     |                                         |
+| M02 Dashboard propietario | ✅     |                                         |
+| M03 Xestión propiedades   | ✅     |                                         |
+| M04 Dashboard labrego     | ✅     |                                         |
+| M05 Catálogo + busca      | ✅     |                                         |
+| M06 Detalle finca         | 🔄     | Reviews, host card, similares pendentes |
+| M07 Alugamentos           | ✅     |                                         |
+| M08 Reviews               | ✅     |                                         |
+| M09 Mensaxería            | ✅     |                                         |
+| M10 Perfiles              | 📅     | Depende de B1                           |
+| B0 Seguridade backend     | ✅     | JWT + bcrypt implementado               |
+| B1 Auth FE↔BE             | ✅     | Completado 2026-04-01                   |
+| B2 Propiedades            | ✅     | Completado 2026-04-01                   |
+| B3 Alugamentos            | 🔄     | Backend listo, verificar FE             |
+| B4 Mensaxería             | 📅     |                                         |
+| B5 Reviews                | 📅     |                                         |
+| B6 Stats                  | 📅     |                                         |
 
 ---
 
