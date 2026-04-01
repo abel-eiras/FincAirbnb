@@ -29,16 +29,15 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
-import { 
-  getTemplates, 
-  createTemplate, 
-  updateTemplate, 
+import {
+  getTemplates,
+  createTemplate,
+  updateTemplate,
   deleteTemplate,
   processTemplate,
-  type CreateTemplateData 
 } from '@/services/mockTemplates';
 import { TEMPLATE_CATEGORIES } from '@/shared/types/message';
-import type { MessageTemplate, TemplateVariables } from '@/shared/types';
+import type { MessageTemplate, CreateTemplateData, TemplateVariables } from '@/shared/types';
 
 export default function TemplatesPage() {
   const { getCurrentUser } = useAuth();

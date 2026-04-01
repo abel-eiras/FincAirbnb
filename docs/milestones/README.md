@@ -42,23 +42,18 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 - Catálogo público `/fincas` con busca por texto, filtros, ordenación
 - Búsqueda conectada a `GET /api/properties/search/all` (backend listo)
 
-### 🔄 Milestone 06: Detalle de Finca — EN PROGRESO (≈70%)
+### ✅ Milestone 06: Detalle de Finca — COMPLETADO (2026-04-02)
 
 **Arquivo**: `Milestone_06_Detalle_Propiedad.md`
-
-Completado:
 
 - [x] Páxina `/fincas/[id]` con galería de fotos (lightbox)
 - [x] Información básica (descrición, comodidades, regras, ubicación mock)
 - [x] Booking widget sticky (desktop) / fixed bottom (mobile)
 - [x] Conversión de ferrados (variable por concello, non constante)
-
-Pendente:
-
-- [ ] Sección de reviews en detalle (compoñente `ReviewsSection` existe pero non integrado)
-- [ ] Perfil do propietario (host card con stats)
-- [ ] Fincas similares (carousel)
-- [ ] SEO / `generateMetadata`
+- [x] Sección de reviews con `ReviewsSection` conectada a `useAuth`
+- [x] Host card: perfil do propietario con avatar, bio, localización e botón contactar
+- [x] Fincas similares: top 3 da mesma provincia con foto, prezo, rating e tipo
+- [x] SEO: `generateMetadata` dinámico en `layout.tsx` con OpenGraph
 
 ### ✅ Milestone 07: Sistema de Alugamentos — COMPLETADO
 
@@ -171,7 +166,7 @@ Pendente:
 | M03 Xestión propiedades   | ✅     |                                         |
 | M04 Dashboard labrego     | ✅     |                                         |
 | M05 Catálogo + busca      | ✅     |                                         |
-| M06 Detalle finca         | 🔄     | Reviews, host card, similares pendentes |
+| M06 Detalle finca         | ✅     | Completado 2026-04-02                   |
 | M07 Alugamentos           | ✅     |                                         |
 | M08 Reviews               | ✅     |                                         |
 | M09 Mensaxería            | ✅     |                                         |
@@ -186,4 +181,4 @@ Pendente:
 
 ---
 
-**Última actualización**: 2026-04-02
+**Última actualización**: 2026-04-02 (M06 completado)

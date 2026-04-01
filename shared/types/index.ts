@@ -58,6 +58,8 @@ export type {
   ConversationType,
   CreateConversationData,
   MessageTemplate,
+  CreateTemplateData,
+  TemplateVariables,
 } from './message';
 
 // Review types

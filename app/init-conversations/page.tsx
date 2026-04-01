@@ -25,7 +25,8 @@ import { initializeMissingConversations } from '@/services/mockConversationManag
 import Link from 'next/link';
 
 export default function InitConversationsPage() {
-  const { user } = useAuth();
+  const { getCurrentUser } = useAuth();
+  const user = getCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<{
     success: boolean;

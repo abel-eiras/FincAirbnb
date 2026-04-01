@@ -56,7 +56,7 @@ export default function AlugamentosRecibidosPage() {
         setFilteredAlugamentos(items);
 
         // Cargar nomes de propiedades
-        const uniqueIds = [...new Set(items.map(a => a.propertyId))];
+        const uniqueIds = Array.from(new Set(items.map(a => a.propertyId)));
         const nameMap: Record<string, string> = {};
         await Promise.all(
           uniqueIds.map(async (propId) => {
