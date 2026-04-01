@@ -30,10 +30,11 @@ import {
   Settings
 } from 'lucide-react';
 import { TemplateSelector } from '@/components/messaging/TemplateSelector';
-import { getConversationsFromAlugamentos } from '@/services/mockConversationManager';
-import { getConversations } from '@/services/mockMessages';
+import { getConversations, sendMessage } from '@/services/mockMessages';
+import { getProperty } from '@/services/mockProperties';
+import { getUserById } from '@/services/mockUsers';
 
-import type { Message, Conversation as ConversationType } from '@/shared/types';
+import type { Message } from '@/shared/types';
 
 interface Conversation {
   id: string;
@@ -67,53 +68,50 @@ export default function MensaxesPage() {
         
         if (!user) return;
         
-        // Usar el servicio combinado que incluye conversaciones generales y de alugamentos
         const userConversations = await getConversations(user.id);
-        
-        // Cargar datos adicionales para mostrar información completa
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const properties = JSON.parse(localStorage.getItem('properties') || '[]');
-        
-        console.log('Users loaded:', users.length);
-        console.log('Properties loaded:', properties.length);
-        console.log('User conversations:', userConversations.length);
-        
+
+        // Batch fetch propiedades e usuarios únicos en paralelo
+        const uniquePropertyIds = Array.from(new Set(userConversations.map((c: any) => c.propertyId as string)));
+        const uniqueOtherUserIds = Array.from(new Set(
+          userConversations.map((c: any) => (user.role === 'owner' ? c.guestId : c.ownerId) as string)
+        ));
+
+        const [propertyEntries, userEntries] = await Promise.all([
+          Promise.all(
+            uniquePropertyIds.map(async (propId) => {
+              const prop = await getProperty(propId as string).catch(() => null);
+              return [propId, prop?.title ?? 'Finca'] as [string, string];
+            })
+          ),
+          Promise.all(
+            uniqueOtherUserIds.map(async (uid) => {
+              const u = await getUserById(uid as string).catch(() => null);
+              return [uid, u?.name ?? null] as [string, string | null];
+            })
+          ),
+        ]);
+
+        const propertyMap = Object.fromEntries(propertyEntries);
+        const userMap = Object.fromEntries(userEntries);
+
         const enrichedConversations: Conversation[] = userConversations.map((conv: any) => {
-          // Encontrar la propiedad
-          const property = properties.find((p: any) => p.id === conv.propertyId);
-          
-          // Encontrar el otro usuario
           const otherUserId = user.role === 'owner' ? conv.guestId : conv.ownerId;
-          const otherUser = users.find((u: any) => u.id === otherUserId);
-          
-          console.log('Conversation:', conv.id, 'Property ID:', conv.propertyId, 'Found property:', property?.title);
-          console.log('Other user ID:', otherUserId, 'Found user:', otherUser?.name);
-          
-          // Contar mensajes sin leer
-          let unreadCount = 0;
-          conv.messages.forEach((message: any) => {
-            if (!message.read && message.senderId !== user.id) {
-              unreadCount++;
-            }
-          });
-          
-          // Crear título de propiedad con ID de alugamento
-          const propertyTitle = property?.title || 'Finca';
+          const otherUserRole: 'owner' | 'guest' = user.role === 'owner' ? 'guest' : 'owner';
+
+          const unreadCount = conv.messages.filter(
+            (msg: any) => !msg.read && msg.senderId !== user.id
+          ).length;
+
+          const propertyTitle = propertyMap[conv.propertyId] ?? 'Finca';
           const alugamentoId = conv.bookingId ? ` (${conv.bookingId})` : '';
-          const finalPropertyTitle = `${propertyTitle}${alugamentoId}`;
-          
-          // Crear nombre del usuario con email
-          const userName = otherUser?.name || 'Usuario';
-          const userEmail = otherUser?.email || '';
-          const finalUserName = userEmail ? `${userName} (${userEmail})` : userName;
-          
+
           return {
             id: conv.id,
             bookingId: conv.bookingId || undefined,
             propertyId: conv.propertyId,
-            propertyTitle: finalPropertyTitle,
-            otherUserName: finalUserName,
-            otherUserRole: otherUser?.role || (user.role === 'owner' ? 'guest' : 'owner'),
+            propertyTitle: `${propertyTitle}${alugamentoId}`,
+            otherUserName: userMap[otherUserId] ?? (otherUserRole === 'owner' ? 'Propietario' : 'Labrego'),
+            otherUserRole,
             messages: conv.messages,
             lastMessageAt: conv.messages[conv.messages.length - 1]?.createdAt || conv.createdAt,
             unreadCount
@@ -149,37 +147,16 @@ export default function MensaxesPage() {
   }, [user, searchParams]);
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !selectedConversation) return;
-    
+    if (!newMessage.trim() || !selectedConversation || !user) return;
+
     try {
-      // Crear nuevo mensaje
-      const message: Message = {
-        id: `msg-${Date.now()}`,
-        senderId: user!.id,
-        senderType: user!.role as 'owner' | 'guest',
-        content: newMessage.trim(),
-        read: true,
-        createdAt: new Date().toISOString()
-      };
-      
-      // Actualizar conversación en localStorage
-      const messagesData = JSON.parse(localStorage.getItem('messages') || '[]');
-      const conversationIndex = messagesData.findIndex((c: any) => c.id === selectedConversation.id);
-      
-      if (conversationIndex !== -1) {
-        messagesData[conversationIndex].messages.push(message);
-        localStorage.setItem('messages', JSON.stringify(messagesData));
-        
-        // Actualizar estado local
-        setSelectedConversation(prev => prev ? {
-          ...prev,
-          messages: [...prev.messages, message]
-        } : null);
-        
-        setNewMessage('');
-      }
+      const message = await sendMessage(selectedConversation.id, user.id, newMessage.trim());
+      setSelectedConversation(prev =>
+        prev ? { ...prev, messages: [...prev.messages, message] } : null
+      );
+      setNewMessage('');
     } catch (error) {
-      console.error('Error enviando mensaje:', error);
+      console.error('Error enviando mensaxe:', error);
     }
   };
 

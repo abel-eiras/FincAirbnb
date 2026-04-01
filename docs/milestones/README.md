@@ -135,9 +135,13 @@ Pendente:
 - [x] Status values aliñados: `confirmado / completado / cancelado`
 - ⚠️ Pendente: `solicitar/page.tsx` aínda usa localStorage para crear (M07)
 
-### 📅 B4: Conectar Mensaxería — PENDENTE
+### ✅ B4: Conectar Mensaxería — COMPLETADO (2026-04-02)
 
-Require B1 completado
+- [x] `getConversations(user.id)` xa usaba `isExternalApiEnabled()` ✅
+- [x] `sendMessage()` xa tiña branch real ✅
+- [x] Enriquecemento localStorage → `getProperty()` + `getUserById()` (novo servizo)
+- [x] `handleSendMessage` usa `sendMessage()` en vez de localStorage
+- [x] `mockUsers.ts` con `getUserById` (chama `GET /users/:id`)
 
 ### 📅 B5: Conectar Reviews — PENDENTE
 
@@ -168,7 +172,7 @@ Require B1 completado (só propietario)
 | B1 Auth FE↔BE             | ✅     | Completado 2026-04-01                   |
 | B2 Propiedades            | ✅     | Completado 2026-04-01                   |
 | B3 Alugamentos            | ✅     | Completado 2026-04-02                   |
-| B4 Mensaxería             | 📅     |                                         |
+| B4 Mensaxería             | ✅     | Completado 2026-04-02                   |
 | B5 Reviews                | 📅     |                                         |
 | B6 Stats                  | 📅     |                                         |
 
