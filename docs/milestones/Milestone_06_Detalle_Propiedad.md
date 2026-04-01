@@ -3,7 +3,7 @@
 ## Resumen
 **Objetivo**: Página completa de detalle de propiedad con toda la información y booking widget.
 
-**Duración**: 1.5 semanas | **Prioridad**: Alta | **Estado**: 📅 Planificado
+**Duración**: 1.5 semanas | **Prioridad**: Alta | **Estado**: 🔄 En Progreso (≈70%)
 
 ---
 

@@ -3,7 +3,7 @@
 ## Resumen
 **Objetivo**: Sistema de mensajería simulado para comunicación entre huéspedes y propietarios.
 
-**Duración**: 1.5 semanas | **Prioridad**: Media | **Estado**: 📅 Planificado
+**Duración**: 1.5 semanas | **Prioridade**: Media | **Estado**: ✅ Completado
 
 ---
 

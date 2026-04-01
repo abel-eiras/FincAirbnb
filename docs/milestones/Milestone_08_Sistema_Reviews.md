@@ -3,7 +3,7 @@
 ## Resumen
 **Objetivo**: Sistema completo de reseñas y valoraciones con ratings por categorías.
 
-**Duración**: 1 semana | **Prioridad**: Media | **Estado**: 📅 Planificado
+**Duración**: 1 semana | **Prioridad**: Media | **Estado**: ✅ Completado
 
 ---
 

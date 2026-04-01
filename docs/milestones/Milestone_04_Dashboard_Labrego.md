@@ -3,7 +3,7 @@
 ## Resumen
 **Objetivo**: Dashboard para labregos/labregas con as súas fincas alugadas, favoritas e próximas estancias mensuais.
 
-**Duración**: 1 semana | **Prioridad**: Media | **Estado**: 📅 Planificado
+**Duración**: 1 semana | **Prioridade**: Media | **Estado**: ✅ Completado
 
 ---
 

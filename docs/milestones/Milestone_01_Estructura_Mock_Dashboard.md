@@ -4,9 +4,9 @@
 
 **Objetivo**: Establecer la infraestructura de datos mock y refinar el dashboard base para soportar el desarrollo frontend completo sin dependencia del backend.
 
-**Duración estimada**: 1 semana (5 días laborables)  
-**Prioridad**: Alta  
-**Estado**: 📅 Planificado
+**Duración estimada**: 1 semana (5 días laborables)
+**Prioridad**: Alta
+**Estado**: ✅ Completado
 
 ---
 

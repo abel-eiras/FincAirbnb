@@ -3,7 +3,7 @@
 ## Resumen
 **Objetivo**: Flujo completo de reserva con cálculo de precios, confirmación y gestión mock.
 
-**Duración**: 2 semanas | **Prioridad**: Alta | **Estado**: 📅 Planificado
+**Duración**: 2 semanas | **Prioridad**: Alta | **Estado**: ✅ Completado
 
 ---
 
