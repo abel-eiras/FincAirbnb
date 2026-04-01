@@ -1,6 +1,6 @@
 /**
  * Página de Mis Alugamentos - FincAirbnb
- * 
+ *
  * Vista de alugamentos para labregos
  * Adaptada ao contexto agrícola e cultivo
  */
@@ -16,15 +16,13 @@ import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ArrowLeft, 
+import {
+  ArrowLeft,
   Calendar,
-  Users,
   CheckCircle,
   XCircle,
   MessageCircle,
   Clock,
-  MapPin,
   Wheat,
   Eye,
   User,
@@ -32,61 +30,41 @@ import {
   Heart,
   Star
 } from 'lucide-react';
-
-interface AlugamentoLabrego {
-  id: string;
-  propertyId: string;
-  propertyTitle: string;
-  startDate: string;
-  duration: number;
-  people: number;
-  cultivoType: string;
-  specialRequests?: string;
-  pricing: {
-    basePrice: number;
-    duration: number;
-    subtotal: number;
-    serviceFee: number;
-    total: number;
-  };
-  labregoData: {
-    name: string;
-    email: string;
-    phone: string;
-    experience: string;
-    motivation: string;
-    references: string;
-  };
-  status: 'pending' | 'accepted' | 'rejected' | 'completed' | 'cancelled';
-  createdAt: string;
-}
+import { Alugamento, getAlugamentosByLabrego, cancelarAlugamento } from '@/services/mockAlugamentos';
+import { getProperty } from '@/services/mockProperties';
 
 export default function MosAlugamentosPage() {
   const router = useRouter();
   const { getCurrentUser } = useAuth();
   const user = getCurrentUser();
-  
-  const [alugamentos, setAlugamentos] = useState<AlugamentoLabrego[]>([]);
-  const [filteredAlugamentos, setFilteredAlugamentos] = useState<AlugamentoLabrego[]>([]);
+
+  const [alugamentos, setAlugamentos] = useState<Alugamento[]>([]);
+  const [filteredAlugamentos, setFilteredAlugamentos] = useState<Alugamento[]>([]);
+  const [propertyNames, setPropertyNames] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
-  // Cargar alugamentos
   useEffect(() => {
-    const loadAlugamentos = () => {
+    const loadAlugamentos = async () => {
+      if (!user) return;
       try {
         setIsLoading(true);
-        
-        // Obtener alugamentos del localStorage
-        const allAlugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
-        
-        // Filtrar solo los del labrego actual (por email por ahora)
-        const userAlugamentos = allAlugamentos.filter((alugamento: AlugamentoLabrego) => {
-          return alugamento.labregoData.email === user?.email;
-        });
-        
-        setAlugamentos(userAlugamentos);
-        setFilteredAlugamentos(userAlugamentos);
+        const items = await getAlugamentosByLabrego(user.id);
+        setAlugamentos(items);
+        setFilteredAlugamentos(items);
+
+        // Cargar nomes de propiedades (deduplicado)
+        const uniqueIds = [...new Set(items.map(a => a.propertyId))];
+        const nameMap: Record<string, string> = {};
+        await Promise.all(
+          uniqueIds.map(async (propId) => {
+            try {
+              const prop = await getProperty(propId);
+              if (prop) nameMap[propId] = prop.title;
+            } catch { /* silent */ }
+          })
+        );
+        setPropertyNames(nameMap);
       } catch (error) {
         console.error('Error cargando alugamentos:', error);
       } finally {
@@ -94,12 +72,9 @@ export default function MosAlugamentosPage() {
       }
     };
 
-    if (user) {
-      loadAlugamentos();
-    }
+    loadAlugamentos();
   }, [user]);
 
-  // Filtrar por estado
   useEffect(() => {
     if (selectedStatus === 'all') {
       setFilteredAlugamentos(alugamentos);
@@ -108,48 +83,35 @@ export default function MosAlugamentosPage() {
     }
   }, [selectedStatus, alugamentos]);
 
-  const handleCancelAlugamento = (alugamentoId: string) => {
-    if (!confirm('Estás seguro de que queres cancelar este alugamento?')) {
-      return;
-    }
+  const handleCancelAlugamento = async (alugamentoId: string) => {
+    if (!confirm('Estás seguro de que queres cancelar este alugamento?')) return;
 
-    const updatedAlugamentos = alugamentos.map(alugamento => 
-      alugamento.id === alugamentoId 
-        ? { ...alugamento, status: 'cancelled' as const }
-        : alugamento
-    );
-    
-    setAlugamentos(updatedAlugamentos);
-    
-    // Actualizar localStorage
-    const allAlugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
-    const updatedAllAlugamentos = allAlugamentos.map((a: AlugamentoLabrego) => 
-      a.id === alugamentoId 
-        ? { ...a, status: 'cancelled' as const }
-        : a
-    );
-    localStorage.setItem('alugamentos', JSON.stringify(updatedAllAlugamentos));
+    try {
+      await cancelarAlugamento(alugamentoId, 'Cancelado polo labrego');
+      setAlugamentos(prev =>
+        prev.map(a => a.id === alugamentoId ? { ...a, status: 'cancelado' as const } : a)
+      );
+    } catch (error) {
+      console.error('Error cancelando alugamento:', error);
+      alert('Non se puido cancelar o alugamento. Tenta de novo.');
+    }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'pending':
-        return <Badge className="bg-yellow-100 text-yellow-800"><Clock className="h-3 w-3 mr-1" />Pendente</Badge>;
-      case 'accepted':
-        return <Badge className="bg-green-100 text-green-800"><CheckCircle className="h-3 w-3 mr-1" />Aceptado</Badge>;
-      case 'rejected':
-        return <Badge className="bg-red-100 text-red-800"><XCircle className="h-3 w-3 mr-1" />Rexeitado</Badge>;
-      case 'completed':
+      case 'confirmado':
+        return <Badge className="bg-green-100 text-green-800"><CheckCircle className="h-3 w-3 mr-1" />Confirmado</Badge>;
+      case 'completado':
         return <Badge className="bg-blue-100 text-blue-800"><CheckCircle className="h-3 w-3 mr-1" />Completado</Badge>;
-      case 'cancelled':
+      case 'cancelado':
         return <Badge className="bg-gray-100 text-gray-800"><XCircle className="h-3 w-3 mr-1" />Cancelado</Badge>;
       default:
         return <Badge>{status}</Badge>;
     }
   };
 
-  const getCultivoIcon = (cultivoType: string) => {
-    switch (cultivoType) {
+  const getCultivoIcon = (tipoCultivo: string) => {
+    switch (tipoCultivo) {
       case 'hortalizas': return '🥬';
       case 'frutais': return '🍎';
       case 'viñedo': return '🍇';
@@ -159,26 +121,17 @@ export default function MosAlugamentosPage() {
     }
   };
 
-  const canCancel = (alugamento: AlugamentoLabrego) => {
-    if (alugamento.status !== 'accepted') return false;
-    
-    const startDate = new Date(alugamento.startDate);
+  const canCancel = (alugamento: Alugamento) => {
+    if (alugamento.status !== 'confirmado') return false;
+    const startDate = new Date(alugamento.inicioCultivo);
     const now = new Date();
-    const diffTime = startDate.getTime() - now.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    // Se puede cancelar hasta 30 días antes
+    const diffDays = Math.ceil((startDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
     return diffDays > 30;
   };
 
-  const canReview = (alugamento: AlugamentoLabrego) => {
-    if (alugamento.status !== 'accepted') return false;
-    
-    const endDate = new Date(alugamento.startDate);
-    endDate.setMonth(endDate.getMonth() + alugamento.duration);
-    const now = new Date();
-    
-    return endDate < now; // Solo se puede valorar después de que termine
+  const canReview = (alugamento: Alugamento) => {
+    if (alugamento.status !== 'completado') return false;
+    return new Date(alugamento.finCultivo) < new Date();
   };
 
   if (!user || user.role !== 'guest') {
@@ -206,7 +159,7 @@ export default function MosAlugamentosPage() {
         <Header />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          
+
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-4">
@@ -238,11 +191,9 @@ export default function MosAlugamentosPage() {
                 className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
               >
                 <option value="all">Todos os estados</option>
-                <option value="pending">Pendentes</option>
-                <option value="accepted">Aceptados</option>
-                <option value="rejected">Rexeitados</option>
-                <option value="completed">Completados</option>
-                <option value="cancelled">Cancelados</option>
+                <option value="confirmado">Confirmados</option>
+                <option value="completado">Completados</option>
+                <option value="cancelado">Cancelados</option>
               </select>
             </div>
           </div>
@@ -252,29 +203,13 @@ export default function MosAlugamentosPage() {
             <Card>
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-yellow-100 rounded-lg">
-                    <Clock className="h-5 w-5 text-yellow-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Pendentes</p>
-                    <p className="text-2xl font-bold text-yellow-600">
-                      {alugamentos.filter(a => a.status === 'pending').length}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-3">
                   <div className="p-2 bg-green-100 rounded-lg">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Aceptados</p>
+                    <p className="text-sm text-gray-600">Confirmados</p>
                     <p className="text-2xl font-bold text-green-600">
-                      {alugamentos.filter(a => a.status === 'accepted').length}
+                      {alugamentos.filter(a => a.status === 'confirmado').length}
                     </p>
                   </div>
                 </div>
@@ -288,9 +223,25 @@ export default function MosAlugamentosPage() {
                     <Calendar className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Activos</p>
+                    <p className="text-sm text-gray-600">Completados</p>
                     <p className="text-2xl font-bold text-blue-600">
-                      {alugamentos.filter(a => a.status === 'accepted').length}
+                      {alugamentos.filter(a => a.status === 'completado').length}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-gray-100 rounded-lg">
+                    <XCircle className="h-5 w-5 text-gray-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Cancelados</p>
+                    <p className="text-2xl font-bold text-gray-600">
+                      {alugamentos.filter(a => a.status === 'cancelado').length}
                     </p>
                   </div>
                 </div>
@@ -328,12 +279,12 @@ export default function MosAlugamentosPage() {
                   Non tes alugamentos
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  {selectedStatus === 'all' 
+                  {selectedStatus === 'all'
                     ? 'Aínda non solicitaches alugamentos de fincas. ¡Comeza a buscar a túa finca perfecta!'
                     : `Non tes alugamentos con estado "${selectedStatus}".`
                   }
                 </p>
-                <Button 
+                <Button
                   onClick={() => router.push('/fincas')}
                   className="bg-galician-blue hover:bg-blue-700"
                 >
@@ -344,27 +295,25 @@ export default function MosAlugamentosPage() {
           ) : (
             <div className="space-y-6">
               {filteredAlugamentos.map((alugamento) => {
-                const endDate = new Date(alugamento.startDate);
-                endDate.setMonth(endDate.getMonth() + alugamento.duration);
-                const isUpcoming = new Date(alugamento.startDate) > new Date();
-                const isActive = alugamento.status === 'accepted' && !isUpcoming;
+                const isUpcoming = new Date(alugamento.inicioCultivo) > new Date();
+                const isActive = alugamento.status === 'confirmado' && !isUpcoming;
 
                 return (
                   <Card key={alugamento.id} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                        
+
                         {/* Información principal */}
                         <div className="flex-1 space-y-4">
-                          
+
                           {/* Header con estado */}
                           <div className="flex items-start justify-between">
                             <div>
                               <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                                {alugamento.propertyTitle}
+                                {propertyNames[alugamento.propertyId] ?? alugamento.propertyId}
                               </h3>
                               <p className="text-sm text-gray-600">
-                                ID: {alugamento.id} • {new Date(alugamento.createdAt).toLocaleDateString('gl-ES')}
+                                ID: {alugamento.id} • {new Date(alugamento.creado).toLocaleDateString('gl-ES')}
                               </p>
                             </div>
                             <div className="flex items-center space-x-2">
@@ -374,7 +323,7 @@ export default function MosAlugamentosPage() {
                                   🌱 Activo
                                 </Badge>
                               )}
-                              {isUpcoming && alugamento.status === 'accepted' && (
+                              {isUpcoming && alugamento.status === 'confirmado' && (
                                 <Badge className="bg-blue-100 text-blue-800">
                                   📅 Próximo
                                 </Badge>
@@ -386,77 +335,57 @@ export default function MosAlugamentosPage() {
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div>
                               <p className="text-sm font-medium text-gray-700">Data de inicio</p>
-                              <p className="text-gray-900">{new Date(alugamento.startDate).toLocaleDateString('gl-ES')}</p>
+                              <p className="text-gray-900">{new Date(alugamento.inicioCultivo).toLocaleDateString('gl-ES')}</p>
                             </div>
                             <div>
                               <p className="text-sm font-medium text-gray-700">Data de fin</p>
-                              <p className="text-gray-900">{endDate.toLocaleDateString('gl-ES')}</p>
+                              <p className="text-gray-900">{new Date(alugamento.finCultivo).toLocaleDateString('gl-ES')}</p>
                             </div>
                             <div>
                               <p className="text-sm font-medium text-gray-700">Tipo de cultivo</p>
-                              <p className="text-gray-900">{getCultivoIcon(alugamento.cultivoType)} {alugamento.cultivoType}</p>
+                              <p className="text-gray-900">
+                                {getCultivoIcon(alugamento.detallesCultivo.tipoCultivo)} {alugamento.detallesCultivo.tipoCultivo}
+                              </p>
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-gray-700">Persoas</p>
-                              <p className="text-gray-900">{alugamento.people} persoas</p>
+                              <p className="text-sm font-medium text-gray-700">Duración</p>
+                              <p className="text-gray-900">{alugamento.meses} meses</p>
                             </div>
                           </div>
 
                           {/* Solicitudes especiales */}
-                          {alugamento.specialRequests && (
+                          {alugamento.solicitudesEspeciais && (
                             <div>
                               <p className="text-sm font-medium text-gray-700 mb-1">As túas solicitudes especiais:</p>
                               <p className="text-sm text-gray-600 bg-shell-beige p-3 rounded-lg">
-                                {alugamento.specialRequests}
+                                {alugamento.solicitudesEspeciais}
                               </p>
                             </div>
                           )}
 
-                          {/* Tu motivación */}
-                          <div>
-                            <p className="text-sm font-medium text-gray-700 mb-1">A túa motivación:</p>
-                            <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
-                              {alugamento.labregoData.motivation}
-                            </p>
-                          </div>
-
-                          {/* Información específica según estado */}
-                          {alugamento.status === 'pending' && (
-                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                              <div className="flex items-start space-x-2">
-                                <Clock className="h-5 w-5 text-yellow-600 mt-0.5" />
-                                <div>
-                                  <p className="font-medium text-yellow-800">Esperando resposta do propietario</p>
-                                  <p className="text-sm text-yellow-700">
-                                    O propietario está revisando a túa solicitude. Recibirás unha notificación cando responda.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {alugamento.status === 'accepted' && (
+                          {/* Estado info */}
+                          {alugamento.status === 'confirmado' && (
                             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                               <div className="flex items-start space-x-2">
                                 <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
                                 <div>
-                                  <p className="font-medium text-green-800">¡Alugamento aceptado!</p>
+                                  <p className="font-medium text-green-800">Alugamento confirmado</p>
                                   <p className="text-sm text-green-700">
-                                    O propietario aceptou a túa solicitude. Contactará contigo pronto para coordinar os detalles.
+                                    O teu alugamento está confirmado. Contacta co propietario para coordinar os detalles.
                                   </p>
                                 </div>
                               </div>
                             </div>
                           )}
 
-                          {alugamento.status === 'rejected' && (
+                          {alugamento.status === 'cancelado' && alugamento.detallesCancelacion && (
                             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                               <div className="flex items-start space-x-2">
                                 <XCircle className="h-5 w-5 text-red-600 mt-0.5" />
                                 <div>
-                                  <p className="font-medium text-red-800">Solicitude rexeitada</p>
+                                  <p className="font-medium text-red-800">Alugamento cancelado</p>
                                   <p className="text-sm text-red-700">
-                                    Esta solicitude foi rexeitada polo propietario. Podes buscar outras fincas dispoñibles.
+                                    Motivo: {alugamento.detallesCancelacion.motivo}
                                   </p>
                                 </div>
                               </div>
@@ -466,17 +395,17 @@ export default function MosAlugamentosPage() {
 
                         {/* Columna lateral - Precio y acciones */}
                         <div className="lg:w-80 space-y-4">
-                          
+
                           {/* Precio */}
                           <Card className="bg-galician-blue">
                             <CardContent className="p-4">
                               <div className="text-center">
                                 <p className="text-sm text-white mb-1">Total do alugamento</p>
                                 <p className="text-2xl font-bold text-white">
-                                  {alugamento.pricing.total.toFixed(2)}€
+                                  {alugamento.prezos.total.toFixed(2)}€
                                 </p>
                                 <p className="text-xs text-white opacity-90">
-                                  {alugamento.pricing.basePrice}€/mes × {alugamento.duration} meses
+                                  {alugamento.prezos.prezoMes}€/mes × {alugamento.meses} meses
                                 </p>
                               </div>
                             </CardContent>
@@ -484,7 +413,7 @@ export default function MosAlugamentosPage() {
 
                           {/* Acciones */}
                           <div className="space-y-3">
-                            {alugamento.status === 'accepted' && (
+                            {alugamento.status === 'confirmado' && (
                               <Button
                                 variant="outline"
                                 className="w-full"
@@ -516,7 +445,7 @@ export default function MosAlugamentosPage() {
                               </Button>
                             )}
 
-                            {!canCancel(alugamento) && alugamento.status === 'accepted' && (
+                            {!canCancel(alugamento) && alugamento.status === 'confirmado' && (
                               <div className="bg-red-50 border border-red-200 rounded-lg p-3">
                                 <div className="flex items-start space-x-2">
                                   <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />

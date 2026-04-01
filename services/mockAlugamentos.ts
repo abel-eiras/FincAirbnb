@@ -114,6 +114,37 @@ export async function getAlugamentoById(alugamentoId: string): Promise<Alugament
 }
 
 /**
+ * Obter todos os alugamentos dunha propiedade (para o propietario)
+ */
+export async function getAlugamentosByOwner(ownerId: string): Promise<Alugamento[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<Alugamento[]>(`/alugamentos/owner/${ownerId}`);
+  }
+
+  await delay(500);
+  const allAlugamentos = await loadMockData<Alugamento>('alugamentos');
+  return allAlugamentos.filter(alugamento => alugamento.ownerId === ownerId);
+}
+
+/**
+ * Actualizar o estado dun alugamento (acepta/rexeita — para propietarios)
+ */
+export async function updateAlugamentoStatus(
+  alugamentoId: string,
+  status: 'confirmado' | 'cancelado'
+): Promise<Alugamento> {
+  if (isExternalApiEnabled()) {
+    return apiClient.patch<Alugamento>(`/alugamentos/${alugamentoId}`, { status });
+  }
+
+  await delay(500);
+  // Mock: devolver o alugamento co novo estado
+  const alugamento = await getAlugamentoById(alugamentoId);
+  if (!alugamento) throw new Error(`Alugamento ${alugamentoId} non atopado`);
+  return { ...alugamento, status };
+}
+
+/**
  * Cancelar un alugamento
  */
 export async function cancelarAlugamento(alugamentoId: string, motivo: string): Promise<void> {

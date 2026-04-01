@@ -122,13 +122,18 @@ Pendente:
 - [x] IDs de relación remapeados no seed (ownerId real MongoDB)
 - [x] `openapi.yaml` v0.3.3
 
-### 🔄 B3: Conectar Alugamentos — EN PROGRESO
+### ✅ B3: Conectar Alugamentos — COMPLETADO (2026-04-02)
 
 - [x] Rutas backend implementadas e protexidas con `validateToken`
 - [x] `serializeDocs` aplicado a todas as respostas
 - [x] `labregoId` remapeado no seed
-- [ ] Verificar fluxo completo FE → BE (solicitar alugamento, ver lista)
-- [ ] Revisar contrato de tipos `Alugamento` FE vs BE
+- [x] `GET /alugamentos/owner/:ownerId` engadido ao backend
+- [x] `getAlugamentosByOwner` + `updateAlugamentoStatus` no servizo FE
+- [x] `mos-alugamentos/page.tsx` refactorizado: usa `getAlugamentosByLabrego(user.id)` (elimina localStorage)
+- [x] `alugamentos-recibidos/page.tsx` refactorizado: usa `getAlugamentosByOwner(user.id)` (elimina localStorage)
+- [x] Contrato de tipos `Alugamento` FE ↔ BE verificado e aliñado
+- [x] Status values aliñados: `confirmado / completado / cancelado`
+- ⚠️ Pendente: `solicitar/page.tsx` aínda usa localStorage para crear (M07)
 
 ### 📅 B4: Conectar Mensaxería — PENDENTE
 
@@ -162,11 +167,11 @@ Require B1 completado (só propietario)
 | B0 Seguridade backend     | ✅     | JWT + bcrypt implementado               |
 | B1 Auth FE↔BE             | ✅     | Completado 2026-04-01                   |
 | B2 Propiedades            | ✅     | Completado 2026-04-01                   |
-| B3 Alugamentos            | 🔄     | Backend listo, verificar FE             |
+| B3 Alugamentos            | ✅     | Completado 2026-04-02                   |
 | B4 Mensaxería             | 📅     |                                         |
 | B5 Reviews                | 📅     |                                         |
 | B6 Stats                  | 📅     |                                         |
 
 ---
 
-**Última actualización**: 2026-04-01
+**Última actualización**: 2026-04-02
