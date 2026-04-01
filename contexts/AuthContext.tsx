@@ -31,13 +31,14 @@ interface AuthContextType {
   isLoading: boolean;
   error: string | null;
   isInitialized: boolean;
-  
+
   // Acciones
   login: (credentials: LoginData) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   clearError: () => void;
-  
+  updateUser: (user: User) => void;
+
   // Utilidades
   isAuthenticated: () => boolean;
   getCurrentUser: () => User | null;
@@ -59,13 +60,14 @@ type AuthState = {
   isInitialized: boolean;
 };
 
-type AuthAction = 
+type AuthAction =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_SESSION'; payload: AuthSession | null }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'CLEAR_ERROR' }
   | { type: 'LOGOUT' }
-  | { type: 'INITIALIZED' };
+  | { type: 'INITIALIZED' }
+  | { type: 'UPDATE_USER'; payload: User };
 
 // Reducer para manejar cambios de estado
 // Un reducer es una función pura que toma el estado actual y una acción,
@@ -104,12 +106,20 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
       };
     
     case 'INITIALIZED':
-      return { 
-        ...state, 
+      return {
+        ...state,
         isLoading: false,
-        isInitialized: true
+        isInitialized: true,
       };
-    
+
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        session: state.session
+          ? { ...state.session, user: action.payload }
+          : null,
+      };
+
     default:
       return state;
   }
@@ -255,6 +265,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   /**
+   * Actualiza el usuario en sesión después de editar perfil
+   */
+  const updateUser = (user: User): void => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+    }
+    dispatch({ type: 'UPDATE_USER', payload: user });
+  };
+
+  /**
    * Verifica si el usuario está autenticado
    * Si no hay sesión en memoria, intenta recuperarla del localStorage
    */
@@ -320,6 +340,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     register,
     logout,
     clearError,
+    updateUser,
     isAuthenticated,
     getCurrentUser,
   };

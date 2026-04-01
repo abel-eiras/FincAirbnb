@@ -73,16 +73,15 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 - Plantillas de mensaxes para propietarios (`/taboleiro/mensaxes/modelos`)
 - `MessageThread`, `TemplateSelector`, notificacións
 
-### 📅 Milestone 10: Perfiles + Configuración — PENDENTE
+### ✅ Milestone 10: Perfiles + Configuración — COMPLETADO (2026-04-02)
 
 **Arquivo**: `Milestone_10_Perfiles_Configuracion.md`
 
-- Perfil público propietario/labrego
-- Edición de perfil
-- Configuración (conta, notificacións, privacidade)
-- Cambio de contrasinal, eliminar conta
-
-**Depende de**: B1 (auth real funcionando)
+- [x] Perfil público `/perfil/[id]` — avatar, bio, stats, fincas do propietario
+- [x] Edición de perfil `/taboleiro/perfil` — nome, bio, teléfono, localización, avatar
+- [x] Configuración `/taboleiro/configuracion` — notificacións, cambio de contrasinal, eliminar conta
+- [x] `updateUser()` en AuthContext para sincronizar sesión tras edición
+- [x] `changePassword()` e `deleteAccount()` en `mockAuth.ts` con `isExternalApiEnabled()` branch
 
 ---
 
@@ -170,7 +169,7 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 | M07 Alugamentos           | ✅     |                                         |
 | M08 Reviews               | ✅     |                                         |
 | M09 Mensaxería            | ✅     |                                         |
-| M10 Perfiles              | 📅     | Depende de B1                           |
+| M10 Perfiles              | ✅     | Completado 2026-04-02                   |
 | B0 Seguridade backend     | ✅     | JWT + bcrypt implementado               |
 | B1 Auth FE↔BE             | ✅     | Completado 2026-04-01                   |
 | B2 Propiedades            | ✅     | Completado 2026-04-01                   |
@@ -181,4 +180,4 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 
 ---
 
-**Última actualización**: 2026-04-02 (M06 completado)
+**Última actualización**: 2026-04-02 (M06 + M10 completados — todos os milestones frontend finalizados)

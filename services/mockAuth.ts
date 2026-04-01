@@ -250,6 +250,50 @@ export async function resetPassword(email: string): Promise<{ success: boolean }
   return { success: true };
 }
 
+/**
+ * Cambia a contrasinal do usuario autenticado
+ *
+ * @param userId - ID do usuario
+ * @param currentPassword - Contrasinal actual (para verificación)
+ * @param newPassword - Nova contrasinal
+ */
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<{ success: boolean }> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<{ success: boolean }>(`/auth/change-password`, {
+      currentPassword,
+      newPassword,
+    });
+  }
+
+  await delay(600);
+
+  const users = await loadMockData<User>('users');
+  const user = users.find(u => u.id === userId);
+
+  if (!user) throw new Error('Usuario non atopado');
+  if (user.password !== currentPassword) throw new Error('Contrasinal actual incorrecto');
+
+  return { success: true };
+}
+
+/**
+ * Elimina a conta do usuario (MOCK: só en mock, sen backend real)
+ *
+ * @param userId - ID do usuario
+ */
+export async function deleteAccount(userId: string): Promise<{ success: boolean }> {
+  if (isExternalApiEnabled()) {
+    return apiClient.delete<{ success: boolean }>(`/users/${userId}`);
+  }
+
+  await delay(800);
+  return { success: true };
+}
+
 // ============================================================================
 // FUNCIONES HELPER PRIVADAS
 // ============================================================================
