@@ -143,9 +143,14 @@ Pendente:
 - [x] `handleSendMessage` usa `sendMessage()` en vez de localStorage
 - [x] `mockUsers.ts` con `getUserById` (chama `GET /users/:id`)
 
-### 📅 B5: Conectar Reviews — PENDENTE
+### ✅ B5: Conectar Reviews — COMPLETADO (2026-04-02)
 
-GETs públicos xa listos; mutacións requiren B1
+- [x] `getPropertyReviews`, `createReview`, `respondToReview`, `markReviewHelpful` xa tiñan branches reais ✅
+- [x] `ReviewForm` e `ReviewsSection` xa usaban os servizos ✅
+- [x] `getPendingReviews`: engadido `isExternalApiEnabled()` branch con `GET /alugamentos/labrego/:id` + `GET /reviews`
+- [x] `valorar/page.tsx`: substituído localStorage por `getAlugamentoById` + `getProperty`
+- [x] Correxido campo de autorización: `labregoData.email` → `labregoId`
+- [x] Correxido campo de data: `endDate` → `finCultivo`
 
 ### 📅 B6: Conectar Stats — PENDENTE
 
@@ -173,7 +178,7 @@ Require B1 completado (só propietario)
 | B2 Propiedades            | ✅     | Completado 2026-04-01                   |
 | B3 Alugamentos            | ✅     | Completado 2026-04-02                   |
 | B4 Mensaxería             | ✅     | Completado 2026-04-02                   |
-| B5 Reviews                | 📅     |                                         |
+| B5 Reviews                | ✅     | Completado 2026-04-02                   |
 | B6 Stats                  | 📅     |                                         |
 
 ---

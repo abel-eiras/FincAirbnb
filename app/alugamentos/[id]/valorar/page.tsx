@@ -18,6 +18,8 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getAlugamentoById } from '@/services/mockAlugamentos';
+import { getProperty } from '@/services/mockProperties';
 
 export default function ValorarPage() {
   const params = useParams();
@@ -34,43 +36,32 @@ export default function ValorarPage() {
     const loadData = async () => {
       try {
         setIsLoading(true);
-        
-        // Cargar datos desde localStorage
-        const alugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
-        const properties = JSON.parse(localStorage.getItem('properties') || '[]');
-        
-        // Buscar el alugamento específico
+
         const alugamentoId = params.id as string;
-        const foundAlugamento = alugamentos.find((a: any) => a.id === alugamentoId);
-        
+        const foundAlugamento = await getAlugamentoById(alugamentoId);
+
         if (!foundAlugamento) {
           setError('Alugamento non encontrado');
           return;
         }
-        
-        // Verificar que el usuario es el propietario del alugamento
-        if (foundAlugamento.labregoData.email !== user?.id) {
+
+        if (foundAlugamento.labregoId !== user?.id) {
           setError('Non tes permisos para valorar este alugamento');
           return;
         }
-        
-        // Buscar la propiedad
-        const foundProperty = properties.find((p: any) => p.id === foundAlugamento.propertyId);
-        
+
+        if (new Date(foundAlugamento.finCultivo) > new Date()) {
+          setError('Non podes valorar un alugamento que aínda non terminou');
+          return;
+        }
+
+        const foundProperty = await getProperty(foundAlugamento.propertyId);
+
         if (!foundProperty) {
           setError('Propiedad non encontrada');
           return;
         }
-        
-        // Verificar que el alugamento ha terminado
-        const endDate = new Date(foundAlugamento.endDate);
-        const now = new Date();
-        
-        if (endDate > now) {
-          setError('Non podes valorar un alugamento que aínda non terminou');
-          return;
-        }
-        
+
         setAlugamento(foundAlugamento);
         setProperty(foundProperty);
         

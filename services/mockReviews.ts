@@ -317,35 +317,62 @@ export async function getPendingReviews(userId: string): Promise<Array<{
   endDate: string;
   canReview: boolean;
 }>> {
+  if (isExternalApiEnabled()) {
+    try {
+      const [alugamentos, reviews] = await Promise.all([
+        apiClient.get<any[]>(`/alugamentos/labrego/${userId}`),
+        apiClient.get<LocalReview[]>('/reviews')
+      ]);
+
+      const now = new Date();
+      const completedAlugamentos = alugamentos.filter(
+        (a: any) => a.status === 'completado' && new Date(a.finCultivo) < now
+      );
+
+      return completedAlugamentos
+        .filter((a: any) =>
+          !reviews.some((r: LocalReview) => r.propertyId === a.propertyId && r.userId === userId)
+        )
+        .map((a: any) => ({
+          alugamentoId: a.id,
+          propertyId: a.propertyId,
+          propertyTitle: a.propertyId,
+          propertyImage: '',
+          endDate: a.finCultivo,
+          canReview: true
+        }));
+    } catch (error) {
+      console.error('Error obteniendo reseñas pendientes:', error);
+      return [];
+    }
+  }
+
   try {
     const alugamentos = loadMockData('alugamentos');
     const reviews = loadMockData('reviews');
     const properties = loadMockData('properties');
-    
-    // Obtener alugamentos del usuario que han terminado
-    const userAlugamentos = alugamentos.filter((alugamento: any) => 
-      alugamento.labregoData.email === userId && 
-      new Date(alugamento.endDate) < new Date()
+
+    const userAlugamentos = alugamentos.filter((alugamento: any) =>
+      alugamento.labregoId === userId &&
+      new Date(alugamento.finCultivo) < new Date()
     );
-    
-    // Verificar cuáles ya tienen reseña
+
     const pendingReviews = userAlugamentos.map((alugamento: any) => {
       const property = properties.find((p: any) => p.id === alugamento.propertyId);
-        const hasReview = reviews.some((review: LocalReview) => 
-          review.propertyId === alugamento.propertyId && 
-          review.userId === userId
-        );
-      
+      const hasReview = reviews.some((review: LocalReview) =>
+        review.propertyId === alugamento.propertyId && review.userId === userId
+      );
+
       return {
         alugamentoId: alugamento.id,
         propertyId: alugamento.propertyId,
         propertyTitle: property?.title || 'Propiedad desconocida',
         propertyImage: property?.photos?.[0] || '',
-        endDate: alugamento.endDate,
+        endDate: alugamento.finCultivo,
         canReview: !hasReview
       };
     });
-    
+
     return pendingReviews.filter((review: any) => review.canReview);
   } catch (error) {
     console.error('Error obteniendo reseñas pendientes:', error);
