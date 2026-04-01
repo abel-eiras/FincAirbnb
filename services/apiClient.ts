@@ -8,13 +8,19 @@ interface ApiResult<T> {
   message?: string;
 }
 
+function getAuthHeaders(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const token = localStorage.getItem("fincairbnb_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 async function request<T>(method: HttpMethod, path: string, body?: unknown): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      ...getAuthHeaders()
     },
-    credentials: "include",
     body: body ? JSON.stringify(body) : undefined
   });
 
