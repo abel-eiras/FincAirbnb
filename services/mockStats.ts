@@ -121,9 +121,12 @@ export async function getOwnerStats(ownerId: string): Promise<OwnerStats> {
  * @returns Promise con datos de ingresos por mes
  */
 export async function getRevenueData(ownerId: string): Promise<RevenueData[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<RevenueData[]>(`/stats/revenue/${ownerId}`);
+  }
+
   await delay(600);
-  
-  // Datos mock realistas para los últimos 6 meses
+
   const months = [
     { month: 'Mai', revenue: 4200, bookings: 7, averagePrice: 600 },
     { month: 'Xuñ', revenue: 3800, bookings: 6, averagePrice: 633 },
@@ -132,7 +135,7 @@ export async function getRevenueData(ownerId: string): Promise<RevenueData[]> {
     { month: 'Set', revenue: 4800, bookings: 8, averagePrice: 600 },
     { month: 'Out', revenue: 4500, bookings: 8, averagePrice: 563 },
   ];
-  
+
   return months;
 }
 
@@ -143,8 +146,12 @@ export async function getRevenueData(ownerId: string): Promise<RevenueData[]> {
  * @returns Promise con datos de ocupación por mes
  */
 export async function getOccupancyData(ownerId: string): Promise<OccupancyData[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<OccupancyData[]>(`/stats/occupancy/${ownerId}`);
+  }
+
   await delay(600);
-  
+
   // Datos mock realistas para los últimos 12 meses
   const months = [
     { month: 'Nov 2023', occupancyRate: 45, availableDays: 22, bookedDays: 18 },
@@ -171,8 +178,12 @@ export async function getOccupancyData(ownerId: string): Promise<OccupancyData[]
  * @returns Promise con datos de reservas por mes
  */
 export async function getBookingsData(ownerId: string): Promise<BookingsData[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<BookingsData[]>(`/stats/bookings/${ownerId}`);
+  }
+
   await delay(600);
-  
+
   // Datos mock realistas para los últimos 12 meses
   const months = [
     { month: 'Nov 2023', totalBookings: 15, confirmedBookings: 12, cancelledBookings: 3 },
@@ -199,8 +210,12 @@ export async function getBookingsData(ownerId: string): Promise<BookingsData[]> 
  * @returns Promise con lista de actividades recientes
  */
 export async function getRecentActivity(ownerId: string): Promise<RecentActivity[]> {
+  if (isExternalApiEnabled()) {
+    return apiClient.get<RecentActivity[]>(`/stats/activity/${ownerId}`);
+  }
+
   await delay(500);
-  
+
   // Actividades mock realistas de los últimos días
   return [
     {

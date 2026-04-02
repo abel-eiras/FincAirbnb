@@ -146,6 +146,21 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 - [x] Correxido campo de autorización: `labregoData.email` → `labregoId`
 - [x] Correxido campo de data: `endDate` → `finCultivo`
 
+### ✅ B7: Auth Avanzado + Cascade Delete — COMPLETADO (2026-04-02)
+
+- [x] `POST /auth/change-password` — verifica contrasinal actual, hashea nova
+- [x] `PATCH /users/:id` — bloquea actualización de password por CRUD xenérico
+- [x] `DELETE /users/:id` — cascade delete (propiedades, alugamentos, reviews, conversacións)
+- [x] Frontend `changePassword()` e `deleteAccount()` conectados á API real
+
+### ✅ B8: Stats Aggregation — COMPLETADO (2026-04-02)
+
+- [x] `GET /stats/revenue/:ownerId` — ingresos últimos 6 meses por mes (MongoDB)
+- [x] `GET /stats/occupancy/:ownerId` — ocupación últimos 12 meses
+- [x] `GET /stats/bookings/:ownerId` — evolución alugamentos últimos 12 meses
+- [x] `GET /stats/activity/:ownerId` — actividade recente top 10
+- [x] Frontend: `getRevenueData`, `getOccupancyData`, `getBookingsData`, `getRecentActivity` conectados
+
 ### ✅ B6: Conectar Stats — COMPLETADO (2026-04-02)
 
 - [x] `getOwnerStats(ownerId)` → `GET /stats/owner/:ownerId` xa conectado ✅
@@ -180,4 +195,4 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 
 ---
 
-**Última actualización**: 2026-04-02 (M06 + M10 completados — todos os milestones frontend finalizados)
+**Última actualización**: 2026-04-02 (B7 + B8 — todos os milestones completados)
