@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { PhotoManager } from '@/components/properties/PhotoManager';
+import { PhotoUploader } from '@/components/uploads/PhotoUploader';
 import type { Property, Photo } from '@/shared/types';
 
 // Esquema de validación para el paso 3 (fotos)
@@ -67,6 +68,7 @@ export function Step3Photos({ data, onUpdate, isLoading = false }: Step3PhotosPr
       }));
       handlePhotosChange(updatedPhotos);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.photos]);
 
   return (
@@ -80,12 +82,36 @@ export function Step3Photos({ data, onUpdate, isLoading = false }: Step3PhotosPr
         </p>
       </div>
 
-      <PhotoManager
-        photos={data.photos || []}
-        onPhotosChange={handlePhotosChange}
-        maxPhotos={20}
-        isLoading={isLoading}
+      {/* Upload real de fotos */}
+      <PhotoUploader
+        photos={(data.photos || []).map(p => p.url)}
+        onChange={(urls: string[]) => {
+          const existingUrls = (data.photos || []).map(p => p.url);
+          const newUrls = urls.filter(u => !existingUrls.includes(u));
+          const removedUrls = existingUrls.filter(u => !urls.includes(u));
+
+          let updated = [...(data.photos || [])].filter(p => !removedUrls.includes(p.url));
+          const newPhotos: Photo[] = newUrls.map((url, i) => ({
+            id: `photo-${Date.now()}-${i}`,
+            url,
+            caption: '',
+            isPrimary: updated.length === 0 && i === 0,
+            order: updated.length + i,
+          }));
+          handlePhotosChange([...updated, ...newPhotos]);
+        }}
+        folder="fincas"
       />
+
+      {/* Gestión de orde e descrición de fotos existentes */}
+      {(data.photos || []).length > 0 && (
+        <PhotoManager
+          photos={data.photos || []}
+          onPhotosChange={handlePhotosChange}
+          maxPhotos={10}
+          isLoading={isLoading}
+        />
+      )}
 
       {/* Mostrar errores de validación */}
       {errors.photos && (

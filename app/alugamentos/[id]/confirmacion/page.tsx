@@ -9,6 +9,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { getAlugamentoById } from '@/services/mockAlugamentos';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,21 +62,18 @@ export default function ConfirmacionAlugamentoPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadAlugamento = () => {
+    const loadAlugamento = async () => {
       try {
         setIsLoading(true);
-        
+
         if (!id || typeof id !== 'string') {
           router.push('/fincas');
           return;
         }
 
-        // Buscar en localStorage
-        const alugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
-        const foundAlugamento = alugamentos.find((a: AlugamentoCompleto) => a.id === id);
-        
-        if (foundAlugamento) {
-          setAlugamento(foundAlugamento);
+        const found = await getAlugamentoById(id);
+        if (found) {
+          setAlugamento(found as unknown as AlugamentoCompleto);
         } else {
           router.push('/fincas');
         }

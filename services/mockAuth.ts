@@ -149,6 +149,7 @@ export function logout(): void {
  * @returns Usuario actual o null si no está autenticado
  */
 export function getCurrentUser(): User | null {
+  if (typeof window === 'undefined') return null;
   try {
     const userData = localStorage.getItem(STORAGE_KEYS.USER);
     if (!userData) return null;
@@ -166,6 +167,7 @@ export function getCurrentUser(): User | null {
  * @returns boolean indicando si hay sesión activa
  */
 export function hasActiveSession(): boolean {
+  if (typeof window === 'undefined') return false;
   if (isExternalApiEnabled()) {
     const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
     const userData = localStorage.getItem(STORAGE_KEYS.USER);

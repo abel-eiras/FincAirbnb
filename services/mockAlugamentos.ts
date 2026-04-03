@@ -9,6 +9,33 @@ import { delay, loadMockData } from './utils';
 import { apiClient } from './apiClient';
 import { isExternalApiEnabled } from './runtime';
 
+export interface CreateAlugamentoInput {
+  propertyId: string;
+  propertyTitle: string;
+  labregoId: string;
+  ownerId: string;
+  startDate: string;
+  duration: number;
+  people: number;
+  cultivoType: string;
+  specialRequests?: string;
+  pricing: {
+    basePrice: number;
+    duration: number;
+    subtotal: number;
+    serviceFee: number;
+    total: number;
+  };
+  labregoData: {
+    name: string;
+    email: string;
+    phone: string;
+    experience: string;
+    motivation: string;
+    references: string;
+  };
+}
+
 export interface Alugamento {
   id: string;
   propertyId: string;
@@ -46,6 +73,31 @@ export interface Alugamento {
     motivo: string;
     importeReembolso: number;
   };
+}
+
+/**
+ * Crear un novo alugamento (solicitude dun labrego)
+ */
+export async function createAlugamento(input: CreateAlugamentoInput): Promise<{ id: string }> {
+  if (isExternalApiEnabled()) {
+    return apiClient.post<{ id: string }>('/alugamentos', {
+      ...input,
+      status: 'pendente',
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  // Mock fallback
+  const mock = {
+    id: `alugamento-${Date.now()}`,
+    ...input,
+    status: 'pendente',
+    createdAt: new Date().toISOString(),
+  };
+  const list = JSON.parse(localStorage.getItem('alugamentos') || '[]');
+  list.push(mock);
+  localStorage.setItem('alugamentos', JSON.stringify(list));
+  return { id: mock.id };
 }
 
 /**

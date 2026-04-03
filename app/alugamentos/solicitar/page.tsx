@@ -27,6 +27,8 @@ import {
   Shield
 } from 'lucide-react';
 import { getProperty } from '@/services/mockProperties';
+import { createAlugamento } from '@/services/mockAlugamentos';
+import { useAuth } from '@/contexts/AuthContext';
 import type { Property } from '@/shared/types';
 
 interface AlugamentoData {
@@ -58,6 +60,8 @@ interface LabregoData {
 export default function SolicitarAlugamentoPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { getCurrentUser } = useAuth();
+  const user = getCurrentUser();
   const [alugamentoData, setAlugamentoData] = useState<AlugamentoData | null>(null);
   const [property, setProperty] = useState<Property | null>(null);
   const [labregoData, setLabregoData] = useState<LabregoData>({
@@ -124,25 +128,21 @@ export default function SolicitarAlugamentoPage() {
     setIsSubmitting(true);
 
     try {
-      // Simular envío de solicitud
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Crear objeto completo de alugamento
-      const alugamentoCompleto = {
-        id: `alugamento-${Date.now()}`,
-        ...alugamentoData,
+      const { id } = await createAlugamento({
+        propertyId: alugamentoData.propertyId,
+        propertyTitle: alugamentoData.propertyTitle,
+        labregoId: user?.id ?? '',
+        ownerId: property.ownerId,
+        startDate: alugamentoData.startDate,
+        duration: alugamentoData.duration,
+        people: alugamentoData.people,
+        cultivoType: alugamentoData.cultivoType,
+        specialRequests: alugamentoData.specialRequests,
+        pricing: alugamentoData.pricing,
         labregoData,
-        status: 'pending',
-        createdAt: new Date().toISOString()
-      };
+      });
 
-      // Guardar en localStorage (mock)
-      const existingAlugamentos = JSON.parse(localStorage.getItem('alugamentos') || '[]');
-      existingAlugamentos.push(alugamentoCompleto);
-      localStorage.setItem('alugamentos', JSON.stringify(existingAlugamentos));
-
-      // Navegar a confirmación
-      router.push(`/alugamentos/${alugamentoCompleto.id}/confirmacion`);
+      router.push(`/alugamentos/${id}/confirmacion`);
 
     } catch (error) {
       console.error('Error enviando solicitude:', error);

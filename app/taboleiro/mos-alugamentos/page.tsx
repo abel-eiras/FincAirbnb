@@ -28,7 +28,8 @@ import {
   User,
   AlertTriangle,
   Heart,
-  Star
+  Star,
+  CreditCard
 } from 'lucide-react';
 import { Alugamento, getAlugamentosByLabrego, cancelarAlugamento } from '@/services/mockAlugamentos';
 import { getProperty } from '@/services/mockProperties';
@@ -105,8 +106,23 @@ export default function MosAlugamentosPage() {
         return <Badge className="bg-blue-100 text-blue-800"><CheckCircle className="h-3 w-3 mr-1" />Completado</Badge>;
       case 'cancelado':
         return <Badge className="bg-gray-100 text-gray-800"><XCircle className="h-3 w-3 mr-1" />Cancelado</Badge>;
+      case 'pendente':
+        return <Badge className="bg-yellow-100 text-yellow-800"><Clock className="h-3 w-3 mr-1" />Pendente</Badge>;
       default:
         return <Badge>{status}</Badge>;
+    }
+  };
+
+  const getPagoBadge = (estadoPago: string) => {
+    switch (estadoPago) {
+      case 'pagado':
+        return <Badge className="bg-green-100 text-green-800"><CreditCard className="h-3 w-3 mr-1" />Pagado</Badge>;
+      case 'reembolsado':
+        return <Badge className="bg-yellow-100 text-yellow-800"><CreditCard className="h-3 w-3 mr-1" />Reembolsado</Badge>;
+      case 'fallido':
+        return <Badge className="bg-red-100 text-red-800"><XCircle className="h-3 w-3 mr-1" />Pago fallido</Badge>;
+      default:
+        return null;
     }
   };
 
@@ -318,6 +334,7 @@ export default function MosAlugamentosPage() {
                             </div>
                             <div className="flex items-center space-x-2">
                               {getStatusBadge(alugamento.status)}
+                              {getPagoBadge(alugamento.estadoPago)}
                               {isActive && (
                                 <Badge className="bg-green-100 text-green-800">
                                   🌱 Activo
@@ -413,6 +430,17 @@ export default function MosAlugamentosPage() {
 
                           {/* Acciones */}
                           <div className="space-y-3">
+                            {/* Botón pagar: confirmado polo propietario pero sen pagar aínda */}
+                            {alugamento.status === 'confirmado' && alugamento.estadoPago === 'pendente' && (
+                              <Button
+                                className="w-full bg-galician-green hover:bg-green-700 text-white"
+                                onClick={() => router.push(`/alugamentos/${alugamento.id}/pagar`)}
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pagar agora
+                              </Button>
+                            )}
+
                             {alugamento.status === 'confirmado' && (
                               <Button
                                 variant="outline"

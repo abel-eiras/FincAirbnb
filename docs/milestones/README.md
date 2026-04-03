@@ -161,6 +161,41 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 - [x] `GET /stats/activity/:ownerId` — actividade recente top 10
 - [x] Frontend: `getRevenueData`, `getOccupancyData`, `getBookingsData`, `getRecentActivity` conectados
 
+### ⏳ B3-FIX: Deuda Técnica — Solicitar Alugamento vía API — PENDENTE
+
+**Arquivo**: `Milestone_B3fix_Solicitar_API.md`
+
+- [ ] `createAlugamento()` en `services/mockAlugamentos.ts` con branch real (`POST /alugamentos`)
+- [ ] `solicitar/page.tsx`: substituír localStorage por `createAlugamento()` + `useAuth`
+- [ ] `confirmacion/page.tsx`: substituír localStorage por `getAlugamentoById(id)`
+
+### ⏳ B9: Pagos con Stripe — PENDENTE
+
+**Arquivo**: `Milestone_B9_Pagos_Stripe.md`
+
+- [ ] Backend: módulo `/payments` con `create-intent` e webhook
+- [ ] Frontend: `@stripe/react-stripe-js`, páxina `/alugamentos/[id]/pagar`
+- [ ] Webhook: alugamento pasa a `confirmado` tras pago exitoso
+- [ ] Badge de estado de pago en `/taboleiro/mos-alugamentos`
+
+### ⏳ B10: Sistema de Notificacións — PENDENTE
+
+**Arquivo**: `Milestone_B10_Notificacions.md`
+
+- [ ] Backend: modelo `Notification`, módulo `/notifications`, helper `createNotification`
+- [ ] Disparadores: nova solicitude, aceptación, pago, mensaxe, avaliación
+- [ ] Frontend: `NotificationBell` con badge no Header, `NotificationPanel` dropdown
+- [ ] Hook `useNotifications` con polling cada 30s
+
+### ⏳ B11: Upload de Fotos Real (Cloudinary) — PENDENTE
+
+**Arquivo**: `Milestone_B11_Upload_Fotos.md`
+
+- [ ] Backend: módulo `/uploads` con signed URL e delete
+- [ ] Frontend: `PhotoUploader` con drag & drop, preview e progreso
+- [ ] Integrar no formulario multi-step (paso 3 de creación/edición de finca)
+- [ ] `next/image` configurado para dominio `res.cloudinary.com`
+
 ### ✅ B6: Conectar Stats — COMPLETADO (2026-04-02)
 
 - [x] `getOwnerStats(ownerId)` → `GET /stats/owner/:ownerId` xa conectado ✅
@@ -192,7 +227,13 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 | B4 Mensaxería             | ✅     | Completado 2026-04-02                   |
 | B5 Reviews                | ✅     | Completado 2026-04-02                   |
 | B6 Stats                  | ✅     | Completado 2026-04-02                   |
+| B7 Auth avanzado          | ✅     | Completado 2026-04-02                   |
+| B8 Stats aggregation      | ✅     | Completado 2026-04-02                   |
+| B3-FIX Solicitar vía API  | ✅     | Completado 2026-04-02                   |
+| B9 Pagos Stripe           | ✅     | Completado 2026-04-02                   |
+| B10 Notificacións         | ✅     | Completado 2026-04-02                   |
+| B11 Upload fotos          | ✅     | Completado 2026-04-02                   |
 
 ---
 
-**Última actualización**: 2026-04-02 (B7 + B8 — todos os milestones completados)
+**Última actualización**: 2026-04-02 (B3-FIX, B9, B10, B11 completados — TypeScript ✅ sen erros)

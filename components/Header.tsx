@@ -6,6 +6,7 @@ import { UserMenu } from '@/components/auth/UserMenu';
 import { AuthButtons } from '@/components/auth/AuthButtons';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ClientOnly } from '@/components/ui/ClientOnly';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 import Link from 'next/link';
 
 export function Header() {
@@ -44,7 +45,10 @@ export function Header() {
                 <LoadingSpinner size="sm" color="primary" />
               ) : isAuthenticated() ? (
                 // Mostrar menú de usuario si está autenticado
-                <UserMenu />
+                <>
+                  <NotificationBell />
+                  <UserMenu />
+                </>
               ) : (
                 // Mostrar botones de login/registro si no está autenticado
                 <AuthButtons />
