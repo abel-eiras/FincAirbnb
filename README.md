@@ -1,85 +1,138 @@
-﻿# FincAirbnb
+﻿# FincAirbnb — Frontend
 
-FincAirbnb é unha experiencia dixital pensada para que influencers urbanitas poidan sentir a chamada do agro galego sen deixar de lado as redes sociais. A aplicación propón un marketplace ficticio de fincas de alugueiro con moito humor e unha estética baseada en Tailwind CSS.
+> **FincAirbnb** es la cara visible de un experimento: en un curso online pidieron montar algo parecido a la plataforma de alquileres que todo el mundo nombra con dos sílabas; esta es **mi versión mini y un poco paródica**: fincas rurales, humor y **interfaz en gallego** (URLs y copy), porque el chiste también es el idioma.
 
-## ✨ Que atoparás?
-- Interface 100% en galego con seccións claras: cabeceira, hero, beneficios, testemuños e pé de páxina listo para captar leads.
-- Copys con retranca que destacan as vantaxes de cultivar a túa propia finca mentres mantés a presenza en Instagram.
-- Deseño responsive baseado en compoñentes reutilizables e tipografía DM Sans cargada co App Router de Next.js 13.
-- Paleta personalizada (`galician-blue`, `galician-green`, `shell-beige`) e compoñentes de Radix UI integrados con shadcn/ui.
+No es un clon funcional de ningún producto real: es un **MVP de estudio** con auth, catálogo, reservas/alugamentos, mensajería, valoraciones, pagos de prueba (Stripe), mapa opcional (Mapbox) y subida de fotos (Cloudinary).
 
-## 🧰 Tecnoloxías clave
-- **Next.js 13 (App Router)** con `app/` como punto de entrada principal.
-- **React 18** e **TypeScript**, incluíndo tipados para hooks, lib e compoñentes.
-- **Tailwind CSS** con configuración personalizada en `tailwind.config.ts` e utilidades `clsx`/`class-variance-authority` para estilos condicionais.
-- **Radix UI** + **shadcn/ui** para botóns, menús despregábeis e demais widgets accesibles.
-- **react-hook-form** e **zod** dispoñíbeis para futuras validacións de formularios.
+---
 
-## 🚀 Executar o proxecto
-1. Instala as dependencias:
-   ```bash
-   npm install
-   ```
-2. Arrinca o entorno de desenvolvemento:
-   ```bash
-   npm run dev
-   ```
-   O sitio abrirase en `http://localhost:3000` co refresco quentado polo hot reload.
-3. Outros scripts dispoñíbeis:
-   - `npm run build`: prepara a versión optimizada para produción.
-   - `npm run start`: serve a build xa xerada.
-   - `npm run lint`: executa ESLint cos axustes de Next.js.
+## Stack
 
-## 🏗️ Estrutura destacada
-- `app/`: rutas e layout principal (`layout.tsx` establece o idioma en `gl`).
-- `components/`: bloques de interface como `Header`, `HeroSection`, `BenefitsSection`, ademais da libraría `ui/` xerada a partir de shadcn.
-- `contexts/`: Context API para xestión de estado (autenticación).
-- `hooks/`: inclúe utilidades como `use-toast` para notificacións futuras.
-- `lib/`: helpers compartidos (por exemplo, `utils.ts` para combinar clases CSS, `auth-mock.ts` para autenticación mock).
-- `types/`: definicións de tipos TypeScript.
-- `middleware.ts`: protección de rutas.
+| Pieza | Tecnología |
+|-------|------------|
+| Framework | Next.js 13 (App Router) + React 18 |
+| Estilo | Tailwind CSS, Radix / shadcn |
+| Formularios | react-hook-form + Zod |
+| Mapas (opcional) | Mapbox GL (`NEXT_PUBLIC_MAPBOX_TOKEN`) |
+| Pagos (cliente) | Stripe.js (`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`) |
+| API | Tu backend Express; las rutas bajo `/api/...` |
 
-## 📚 Documentación
+---
 
-### Para Usuarios Non Técnicos
-- **[RESUMEN_EJECUTIVO.md](RESUMEN_EJECUTIVO.md)**: Visión xeral do proxecto, modelo de negocio, roadmap (en español)
+## Requisitos
 
-### Para Desenvolvedores e Axentes de IA
-- **[AGENTS.MD](AGENTS.MD)**: Guía completa para axentes de IA (en inglés)
-- **[/context/](context/)**: Documentación técnica completa
-  - Business: Modelo de negocio, personas, KPIs
-  - Technical: Arquitectura, stack, sistemas
-  - Features: Especificacións de funcionalidades
-  - Design: Guías de deseño, marca, política de idiomas
-  - Integrations: Integraciones con servizos externos
+- Node.js 20+
+- El **backend** corriendo (repo hermano `FincAirbnb_backend`) o una URL de API desplegada
 
-### Para o Equipo de Desenvolvemento
-- **[/docs/](docs/)**: Guías de desenvolvemento e milestones (en español)
+---
 
-## 🎯 Roadmap de Desenvolvemento
+## Puesta en marcha local
 
-- ✅ **Fase 1**: Sistema de autenticación e dashboard (Completado)
-- 🚧 **Fase 2**: Sistema de listado de propiedades (Seguinte)
-- 📅 **Fase 3**: Sistema de reservas
-- 📅 **Fase 4**: Integración de pagos
-- 📅 **Fase 5**: Sistema de mensaxería
-- 📅 **Fase 6**: Reseñas e valoracións
-- 📅 **Fase 7**: Panel de administración
+### 1. Clonar y dependencias
 
-Ver [/docs/milestones/](docs/milestones/) para máis detalles.
+```bash
+git clone <este-repo>
+cd FincAirbnb_frontend   # o como lo hayas llamado
+npm ci
+```
 
-## 🌍 Política de Idiomas
+### 2. Variables de entorno
 
-**Importante**: FincAirbnb é unha plataforma 100% en galego para os usuarios finais:
+Crea `.env.local` (Next la carga sola y **no** debe subirse a git):
 
-- ✅ **Interface de usuario**: Galego
-- ✅ **URLs**: Galego (`/rexistro`, `/taboleiro`, `/fincas`)
-- ✅ **Contido**: Galego
-- 📝 **Documentación técnica**: Inglés (para IA e desenvolvedores)
-- 📝 **Código**: Inglés (estándar de desenvolvemento)
+```bash
+cp .env.example .env.local
+```
 
-Ver [/context/design/galician-language-policy.md](context/design/galician-language-policy.md) para detalles completos.
+Mínimo para trabajar contra tu API:
 
-## 📄 Licenza
-Este proxecto distribúese baixo [Creative Commons Zero 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
-Licenza máis libre imposible, é dicir, fai o que che saia do carallo con ela.
+```env
+NEXT_PUBLIC_USE_EXTERNAL_API=true
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
+```
+
+**Producción (ej. Vercel):** misma clave, pero con la URL pública del backend, **incluyendo `/api` al final**:
+
+```env
+NEXT_PUBLIC_API_URL=https://tu-backend.onrender.com/api
+```
+
+Opcionales según features:
+
+```env
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.ey...   # si quieres mapa en detalle de finca
+```
+
+### 3. Arrancar
+
+```bash
+npm run dev
+```
+
+Abre `http://localhost:3000`. Si el backend no está levantado o `NEXT_PUBLIC_API_URL` apunta mal, verás errores de red en consola.
+
+---
+
+## Scripts
+
+| Comando | Uso |
+|---------|-----|
+| `npm run dev` | Desarrollo |
+| `npm run build` | Build de producción |
+| `npm run start` | Sirve el build (tras `build`) |
+| `npm run lint` | ESLint |
+| `npm run test:rules` | Comprobaciones de rama / reglas del repo |
+
+---
+
+## Despliegue (esquema rápido)
+
+```
+1. Vercel (o similar)
+   └── Importar repo → root del proyecto Next
+   └── Variables de entorno (Production):
+         NEXT_PUBLIC_USE_EXTERNAL_API=true
+         NEXT_PUBLIC_API_URL=https://TU-API/api
+         NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...  (si usas pagos)
+         NEXT_PUBLIC_MAPBOX_TOKEN=...                    (opcional)
+
+2. Redeploy después de cambiar NEXT_PUBLIC_*
+   └── Esas variables se inyectan en tiempo de build
+```
+
+**CORS:** el backend debe permitir el origen de tu dominio Vercel (`CORS_ORIGIN` en el servidor).
+
+---
+
+## Estructura (resumen)
+
+- `app/` — Rutas App Router (`/fincas`, `/taboleiro`, `/rexistro`…)
+- `components/` — UI reutilizable
+- `contexts/` — Auth y estado global ligero
+- `services/` — Cliente HTTP (`apiClient`) y servicios
+- `mocks/` — Datos JSON para seed del backend (ver README del backend)
+- `docs/` — Milestones y notas de desarrollo
+
+Documentación extra: `AGENTS.MD`, `docs/`, `context/`, `RESUMEN_EJECUTIVO.md`.
+
+---
+
+## Idioma
+
+- **UI y rutas:** gallego (`gl` en layout).
+- **Este README y parte de la documentación:** español o mixto según carpeta.
+
+---
+
+## Seguridad antes de hacer el repo público
+
+- No subas `.env`, `.env.local`, ni carpetas `.vercel` con tokens.
+- Las claves públicas de Stripe (`pk_...`) pueden estar en el front; el resto solo en el servidor.
+- Revisa que no haya secretos en issues, commits o capturas.
+
+---
+
+## Licencia
+
+Este proyecto se distribuye bajo [Creative Commons Zero 1.0 (CC0)](https://creativecommons.org/publicdomain/zero/1.0/): úsalo, cópialo o déjalo vivir su vida.
