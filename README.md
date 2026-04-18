@@ -114,7 +114,7 @@ Abre `http://localhost:3000`. Si el backend no está levantado o `NEXT_PUBLIC_AP
 - `mocks/` — Datos JSON para seed del backend (ver README del backend)
 - `docs/` — Milestones y notas de desarrollo
 
-Documentación extra: `AGENTS.MD`, `docs/`, `context/`, `RESUMEN_EJECUTIVO.md`.
+Más detalle: `docs/` (milestones, contrato FE/BE), `AGENTS.MD`, y si lo necesitas `RESUMEN_EJECUTIVO.md`.
 
 ---
 

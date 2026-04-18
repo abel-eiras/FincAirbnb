@@ -375,11 +375,9 @@ El desarrollo está dividido en **11 milestones frontend** (con datos simulados)
 ## Contacto e Información
 
 **Proyecto**: FincAirbnb  
-**Fase Actual**: Desarrollo Fase 1 completada, iniciando Fase 2  
-**Estado**: Pre-lanzamiento  
+**Estado**: MVP de estudio / demo  
 
-**Documentación Técnica**: Ver `/context/` para especificaciones completas  
-**Documentación de Desarrollo**: Ver `/docs/` para guías de desarrollo
+**Documentación**: Ver `/docs/` (milestones, contrato FE/BE) y el `README.md` raíz.
 
 ---
 

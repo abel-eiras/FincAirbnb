@@ -1,3 +1,7 @@
+/**
+ * Antes se exixía cambiar specs/ xunto a código; para o repo público
+ * só avisamos se queres manter o contrato alineado.
+ */
 import { execSync } from "node:child_process";
 
 const staged = execSync("git diff --cached --name-only", {
@@ -12,23 +16,15 @@ const hasFunctionalChanges = staged.some((file) =>
 );
 
 if (!hasFunctionalChanges) {
-  console.log("Non hai cambios funcionais staged. SDD check omitido.");
   process.exit(0);
 }
 
-const hasSpecUpdate = staged.some(
-  (file) =>
-    file.startsWith("specs/") ||
-    file === "docs/development/SDD_PR_CHECKLIST.md" ||
-    file === "docs/development/API_CONTRACT_ALIGNMENT.md"
-);
+const touchedContract = staged.includes("docs/development/API_CONTRACT_ALIGNMENT.md");
 
-if (!hasSpecUpdate) {
-  console.error(
-    "Commit bloqueado: detectáronse cambios funcionais sen actualización de specs/trazabilidade."
+if (!touchedContract) {
+  console.warn(
+    "[SDD] Hai cambios funcionais; considera actualizar docs/development/API_CONTRACT_ALIGNMENT.md se cambiou a API."
   );
-  console.error("Inclúe cambios en 'specs/' antes de commit.");
-  process.exit(1);
 }
 
-console.log("SDD check OK: hai actualización de specs/trazabilidade.");
+process.exit(0);
