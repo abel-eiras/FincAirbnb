@@ -21,6 +21,7 @@ import { Label } from '@/components/ui/label';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { AuthFormLinks, AuthFormLink } from '@/components/auth/AuthForm';
 import { resetPassword } from '@/services/mockAuth';
+import { isExternalApiEnabled } from '@/services/runtime';
 import { cn } from '@/lib/utils';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 
@@ -112,15 +113,17 @@ export default function RecuperarContrasinalPage() {
             </p>
 
             {/* Información adicional */}
-            <div className="bg-shell-beige p-4 rounded-xl mb-8">
-              <h3 className="text-sm font-medium text-galician-green mb-2">
-                💡 Modo de desenvolvemento
-              </h3>
-              <p className="text-xs text-gray-600">
-                Como estamos en modo mock, o email non se enviou realmente. 
-                En produción, recibirías un email con un enlace para cambiar a contrasinal.
-              </p>
-            </div>
+            {!isExternalApiEnabled() && (
+              <div className="bg-shell-beige p-4 rounded-xl mb-8">
+                <h3 className="text-sm font-medium text-galician-green mb-2">
+                  💡 Modo de desenvolvemento
+                </h3>
+                <p className="text-xs text-gray-600">
+                  Como estamos en modo mock, o email non se enviou realmente.
+                  En produción, recibirías un email con un enlace para cambiar a contrasinal.
+                </p>
+              </div>
+            )}
 
             {/* Botones de acción */}
             <div className="space-y-4">

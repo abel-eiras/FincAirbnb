@@ -36,6 +36,9 @@ import { FincaBookingWidget } from '@/components/booking/FincaBookingWidget';
 import { ReviewsSection } from '@/components/reviews/ReviewsSection';
 import { useAuth } from '@/contexts/AuthContext';
 import type { Property, User } from '@/shared/types';
+import dynamic from 'next/dynamic';
+
+const PropertyMap = dynamic(() => import('@/components/map/PropertyMap'), { ssr: false });
 
 export default function FincaDetailPage() {
   const params = useParams();
@@ -292,13 +295,24 @@ export default function FincaDetailPage() {
             <Card>
               <CardContent className="p-6">
                 <h2 className="text-2xl font-bold text-galician-blue mb-4">Onde está</h2>
-                <div className="bg-gray-100 rounded-lg p-8 text-center">
-                  <div className="text-4xl mb-4">🗺️</div>
-                  <p className="text-gray-600">Mapa interactivo</p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    {property.location?.city}, {property.location?.province}
-                  </p>
-                </div>
+                {property.location?.coordinates ? (
+                  <PropertyMap
+                    lat={property.location.coordinates.lat}
+                    lng={property.location.coordinates.lng}
+                    city={property.location.city}
+                    province={property.location.province}
+                  />
+                ) : (
+                  <div className="bg-gray-100 rounded-lg p-8 text-center">
+                    <div className="text-4xl mb-4">🗺️</div>
+                    <p className="text-gray-500 text-sm">
+                      {property.location?.city}, {property.location?.province}
+                    </p>
+                  </div>
+                )}
+                <p className="text-sm text-gray-500 mt-3">
+                  📍 {property.location?.city}, {property.location?.province}
+                </p>
               </CardContent>
             </Card>
 

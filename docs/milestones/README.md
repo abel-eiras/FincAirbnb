@@ -196,6 +196,29 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 - [ ] Integrar no formulario multi-step (paso 3 de creación/edición de finca)
 - [ ] `next/image` configurado para dominio `res.cloudinary.com`
 
+### ✅ B12: Mapa Interactivo (Mapbox GL) — COMPLETADO (2026-04-03)
+
+**Arquivo**: `Milestone_B12_Mapa_Interactivo.md`
+
+- [x] Coordinates xa existían no seed de propiedades (`properties.json`)
+- [x] `mapbox-gl` e `react-map-gl` instalados no frontend
+- [x] Compoñente `components/map/PropertyMap.tsx` con marcador e controis de zoom
+- [x] Import dinámico (`ssr: false`) integrado en `/fincas/[id]/page.tsx`
+- [x] Fallback cando a finca non ten coordenadas
+
+### ✅ B13: Emails Transaccionais (Resend) — COMPLETADO (2026-04-03)
+
+**Arquivo**: `Milestone_B13_Emails_Resend.md`
+
+- [x] `resend` instalado no backend + `config/email.ts` con `sendEmail()` non bloqueante
+- [x] Vars `RESEND_API_KEY`, `FROM_EMAIL`, `FRONTEND_URL` en `env.ts`
+- [x] Templates HTML en `shared/emails/`: benvida, alugamento (aceptado/rexeitado), resetPassword
+- [x] Email de benvida tras `POST /auth/register`
+- [x] `POST /auth/reset-password` con token real (`crypto.randomBytes`) + email con enlace
+- [x] Novo endpoint `POST /auth/nova-contrasinal` para consumir o token
+- [x] Email ao labrego cando propietario acepta ou rexeita (`PATCH /alugamentos/:id`)
+- [x] Páxina frontend `/nova-contrasinal` con formulario e validación Zod
+
 ### ✅ B6: Conectar Stats — COMPLETADO (2026-04-02)
 
 - [x] `getOwnerStats(ownerId)` → `GET /stats/owner/:ownerId` xa conectado ✅
@@ -233,7 +256,9 @@ Esta carpeta contiene los milestones de desarrollo de FincAirbnb. El proyecto ti
 | B9 Pagos Stripe           | ✅     | Completado 2026-04-02                   |
 | B10 Notificacións         | ✅     | Completado 2026-04-02                   |
 | B11 Upload fotos          | ✅     | Completado 2026-04-02                   |
+| B12 Mapa interactivo      | ✅     | Completado 2026-04-03                   |
+| B13 Emails Resend         | ✅     | Completado 2026-04-03                   |
 
 ---
 
-**Última actualización**: 2026-04-02 (B3-FIX, B9, B10, B11 completados — TypeScript ✅ sen erros)
+**Última actualización**: 2026-04-03 (B12 Mapa Mapbox GL + B13 Emails Resend completados)
