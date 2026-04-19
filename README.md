@@ -1,21 +1,23 @@
-﻿# FincAirbnb — Frontend
+# FincAirbnb — Frontend
 
-> **FincAirbnb** es la cara visible de un experimento: en un curso online pidieron montar algo parecido a la plataforma de alquileres que todo el mundo nombra con dos sílabas; esta es **mi versión mini y un poco paródica**: fincas rurales, humor y **interfaz en gallego** (URLs y copy), porque el chiste también es el idioma.
+> **FincAirbnb** es la cara visible de un proyecto de "fin de curso". En dicho curso online me pidieron montar algo parecido a la plataforma de alquileres que todo el mundo conoce. Esta es **mi versión mini y un poco paródica**: fincas rurales, humor y **interfaz en gallego** (URLs y copy). 
 
-No es un clon funcional de ningún producto real: es un **MVP de estudio** con auth, catálogo, reservas/alugamentos, mensajería, valoraciones, pagos de prueba (Stripe), mapa opcional (Mapbox) y subida de fotos (Cloudinary).
+No es un producto real ni un clon perfecto: es un **MVP de estudio** con auth, catálogo, reservas/alquileres, mensajería, valoraciones, pagos de prueba (Stripe) y subida de fotos (Cloudinary). En tema de los mapas con mapbox no lo hice.
 
 ---
 
 ## Stack
 
-| Pieza | Tecnología |
-|-------|------------|
-| Framework | Next.js 13 (App Router) + React 18 |
-| Estilo | Tailwind CSS, Radix / shadcn |
-| Formularios | react-hook-form + Zod |
-| Mapas (opcional) | Mapbox GL (`NEXT_PUBLIC_MAPBOX_TOKEN`) |
-| Pagos (cliente) | Stripe.js (`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`) |
-| API | Tu backend Express; las rutas bajo `/api/...` |
+
+| Pieza            | Tecnología                                       |
+| ---------------- | ------------------------------------------------ |
+| Framework        | Next.js 13 (App Router) + React 18               |
+| Estilo           | Tailwind CSS, Radix / shadcn                     |
+| Formularios      | react-hook-form + Zod                            |
+| Mapas (opcional) | Mapbox GL (`NEXT_PUBLIC_MAPBOX_TOKEN`)           |
+| Pagos (cliente)  | Stripe.js (`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`) |
+| API              | Tu backend Express; las rutas bajo `/api/...`    |
+
 
 ---
 
@@ -27,6 +29,8 @@ No es un clon funcional de ningún producto real: es un **MVP de estudio** con a
 ---
 
 ## Puesta en marcha local
+
+Si tienes la osadía o inquietud de probarlo en local por tu cuenta tendrías que hacer todo esto:
 
 ### 1. Clonar y dependencias
 
@@ -76,13 +80,15 @@ Abre `http://localhost:3000`. Si el backend no está levantado o `NEXT_PUBLIC_AP
 
 ## Scripts
 
-| Comando | Uso |
-|---------|-----|
-| `npm run dev` | Desarrollo |
-| `npm run build` | Build de producción |
-| `npm run start` | Sirve el build (tras `build`) |
-| `npm run lint` | ESLint |
+
+| Comando              | Uso                                      |
+| -------------------- | ---------------------------------------- |
+| `npm run dev`        | Desarrollo                               |
+| `npm run build`      | Build de producción                      |
+| `npm run start`      | Sirve el build (tras `build`)            |
+| `npm run lint`       | ESLint                                   |
 | `npm run test:rules` | Comprobaciones de rama / reglas del repo |
+
 
 ---
 
