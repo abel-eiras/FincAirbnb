@@ -29,7 +29,7 @@ const beneficios = [
 
 export function BenefitsSection() {
   return (
-    <section id="beneficios" className="py-20 bg-gray-50">
+    <section id="beneficios" className="scroll-mt-24 py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
