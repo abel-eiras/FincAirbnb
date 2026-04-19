@@ -11,6 +11,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -283,13 +284,13 @@ export default function RexistroPage() {
               className="text-sm text-gray-600 cursor-pointer leading-relaxed"
             >
               Acepto os{' '}
-              <a href="#" className="text-galician-blue hover:underline">
+              <Link href="/termos-condicions" className="text-galician-blue hover:underline">
                 termos e condicións
-              </a>{' '}
+              </Link>{' '}
               e a{' '}
-              <a href="#" className="text-galician-blue hover:underline">
+              <Link href="/politica-privacidade" className="text-galician-blue hover:underline">
                 política de privacidade
-              </a>
+              </Link>
             </Label>
           </div>
           {errors.acceptTerms && (

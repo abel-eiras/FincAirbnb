@@ -1,9 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, MapPin, Calendar, Users } from 'lucide-react';
 
 export function HeroSection() {
+  const router = useRouter();
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Background pattern - Simple geometric shapes representing fields */}
@@ -57,7 +60,7 @@ export function HeroSection() {
               <Button 
                 size="lg" 
                 className="bg-galician-blue hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl group"
-                onClick={() => window.location.href = '/fincas'}
+                onClick={() => router.push('/fincas')}
               >
                 Proba agora, que as patacas non se plantan soas
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -67,7 +70,7 @@ export function HeroSection() {
                 variant="outline" 
                 size="lg"
                 className="border-galician-green text-galician-green hover:bg-galician-green hover:text-white px-8 py-4 text-lg rounded-xl"
-                onClick={() => window.location.href = '/fincas'}
+                onClick={() => router.push('/fincas')}
               >
                 Ver fincas dispoñibles
               </Button>
@@ -92,7 +95,7 @@ export function HeroSection() {
                 </div>
                 <Button 
                   className="bg-galician-blue hover:bg-blue-700"
-                  onClick={() => window.location.href = '/fincas'}
+                  onClick={() => router.push('/fincas')}
                 >
                   Buscar fincas
                 </Button>
@@ -113,7 +116,7 @@ export function HeroSection() {
                   <div>🌿</div>
                 </div>
                 <p className="text-lg opacity-90">
-                  "Da cidade ao campo<br />nun click"
+                  &quot;Da cidade ao campo<br />nun click&quot;
                 </p>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Tractor, Mail, Phone, MapPin } from 'lucide-react';
 
 export function Footer() {
@@ -32,10 +33,10 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Enlaces rápidos</h4>
             <ul className="space-y-3 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Como funciona</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Fincas dispoñibles</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Guía do labrego</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Comunidade</a></li>
+              <li><Link href="/#beneficios" className="hover:text-white transition-colors">Como funciona</Link></li>
+              <li><Link href="/fincas" className="hover:text-white transition-colors">Fincas dispoñibles</Link></li>
+              <li><Link href="/taboleiro" className="hover:text-white transition-colors">Guía do labrego</Link></li>
+              <li><Link href="/#testemuños" className="hover:text-white transition-colors">Comunidade</Link></li>
             </ul>
           </div>
 
@@ -64,10 +65,10 @@ export function Footer() {
         {/* Bottom section */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="flex space-x-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
-            <a href="#" className="hover:text-white transition-colors">Termos e Condicións</a>
-            <a href="#" className="hover:text-white transition-colors">Aviso Legal</a>
-            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+            <Link href="/politica-privacidade" className="hover:text-white transition-colors">Política de Privacidade</Link>
+            <Link href="/termos-condicions" className="hover:text-white transition-colors">Termos e Condicións</Link>
+            <Link href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</Link>
+            <Link href="/cookies" className="hover:text-white transition-colors">Cookies</Link>
           </div>
           
           <div className="text-sm text-gray-500">

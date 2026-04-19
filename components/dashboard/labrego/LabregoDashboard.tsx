@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -40,6 +41,7 @@ interface LabregoDashboardProps {
 }
 
 export function LabregoDashboard({ user }: LabregoDashboardProps) {
+  const router = useRouter();
   const [stats, setStats] = useState<LabregoStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -182,7 +184,7 @@ export function LabregoDashboard({ user }: LabregoDashboardProps) {
             <Button 
               variant="outline" 
               className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-green-50"
-              onClick={() => window.location.href = '/taboleiro/mos-alugamentos'}
+              onClick={() => router.push('/taboleiro/mos-alugamentos')}
             >
               <Calendar className="h-6 w-6 text-green-600" />
               <span className="text-sm font-medium">Os Meus Alugamentos</span>
@@ -192,7 +194,7 @@ export function LabregoDashboard({ user }: LabregoDashboardProps) {
             <Button 
               variant="outline" 
               className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-blue-50"
-              onClick={() => window.location.href = '/taboleiro/mensaxes'}
+              onClick={() => router.push('/taboleiro/mensaxes')}
             >
               <MessageCircle className="h-6 w-6 text-blue-600" />
               <span className="text-sm font-medium">Mensaxes</span>
@@ -202,7 +204,7 @@ export function LabregoDashboard({ user }: LabregoDashboardProps) {
             <Button 
               variant="outline" 
               className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-red-50"
-              onClick={() => window.location.href = '/taboleiro/favoritas'}
+              onClick={() => router.push('/taboleiro/favoritas')}
             >
               <Heart className="h-6 w-6 text-red-600" />
               <span className="text-sm font-medium">Favoritas</span>
@@ -212,7 +214,7 @@ export function LabregoDashboard({ user }: LabregoDashboardProps) {
             <Button 
               variant="outline" 
               className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-yellow-50"
-              onClick={() => window.location.href = '/fincas'}
+              onClick={() => router.push('/fincas')}
             >
               <MapPin className="h-6 w-6 text-yellow-600" />
               <span className="text-sm font-medium">Buscar Fincas</span>
@@ -227,7 +229,7 @@ export function LabregoDashboard({ user }: LabregoDashboardProps) {
         <CardContent className="p-6">
           <div className="text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              🌱 "A terra non se cultiva soa, pero ti sí que a podes facer florecer"
+              🌱 &quot;A terra non se cultiva soa, pero ti sí que a podes facer florecer&quot;
             </h3>
             <p className="text-gray-600">
               {stats?.proximos === 0 

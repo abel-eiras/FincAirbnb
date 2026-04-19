@@ -1,4 +1,5 @@
 import { Star, Quote } from 'lucide-react';
+import Link from 'next/link';
 
 const testemuños = [
   {
@@ -66,7 +67,7 @@ export function TestimonialsSection() {
               
               {/* Testimonial text */}
               <blockquote className="text-lg text-gray-700 mb-8 italic leading-relaxed">
-                "{testimonio.testimonio}"
+                &quot;{testimonio.testimonio}&quot;
               </blockquote>
 
               {/* Rating */}
@@ -110,9 +111,12 @@ export function TestimonialsSection() {
             Únete á comunidade de labregos máis cool de Galicia. 
             Stories de colleita garantidas.
           </p>
-          <button className="bg-white text-galician-blue px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+          <Link
+            href="/fincas"
+            className="inline-flex items-center justify-center bg-white text-galician-blue px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+          >
             Empezar a miña aventura rural
-          </button>
+          </Link>
         </div>
       </div>
     </section>

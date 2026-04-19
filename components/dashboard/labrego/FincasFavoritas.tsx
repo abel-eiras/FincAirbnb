@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -35,6 +36,7 @@ const mockFavoritas = [
 ];
 
 export function FincasFavoritas({ labregoId }: FincasFavoritasProps) {
+  const router = useRouter();
   const [fincas, setFincas] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -107,7 +109,7 @@ export function FincasFavoritas({ labregoId }: FincasFavoritasProps) {
               Busca fincas que che gusten e gárdas para cultivar despois. ¡A terra está esperando!
             </p>
             <Button 
-              onClick={() => window.location.href = '/fincas'}
+              onClick={() => router.push('/fincas')}
               className="bg-galician-blue hover:bg-blue-700"
             >
               Buscar Fincas
@@ -180,7 +182,7 @@ export function FincasFavoritas({ labregoId }: FincasFavoritasProps) {
                   <Button 
                     size="sm" 
                     className="bg-galician-blue hover:bg-blue-700"
-                    onClick={() => window.location.href = `/fincas/${property.id}`}
+                    onClick={() => router.push(`/fincas/${property.id}`)}
                   >
                     Ver Finca
                     <ArrowRight className="h-4 w-4 ml-1" />
@@ -204,7 +206,7 @@ export function FincasFavoritas({ labregoId }: FincasFavoritasProps) {
         {fincas.length > 0 && (
           <div className="mt-4 pt-4 border-t">
             <Button 
-              onClick={() => window.location.href = '/taboleiro/favoritas'}
+              onClick={() => router.push('/taboleiro/favoritas')}
               className="w-full"
             >
               Ver Todas as Favoritas

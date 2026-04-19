@@ -8,6 +8,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -228,9 +230,11 @@ export function Step5Review({ data, onSubmit, isSubmitting }: Step5ReviewProps) 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {data.photos.map((photo, index) => (
                 <div key={photo.id} className="relative">
-                  <img
+                  <Image
                     src={photo.url}
                     alt={`Foto ${index + 1}`}
+                    width={320}
+                    height={96}
                     className="w-full h-24 object-cover rounded-lg"
                   />
                 </div>
@@ -281,9 +285,9 @@ export function Step5Review({ data, onSubmit, isSubmitting }: Step5ReviewProps) 
       <div className="text-center text-sm text-gray-500">
         <p>
           Ao publicar, aceptas os{' '}
-          <a href="#" className="text-galician-blue hover:underline">
+          <Link href="/termos-condicions" className="text-galician-blue hover:underline">
             Termos e Condicións
-          </a>{' '}
+          </Link>{' '}
           de FincAirbnb
         </p>
       </div>
