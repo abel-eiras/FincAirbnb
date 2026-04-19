@@ -1,5 +1,8 @@
+'use client';
+
 import { Star, Quote } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const testemuños = [
   {
@@ -37,6 +40,8 @@ const testemuños = [
 ];
 
 export function TestimonialsSection() {
+  const router = useRouter();
+
   return (
     <section id="testemuños" className="scroll-mt-24 py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,12 +116,13 @@ export function TestimonialsSection() {
             Únete á comunidade de labregos máis cool de Galicia. 
             Stories de colleita garantidas.
           </p>
-          <Link
-            href="/fincas"
+          <Button
+            type="button"
+            onClick={() => router.push('/fincas')}
             className="inline-flex items-center justify-center bg-white text-galician-blue px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
           >
             Empezar a miña aventura rural
-          </Link>
+          </Button>
         </div>
       </div>
     </section>
