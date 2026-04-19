@@ -136,7 +136,7 @@ export default function CrearPropiedadPage() {
                             ¿Estás seguro de que queres marchar? A finca non se vai crear soa... E vai seguir ahí a monte mentras na alugues. Tendo que limpala ti...
                           </p>
                           <p className="text-sm text-gray-600 italic">
-                            "Despois non me digas que non te avisei" 
+                            &quot;Despois non me digas que non te avisei&quot;
                           </p>
                         </div>
                       </AlertDialogDescription>

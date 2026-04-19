@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -34,6 +35,7 @@ interface FincaConAlugamento {
 }
 
 export function ProximasFincas({ labregoId }: ProximasFincasProps) {
+  const router = useRouter();
   const [fincas, setFincas] = useState<FincaConAlugamento[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -129,7 +131,7 @@ export function ProximasFincas({ labregoId }: ProximasFincasProps) {
               A terra está esperando... ¿Que tal buscar unha nova finca para cultivar?
             </p>
             <Button 
-              onClick={() => window.location.href = '/fincas'}
+              onClick={() => router.push('/fincas')}
               className="bg-galician-blue hover:bg-blue-700"
             >
               Buscar Fincas
@@ -221,7 +223,7 @@ export function ProximasFincas({ labregoId }: ProximasFincasProps) {
                   <Button 
                     size="sm" 
                     variant="outline"
-                    onClick={() => window.location.href = `/fincas/${property.id}`}
+                    onClick={() => router.push(`/fincas/${property.id}`)}
                   >
                     Ver Detalles
                     <ArrowRight className="h-4 w-4 ml-1" />
@@ -230,7 +232,7 @@ export function ProximasFincas({ labregoId }: ProximasFincasProps) {
                   <Button 
                     size="sm" 
                     variant="outline"
-                    onClick={() => window.location.href = '/taboleiro/mensaxes'}
+                    onClick={() => router.push('/taboleiro/mensaxes')}
                   >
                     <User className="h-4 w-4 mr-1" />
                     Mensaxe
@@ -244,7 +246,7 @@ export function ProximasFincas({ labregoId }: ProximasFincasProps) {
         {fincas.length > 0 && (
           <div className="mt-4 pt-4 border-t">
             <Button 
-              onClick={() => window.location.href = '/taboleiro/miñas-fincas'}
+              onClick={() => router.push('/taboleiro/minas-fincas')}
               className="w-full"
             >
               Ver Todas as Miñas Fincas

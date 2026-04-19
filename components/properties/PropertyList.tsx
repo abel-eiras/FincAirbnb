@@ -8,6 +8,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -78,11 +79,13 @@ function PropertyListItem({ property, onEdit, onView, onCalendar }: PropertyList
       <CardContent className="p-4">
         <div className="flex items-center space-x-4">
           {/* Imagen */}
-          <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-            <img
+          <div className="relative w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+            <Image
               src={mainImage}
               alt={property.title}
-              className="w-full h-full object-cover"
+              fill
+              unoptimized
+              className="object-cover"
             />
           </div>
 

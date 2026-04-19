@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -32,6 +33,7 @@ interface FincaConAvaliacionPendente {
 }
 
 export function AvaliacionsPendentes({ labregoId }: AvaliacionsPendentesProps) {
+  const router = useRouter();
   const [fincas, setFincas] = useState<FincaConAvaliacionPendente[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -121,7 +123,7 @@ export function AvaliacionsPendentes({ labregoId }: AvaliacionsPendentesProps) {
               Non tes fincas pendentes de avaliar. ¡Boa labrego!
             </p>
             <Button 
-              onClick={() => window.location.href = '/fincas'}
+              onClick={() => router.push('/fincas')}
               className="bg-galician-blue hover:bg-blue-700"
             >
               Buscar Nova Finca
@@ -199,7 +201,7 @@ export function AvaliacionsPendentes({ labregoId }: AvaliacionsPendentesProps) {
                     <Button 
                       size="sm" 
                       className="bg-yellow-500 hover:bg-yellow-600 text-white"
-                      onClick={() => window.location.href = `/fincas/${property.id}/avaliar`}
+                      onClick={() => router.push(`/alugamentos/${alugamento.id}/valorar`)}
                     >
                       <Star className="h-4 w-4 mr-1" />
                       Avaliar
@@ -208,7 +210,7 @@ export function AvaliacionsPendentes({ labregoId }: AvaliacionsPendentesProps) {
                     <Button 
                       size="sm" 
                       variant="outline"
-                      onClick={() => window.location.href = `/fincas/${property.id}`}
+                      onClick={() => router.push(`/fincas/${property.id}`)}
                     >
                       Ver Finca
                     </Button>
@@ -229,7 +231,7 @@ export function AvaliacionsPendentes({ labregoId }: AvaliacionsPendentesProps) {
             </div>
             
             <Button 
-              onClick={() => window.location.href = '/taboleiro/avaliacions'}
+              onClick={() => router.push('/taboleiro/avaliacions')}
               className="w-full"
             >
               Ver Todas as Avaliacións Pendentes

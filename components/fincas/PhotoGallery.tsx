@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -32,6 +33,46 @@ interface PhotoGalleryProps {
 
 export function PhotoGallery({ photos, title }: PhotoGalleryProps) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+
+  const closeLightbox = React.useCallback(() => {
+    setSelectedPhotoIndex(null);
+  }, []);
+
+  const goToPrevious = React.useCallback(() => {
+    setSelectedPhotoIndex((prev) => {
+      if (prev === null) return prev;
+      return prev === 0 ? photos.length - 1 : prev - 1;
+    });
+  }, [photos.length]);
+
+  const goToNext = React.useCallback(() => {
+    setSelectedPhotoIndex((prev) => {
+      if (prev === null) return prev;
+      return prev === photos.length - 1 ? 0 : prev + 1;
+    });
+  }, [photos.length]);
+
+  // Manejar navegación con teclado
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedPhotoIndex === null) return;
+
+      switch (e.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          goToPrevious();
+          break;
+        case 'ArrowRight':
+          goToNext();
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPhotoIndex, closeLightbox, goToNext, goToPrevious]);
 
   // Si no hay fotos, mostrar placeholder
   if (!photos || photos.length === 0) {
@@ -72,44 +113,6 @@ export function PhotoGallery({ photos, title }: PhotoGalleryProps) {
     setSelectedPhotoIndex(index);
   };
 
-  const closeLightbox = () => {
-    setSelectedPhotoIndex(null);
-  };
-
-  const goToPrevious = () => {
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex(selectedPhotoIndex === 0 ? photos.length - 1 : selectedPhotoIndex - 1);
-    }
-  };
-
-  const goToNext = () => {
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex(selectedPhotoIndex === photos.length - 1 ? 0 : selectedPhotoIndex + 1);
-    }
-  };
-
-  // Manejar navegación con teclado
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedPhotoIndex === null) return;
-
-      switch (e.key) {
-        case 'Escape':
-          closeLightbox();
-          break;
-        case 'ArrowLeft':
-          goToPrevious();
-          break;
-        case 'ArrowRight':
-          goToNext();
-          break;
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPhotoIndex]);
-
   return (
     <>
       {/* Galería principal */}
@@ -125,10 +128,12 @@ export function PhotoGallery({ photos, title }: PhotoGalleryProps) {
               >
                 <CardContent className="p-0">
                   <div className="relative aspect-video bg-gradient-to-br from-galician-green to-green-600 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={photos[0]?.url || '/placeholder-finca.jpg'}
                       alt={photos[0]?.caption || 'Foto principal da finca'}
-                      className="w-full h-full object-cover"
+                      fill
+                      unoptimized
+                      className="object-cover"
                     />
                     
                     {/* Overlay con botón de expandir */}
@@ -168,10 +173,12 @@ export function PhotoGallery({ photos, title }: PhotoGalleryProps) {
                 >
                   <CardContent className="p-0">
                     <div className="relative aspect-video bg-gradient-to-br from-galician-blue to-blue-600 rounded-lg overflow-hidden">
-                      <img
+                      <Image
                         src={photo.url || '/placeholder-finca.jpg'}
                         alt={photo.caption || `Foto ${index + 2}`}
-                        className="w-full h-full object-cover"
+                        fill
+                        unoptimized
+                        className="object-cover"
                       />
                       
                       {/* Overlay */}
@@ -261,9 +268,12 @@ export function PhotoGallery({ photos, title }: PhotoGalleryProps) {
 
             {/* Imagen principal */}
             <div className="flex items-center justify-center">
-              <img
+              <Image
                 src={photos[selectedPhotoIndex].url}
                 alt={photos[selectedPhotoIndex].caption || `Foto ${selectedPhotoIndex + 1}`}
+                width={1400}
+                height={900}
+                unoptimized
                 className="max-w-full max-h-[80vh] object-contain rounded-lg"
               />
             </div>

@@ -8,6 +8,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -82,10 +83,12 @@ export function PropertyCard({ property, onEdit, onView, onCalendar }: PropertyC
       {/* Imagen de la propiedad */}
       <div className="relative h-48 bg-gray-100">
         {property.photos && property.photos.length > 0 ? (
-          <img
+          <Image
             src={mainImageUrl}
             alt={property.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            fill
+            unoptimized
+            className="object-cover group-hover:scale-105 transition-transform duration-200"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-100">

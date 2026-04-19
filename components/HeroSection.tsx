@@ -1,9 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, MapPin, Calendar, Users } from 'lucide-react';
 
 export function HeroSection() {
+  const router = useRouter();
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Background pattern - Simple geometric shapes representing fields */}
@@ -13,10 +16,10 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-shell-beige rounded-full blur-lg"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left space-y-8">
+          <div className="text-center lg:text-left space-y-6 sm:space-y-8">
             {/* Badge */}
             <div className="inline-flex items-center bg-shell-beige text-galician-green px-4 py-2 rounded-full text-sm font-medium">
               <Users className="h-4 w-4 mr-2" />
@@ -24,20 +27,20 @@ export function HeroSection() {
             </div>
 
             {/* Main Headline - TODO: Revisar copy para máis impacto */}
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Queres sentirte{' '}
               <span className="text-galician-blue">labrego</span>{' '}
               sen esperar a {' '}
               <span className="text-pink-500">herdar</span>?
             </h1>
 
-            <p className="text-xl text-gray-600 max-w-2xl">
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl">
               Aluga unha finca e planta o que che dea a gana. É como un FarmVille real, 
               pero con colleitas que podes comer e un moreno de calva e antebrazos incluído.
             </p>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-8 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-5 sm:gap-8 justify-center lg:justify-start">
               <div className="text-center">
                 <div className="text-2xl font-bold text-galician-blue">500+</div>
                 <div className="text-sm text-gray-600">Fincas dispoñibles</div>
@@ -56,25 +59,26 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
                 size="lg" 
-                className="bg-galician-blue hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl group"
-                onClick={() => window.location.href = '/fincas'}
+                className="bg-galician-blue hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl group"
+                onClick={() => router.push('/fincas')}
               >
-                Proba agora, que as patacas non se plantan soas
+                <span className="sm:hidden">Probar agora</span>
+                <span className="hidden sm:inline">Proba agora, que as patacas non se plantan soas</span>
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-galician-green text-galician-green hover:bg-galician-green hover:text-white px-8 py-4 text-lg rounded-xl"
-                onClick={() => window.location.href = '/fincas'}
+                className="border-galician-green text-galician-green hover:bg-galician-green hover:text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-xl"
+                onClick={() => router.push('/fincas')}
               >
                 Ver fincas dispoñibles
               </Button>
             </div>
 
             {/* Search preview - FIXME: Esto podería ser máis interactivo */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg border max-w-2xl mx-auto lg:mx-0">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border max-w-2xl mx-auto lg:mx-0">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-galician-blue" />
@@ -92,7 +96,7 @@ export function HeroSection() {
                 </div>
                 <Button 
                   className="bg-galician-blue hover:bg-blue-700"
-                  onClick={() => window.location.href = '/fincas'}
+                  onClick={() => router.push('/fincas')}
                 >
                   Buscar fincas
                 </Button>
@@ -102,7 +106,7 @@ export function HeroSection() {
 
           {/* Visual - Simple illustration placeholder */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-galician-green to-green-600 rounded-3xl p-12 text-white text-center">
+            <div className="bg-gradient-to-br from-galician-green to-green-600 rounded-3xl p-8 sm:p-12 text-white text-center">
               {/* TODO: Substituír por ilustración real de finca galega */}
               <div className="space-y-6">
                 <div className="text-6xl">🚜</div>
@@ -113,16 +117,16 @@ export function HeroSection() {
                   <div>🌿</div>
                 </div>
                 <p className="text-lg opacity-90">
-                  "Da cidade ao campo<br />nun click"
+                  &quot;Da cidade ao campo<br />nun click&quot;
                 </p>
               </div>
             </div>
             
             {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 p-3 rounded-full text-sm font-bold animate-bounce">
+            <div className="hidden sm:block absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 p-3 rounded-full text-sm font-bold animate-bounce">
               ☀️ Sol incluído*
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-shell-beige text-galician-green p-3 rounded-full text-sm font-bold">
+            <div className="hidden sm:block absolute -bottom-4 -left-4 bg-shell-beige text-galician-green p-3 rounded-full text-sm font-bold">
               🥾 Botas non incluídas
             </div>
           </div>

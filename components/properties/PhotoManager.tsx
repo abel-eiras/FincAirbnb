@@ -8,6 +8,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -237,10 +238,12 @@ export function PhotoManager({
                 >
                   {/* Imagen */}
                   <div className="aspect-video bg-gray-100 relative">
-                    <img
+                    <Image
                       src={photo.url}
                       alt={`Foto ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      unoptimized
+                      className="object-cover"
                     />
                     
                     {/* Overlay de acciones */}

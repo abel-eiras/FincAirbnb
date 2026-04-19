@@ -200,8 +200,8 @@ export function EditarPropiedadClient() {
                     <AlertDialogHeader>
                       <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Esta acción non se pode desfacer. Eliminarase permanentemente a propiedade 
-                        "{property.title}" e todos os seus datos asociados.
+                        Esta acción non se pode desfacer. Eliminarase permanentemente a propiedade
+                        &nbsp;&quot;{property.title}&quot; e todos os seus datos asociados.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
